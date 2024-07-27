@@ -47,17 +47,16 @@ class Inventory : HandlesTouch {
     func open(){
         inventory.modulate.alpha = 0
         inventory.scale = Vector2(x: 0, y: 0)
-        inventory.run(GDActionGroup([
-            GDActionFadeIn(duration: 0.2),
-            GDActionScale(scale: 1, duration: 0.2),
-        ]))
-                
+        inventory.run(.group([
+            .fadeIn(withDuration: 0.2),
+            .scale(to: 1, duration: 0.2)
+        ]))                
     }
     
     func close() {
-        inventory.run(GDActionGroup([
-            GDActionFadeOut(duration: 0.2),
-            GDActionScale(scale: 0, duration: 0.2)
+        inventory.run(.group([
+            .fadeOut(withDuration: 0.2),
+            .scale(to: 0, duration: 0.2)
         ]))
     }
     

@@ -2,8 +2,8 @@ import SwiftGodot
 
 class GDActionFadeOut : GDActionAlpha {
         
-    init(duration:Double, completion:Callable? = nil) {
-        super.init(alpha: 0, duration: duration)
+    init(withDuration duration:Double, completion:Callable? = nil) {
+        super.init(to: 0, duration: duration)
     }
     
 }

@@ -5,7 +5,7 @@ class GDActionScale : GDAction {
     let duration:Double
     let finalScale:Float
         
-    init(scale:Float, duration:Double) {
+    init(to scale:Float, duration:Double) {
         self.finalScale = scale
         self.duration = duration
     }

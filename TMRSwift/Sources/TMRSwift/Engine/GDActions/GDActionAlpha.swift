@@ -5,7 +5,7 @@ class GDActionAlpha : GDAction {
     let duration:Double
     let finalAlpha:Float
         
-    init(alpha:Float, duration:Double) {
+    init(to alpha:Float, duration:Double) {
         self.finalAlpha = alpha
         self.duration = duration
     }
