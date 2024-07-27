@@ -31,10 +31,10 @@ class MainScene : Node2D {
     }
     
     public func onViewPortChanged(){
-        inventory.toggleNode.setPosition(Vector2(
-            x: -room.camera.getViewportRect().size.x / 2 + 20,
-            y: room.camera.getViewportRect().size.y / 4 + 80    //Why /2 is not working here?
-        ))
+        inventory.toggleNode.position = Vector2(
+            x: -room.camera.getViewportRect().size.x / 2 + 120,
+            y: room.camera.getViewportRect().size.y / 2 - 100
+        )
     }
     
     
@@ -46,6 +46,7 @@ class MainScene : Node2D {
         
         if let mouseEvent = event as? InputEventMouseButton, event.isReleased(){
             if pressedAt == nil { return } //It meands long press has been handled
+            GD.print("Touch at: \(getLocalMousePosition())")
             pressedAt = nil
             return onTouched(at: getLocalMousePosition())
         }
