@@ -77,15 +77,13 @@ class Room : Node2D {
                 GD.print("Object without position: \(object.name)")
                 return
             }
-            objects.append(Object(object))
-            let shape = ColorRect()
-            shape.setSize(Vector2(x: 100, y: 100))
-            shape.setPosition(Vector2(stringLiteral: position))
-            shape.modulate.alpha = 0.5
-            addChild(node: shape)
-        }        
+                        
+            let finalObject = ShapeObject(object)
+            addChild(node: finalObject.node)
+            objects.append(finalObject)
+        }
     }
-    
+        
     private func addWalkPath(){            
         walkbox = Walkbox()
         if Constants.debug {
