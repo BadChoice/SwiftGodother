@@ -1,24 +1,18 @@
 import SwiftGodot
 
-class GDActionScale {
+class GDActionScale : GDAction {
     
-    let node:Node2D
     let duration:Double
-    let completion:Callable?
     let finalScale:Float
-    
-    
-    init(node:Node2D, scale:Float, duration:Double, completion:Callable? = nil) {
+        
+    init(scale:Float, duration:Double) {
         self.finalScale = scale
-        self.node = node
-        self.completion = completion
         self.duration = duration
     }
     
-    func run(){
+    override func run(_ node:Node2D, completion:(()->Void)? = nil){
         let tween = node.createTween()
-        
-        
+                
         tween?.tweenProperty(
             object: node,
             property: "scale",
@@ -26,8 +20,8 @@ class GDActionScale {
             duration: duration
         )?.setEase(Tween.EaseType.inOut)
         
-        if let completion {
-            tween?.tweenCallback(completion)
+        tween?.finished.connect {
+            completion?()
         }
     }
     

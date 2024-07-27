@@ -1,21 +1,16 @@
 import SwiftGodot
 
-class GDActionAlpha {
+class GDActionAlpha : GDAction {
     
-    let node:Node2D
     let duration:Double
-    let completion:Callable?
     let finalAlpha:Float
-    
-    
-    init(node:Node2D, alpha:Float, duration:Double, completion:Callable? = nil) {
+        
+    init(alpha:Float, duration:Double) {
         self.finalAlpha = alpha
-        self.node = node
-        self.completion = completion
         self.duration = duration
     }
     
-    func run(){
+    override func run(_ node:Node2D, completion:(()->Void)? = nil){
         let tween = node.createTween()
         
         tween?.tweenProperty(
@@ -25,8 +20,8 @@ class GDActionAlpha {
             duration: duration
         )?.setEase(Tween.EaseType.inOut)
         
-        if let completion {
-            tween?.tweenCallback(completion)
+        tween?.finished.connect {
+            completion?()
         }
     }
     

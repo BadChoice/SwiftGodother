@@ -1,8 +1,8 @@
 import SwiftGodot
 
 class GDAction {
-    func start(node:Node2D, then:()->Void) {
-        
+    func run(_ node:Node2D, completion:(()->Void)?){
+        completion?()
     }
 }
 
