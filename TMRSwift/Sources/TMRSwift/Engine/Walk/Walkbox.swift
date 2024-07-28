@@ -15,11 +15,7 @@ class Walkbox {
             Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:512, y:512)
         }
         
-        self.points.forEach {
-            node.addPoint(position: $0)
-        }
-        node.addPoint(position: self.points.first!)
-        node.defaultColor = .red
+        Self.drawPoints(node: node, points: self.points, color: .white)
     }
     
     var poly: PackedVector2Array {
@@ -28,21 +24,20 @@ class Walkbox {
         return poly
     }
     
-    var connections:PackedInt32Array {
-        let connections = PackedInt32Array()
-        for (index, item) in points.enumerated() {
-            connections.append(Int32(index))
+    static func drawPoints(node:Line2D, points:[Vector2], color:Color, width:Double = 8){
+        points.forEach {
+            node.addPoint(position: $0)
         }
-        return connections
+        node.addPoint(position: points.first!)
+        node.defaultColor = color
+        node.width = width
     }
-    
     
     //https://www.david-gouveia.com/pathfinding-on-a-2d-polygonal-map
     func calculatePath(from:Vector2, to:Vector2) -> [Vector2]?{
         
         let from = nearestInside(from)
         let to   = nearestInside(to)
-        
         
         var astar = AStar2D()
         
@@ -61,23 +56,43 @@ class Walkbox {
         astar.addPoint(id: points.count, position: from)
         astar.addPoint(id: points.count + 1, position: to)
         
-        //Connect start and end
-        astar.connectPoints(id: points.count, toId: points.count + 1)
-        
         //Connect start and end to all the other polygon points
         connectToAll(astar, pointId: points.count)
         connectToAll(astar, pointId: points.count + 1)
         
+        //Connect start and end
+        if inLineOfSight(p1: from, p2: to) {
+            GD.print("Connecting start and end")
+            astar.connectPoints(id: points.count, toId: points.count + 1)
+        }
+        
         var start_id = astar.getClosestPoint(toPosition: from)
         var end_id   = astar.getClosestPoint(toPosition: to)
-        
-        return astar.getPointPath(fromId: start_id, toId: end_id).map { $0 }
+                
+
+        let path = astar.getPointPath(fromId: start_id, toId: end_id).map { $0 }
+        GD.print(path)
+                        
+        return path.count == 0 ? [to] : path
     }
     
     private func connectToAll(_ astar:AStar2D, pointId:Int){
         for (index, point) in points.enumerated() {
-            astar.connectPoints(id:pointId, toId: index)
+            if inLineOfSight(p1: point, p2: points[index]) {
+                astar.connectPoints(id:pointId, toId: index)
+            }
         }
+    }
+    
+    func inLineOfSight(p1:Vector2, p2:Vector2) -> Bool {
+        for (index, point) in points.enumerated() {
+            var next_index = (index + 1) % points.count
+            let result = Geometry2D.segmentIntersectsSegment(fromA: p1, toA: p2, fromB: points[index], toB: points[next_index])
+            if let intersectionPoint = Vector2(result){
+                return false
+            }
+        }
+        return true
     }
     
     func nearestInside(_ point:Vector2) -> Vector2 {

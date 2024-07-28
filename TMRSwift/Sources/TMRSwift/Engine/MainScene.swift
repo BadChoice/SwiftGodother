@@ -81,6 +81,12 @@ class MainScene : Node2D {
     private func walk(to destination:Vector2) {
         if let path = room.walkbox.calculatePath(from: room.player.position, to: destination) {
             room.player.walk(path: path, walkbox: room.walkbox)
+            
+            let pathNode = Line2D()
+            Walkbox.drawPoints(node: pathNode, points: path, color: .yellow, width: 2)
+            room.addChild(node: pathNode)
+        }else{
+            
         }
     }
 }
