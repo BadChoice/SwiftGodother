@@ -85,7 +85,7 @@ class Room : Node2D {
     }
         
     private func addWalkPath(){            
-        walkbox = Walkbox()
+        walkbox = Walkbox(points: details.walkBoxes.first!)
         if Constants.debug {
             addChild(node: walkbox.node)
         }

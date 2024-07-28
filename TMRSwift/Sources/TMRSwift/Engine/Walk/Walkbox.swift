@@ -7,15 +7,20 @@ class Walkbox {
     let footsteps:Footsteps = .concrete
     
     let node = Line2D()
+    let points:[Vector2]
     
-    let points:[Vector2] = [
-        Vector2(x: -700, y: 250),
-        Vector2(x: -300, y: 280),
-        Vector2(x: 0, y: -40),
-        Vector2(x: 300, y: 150),
-        Vector2(x: 700, y: 0),
-        Vector2(x: 0, y: 400),
-    ]
+    init(points:String){
+        let values = points.components(separatedBy: " ")
+        self.points = values.chunked(into: 2).map {
+            Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:512, y:512)
+        }
+        
+        self.points.forEach {
+            node.addPoint(position: $0)
+        }
+        node.addPoint(position: self.points.first!)
+        node.defaultColor = .red
+    }
     
     var poly: PackedVector2Array {
         let poly = PackedVector2Array()
@@ -31,13 +36,6 @@ class Walkbox {
         return connections
     }
     
-    init() {
-        points.forEach {
-            node.addPoint(position: $0)
-        }
-        node.addPoint(position: points.first!)
-        node.defaultColor = .red
-    }
     
     //https://www.david-gouveia.com/pathfinding-on-a-2d-polygonal-map
     func calculatePath(from:Vector2, to:Vector2) -> [Vector2]?{
@@ -45,9 +43,41 @@ class Walkbox {
         let from = nearestInside(from)
         let to   = nearestInside(to)
         
-        let finder = PolygonPathFinder()
-        finder.setup(points: poly, connections: connections)
-        return finder.findPath(from: from, to: to).map { $0 }
+        
+        var astar = AStar2D()
+        
+        //Add points
+        for (index, point) in points.enumerated() {
+            astar.addPoint(id: index, position: point)
+        }
+        
+        //Add conections
+        for (index, point) in points.enumerated() {
+            var next_index = (index + 1) % points.count
+            astar.connectPoints(id: index, toId: next_index)
+        }
+        
+        //Add start and end points inside the astar
+        astar.addPoint(id: points.count, position: from)
+        astar.addPoint(id: points.count + 1, position: to)
+        
+        //Connect start and end
+        astar.connectPoints(id: points.count, toId: points.count + 1)
+        
+        //Connect start and end to all the other polygon points
+        connectToAll(astar, pointId: points.count)
+        connectToAll(astar, pointId: points.count + 1)
+        
+        var start_id = astar.getClosestPoint(toPosition: from)
+        var end_id   = astar.getClosestPoint(toPosition: to)
+        
+        return astar.getPointPath(fromId: start_id, toId: end_id).map { $0 }
+    }
+    
+    private func connectToAll(_ astar:AStar2D, pointId:Int){
+        for (index, point) in points.enumerated() {
+            astar.connectPoints(id:pointId, toId: index)
+        }
     }
     
     func nearestInside(_ point:Vector2) -> Vector2 {
@@ -62,7 +92,6 @@ class Walkbox {
         }
         return point
     }
-    
     
     // Away scale factor
     public func getAwayScaleForActorAt(point:Vector2) -> Float {
