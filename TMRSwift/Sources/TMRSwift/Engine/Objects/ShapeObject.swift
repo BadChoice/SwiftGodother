@@ -6,7 +6,7 @@ class ShapeObject: Object {
     override init(_ details: ObjectDetails) {
         super.init(details)
                 
-        let positionVector = Vector2(stringLiteral: details.position! ) - Vector2(x:512, y:512)
+        let positionVector = Vector2(stringLiteral: details.position! ) - Vector2(x:712, y:512)
         
         node.color = .white
         node.modulate.alpha = 0.2

@@ -85,8 +85,6 @@ class MainScene : Node2D {
             let pathNode = Line2D()
             Walkbox.drawPoints(node: pathNode, points: path, color: .yellow, width: 2)
             room.addChild(node: pathNode)
-        }else{
-            
         }
     }
 }
