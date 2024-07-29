@@ -10,7 +10,7 @@ struct Constants {
     static let inventory_zIndex:Int32   = 201
     static let verbwheel_zIndex:Int32   = 202
     
-    static var walkSpeed:Float       = 500
+    static var walkSpeed:Float       = 800
     static var fastWalkFactor:Float  = 2.5
     
     

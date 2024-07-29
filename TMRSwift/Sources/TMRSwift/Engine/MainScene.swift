@@ -83,6 +83,7 @@ class MainScene : Node2D {
             room.player.walk(path: path, walkbox: room.walkbox)
             
             let pathNode = Line2D()
+            pathNode.closed = false
             Walkbox.drawPoints(node: pathNode, points: path, color: .yellow, width: 2)
             room.addChild(node: pathNode)
         }
