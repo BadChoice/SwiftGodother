@@ -7,7 +7,7 @@ class Walkbox {
     let footsteps:Footsteps = .concrete
     
     let node = Line2D()
-    let points:[Vector2]
+    var points:[Vector2]
     let polygon:Polygon
     
     init(points:String){
@@ -15,9 +15,12 @@ class Walkbox {
         self.points = values.chunked(into: 2).map {
             Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:712, y:512)
         }
+        self.points.append(self.points.first!)
         polygon = Polygon(points: self.points)
         
-        Self.drawPoints(node: node, points: self.points, color: .white)
+        if Constants.debug {
+            Self.drawPoints(node: node, points: self.points, color: .white)
+        }
     }
 
     
