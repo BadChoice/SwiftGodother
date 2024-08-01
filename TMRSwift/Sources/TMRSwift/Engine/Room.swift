@@ -15,6 +15,8 @@ class Room : Node2D {
     var objects:[Object] = []
     var camera = Camera2D()
     
+    var tp:TexturePacker!
+    
     override func _ready() {
         addBackgroundAndForeground()
         addBgMusic()
@@ -22,6 +24,15 @@ class Room : Node2D {
         setupCamera()
         addObjects()
         addWalkPath()
+        
+        tp = TexturePacker(path: "res://assets/part3/Part3.atlasc", filename:"Part3.plist")
+        tp.load()
+        
+        if let texture = tp.textureNamed(name: "Dork/Dork-make-pizza-07.png") {
+            let sprite = Sprite2D(texture: texture)
+            sprite.zIndex = 100
+            addChild(node: sprite)
+        }
     }
     
     private func addPlayer(){
@@ -44,16 +55,14 @@ class Room : Node2D {
     }
     
     private func addBackgroundAndForeground(){
-        if let bg:Texture2D = GD.load(path: "res://assets/rooms/JunkShop/bg.jpg") {
-            background = Sprite2D()
-            background.texture = bg
+        if let bg:Texture2D = GD.load(path: "res://assets/part3/JunkShop/bg.jpg") {
+            background = Sprite2D(texture: bg)
             background.zIndex = Constants.background_zIndex
             self.addChild(node: background)
         }
         
-        if let fg:Texture2D = GD.load(path: "res://assets/rooms/JunkShop/fg.png") {
-            foreground = Sprite2D()
-            foreground.texture = fg
+        if let fg:Texture2D = GD.load(path: "res://assets/part3/JunkShop/fg.png") {
+            foreground = Sprite2D(texture: fg)
             foreground.zIndex = Constants.foreground_zIndex
             self.addChild(node: foreground)
         }
@@ -71,7 +80,7 @@ class Room : Node2D {
     
     private func addObjects() {
                         
-        details = RoomDetails.load(path: "res://assets/rooms/JunkShop/JunkShop.json")
+        details = RoomDetails.load(path: "res://assets/part3/JunkShop/JunkShop.json")
         details?.objects.forEach { object in
             guard let position = object.position else {
                 GD.print("Object without position: \(object.name)")

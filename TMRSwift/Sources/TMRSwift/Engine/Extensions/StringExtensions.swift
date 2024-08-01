@@ -8,4 +8,8 @@ extension String {
         return self
       }
     }    
+    
+    func withoutFilename() -> String {
+        split(separator: ".").dropLast().joined(separator: ".")
+    }
 }

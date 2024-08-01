@@ -68,7 +68,6 @@ class VerbWheel {
     
     
     private func doVerb(_ verb:Sprite2D){
-        GD.print("DO verb")
         switch verb {
         case hack:  object?.onPhoned()
         case talk:  object?.onMouthed()
