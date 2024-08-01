@@ -17,8 +17,8 @@ class MainScene : Node2D {
         
         room = JunkShop()
         addChild(node: room.node)
-        room._ready()
-        
+        Game.shared.room = room
+        room._ready()        
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)

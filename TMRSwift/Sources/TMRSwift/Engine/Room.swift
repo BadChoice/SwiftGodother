@@ -74,18 +74,22 @@ class Room {
     private func loadAtlas(){
         atlas = TexturePacker(path: "res://assets/part3/Part3.atlasc", filename:"Part3.plist")
         atlas.load()
-        
-        if let text = atlas.textureNamed(name: "Monster/Monster-defeated") {
-            let sprite = Sprite2D(texture: text)
-            sprite.zIndex = 100
-            addChild(node: sprite)
-        }
     }
     
     private func addObjects() {
                         
         
         details?.objects.forEach { object in
+            
+            if let objectType = NSClassFromString(safeClassName(object.objectClass)) as? Object.Type {
+                let finalObject = objectType.init(object)
+                if let node = finalObject.getNode() {
+                    addChild(node: node)
+                }
+                objects.append(finalObject)
+                return
+            }
+                    
             guard let position = object.position else {
                 GD.print("Object without position: \(object.name)")
                 return

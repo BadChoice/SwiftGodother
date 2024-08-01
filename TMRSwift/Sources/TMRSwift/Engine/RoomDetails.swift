@@ -2,6 +2,7 @@ import Foundation
 import SwiftGodot
 
 struct ObjectDetails : Codable {
+    let objectClass:String
     let name:String
     let hostspot:String?
     let position:String?
@@ -52,4 +53,5 @@ struct RoomDetails : Codable {
             return nil
         }
     }
+    
 }

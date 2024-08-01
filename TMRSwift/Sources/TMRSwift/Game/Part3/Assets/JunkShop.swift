@@ -35,7 +35,7 @@ class JunkFlag : SpriteObject  {
 
 }
 
-/*class JunkShopTv : SpriteObject  {
+class JunkShopTv : SpriteObject  {
     override var json: String { "JunkShop" }
 
     @StateWrapper("isFixed", object:JunkShopTv.self)
@@ -44,7 +44,7 @@ class JunkFlag : SpriteObject  {
 
 }
 
-class Cat : SpriteObject , Inventoriable, Talks {
+/*class Cat : SpriteObject , Inventoriable, Talks {
     override var json: String { "JunkShop" }
     var inventoryImage: String { "Cat" }
     var talkColor: Color      { "#DC5821" }
@@ -59,7 +59,7 @@ class Larry : NonPlayableCharacter , Talks {
 
 
 
-}
+}*/
 
 class GasTube : SpriteObject , Inventoriable {
     override var json: String { "JunkShop" }
@@ -113,7 +113,7 @@ class CyberCredits : ShapeObject , Inventoriable {
 
 
 }
-
+/*
 class Tires : ShapeObject  {
     override var json: String { "JunkShop" }
 

@@ -23,6 +23,22 @@ class TexturePacker {
             let components = rectCopy.components(separatedBy: ",").map { Float($0)! }
             return Rect2(position: Vector2(x:components[0], y:components[1]), size: Vector2(x:components[2], y:components[3]))
         }
+        
+        var offset:Vector2 {
+            var rectCopy = spriteOffset
+            rectCopy.replace("{", with: "")
+            rectCopy.replace("}", with: "")
+            let components = rectCopy.components(separatedBy: ",").map { Float($0)! }
+            return Vector2(x: components[0], y: components[1])
+        }
+        
+        var sourceSize:Vector2 {
+            var rectCopy = spriteSourceSize
+            rectCopy.replace("{", with: "")
+            rectCopy.replace("}", with: "")
+            let components = rectCopy.components(separatedBy: ",").map { Float($0)! }
+            return Vector2(x: components[0], y: components[1])
+        }
     }
     
     struct TexturePackerImage : Decodable {
@@ -67,8 +83,8 @@ class TexturePacker {
     }
     
     func textureNamed(name:String) -> Texture2D? {
-        let nameWithoutFilename = name.withoutFilename()
         guard let textures, let info else { return nil }
+        let nameWithoutFilename = name.withoutFilename()
         
         guard let subimageIndex = (info.images.firstIndex {
             $0.subimages.contains {
@@ -92,6 +108,39 @@ class TexturePacker {
         let atlas = AtlasTexture()
         atlas.atlas = texture
         atlas.region = imageInfo.region
+        if imageInfo.textureRotated {
+            //TODO: How this is done?
+        }
         return atlas
+    }
+    
+    func imageInfoFor(name:String) -> TexturePackerSubimage? {
+        guard let textures, let info else { return nil }
+        let nameWithoutFilename = name.withoutFilename()
+        guard let subimageIndex = (info.images.firstIndex {
+            $0.subimages.contains {
+                return $0.name.withoutFilename().withoutScale() == nameWithoutFilename
+            }
+        }) else  {
+            GD.printErr("[TexturePacker] Texture named \(nameWithoutFilename) not found")
+            return nil
+        }
+        
+        guard let imageInfo = (info.images[subimageIndex].subimages.first {
+            $0.name.withoutFilename().withoutScale() == nameWithoutFilename }
+        ) else {
+            GD.printErr("[TexturePacker] Texture named \(nameWithoutFilename) not found")
+            return nil
+        }
+        return imageInfo
+    }
+    
+    func sprite(name:String) -> Sprite2D? {
+        guard let texture = textureNamed(name: name) else { return nil }
+        let sprite = Sprite2D(texture: texture)
+        let info = imageInfoFor(name: name)!
+        
+        sprite.offset = (info.sourceSize * -1) + info.offset
+        return sprite
     }
 }

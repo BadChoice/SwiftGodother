@@ -1,13 +1,17 @@
 import Foundation
 import SwiftGodot
 
-class Object {
+class Object : ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
     var name:String { details.name }
     
-    init(_ details:ObjectDetails){
+    var position:Vector2 {
+        (Vector2(stringLiteral: details.position! ) - Vector2(x:512, y:512)) * Game.shared.scale
+    }
+    
+    required init(_ details:ObjectDetails){
         self.details = details
     }
     
@@ -20,10 +24,20 @@ class Object {
         true
     }
     
-    
-    // MARK:- Objects
     //=======================================
-    // VERBS
+    // MARK:- NODE
+    //=======================================
+    func getNode() -> Node2D? {
+        nil
+    }
+    
+    func remove(){
+        
+    }
+    
+    
+    //=======================================
+    // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
         GD.print("on looked at \(name)")
