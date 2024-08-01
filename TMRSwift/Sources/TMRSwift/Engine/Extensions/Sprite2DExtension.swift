@@ -7,6 +7,22 @@ extension Sprite2D {
         self.texture = texture
     }
     
+    convenience init(path:String) {
+        
+        var finalPath = path
+        if Game.shared.scale == 2 {
+            finalPath = finalPath.appendBeforeExtension("@2x")
+        }
+        
+        GD.print("Loading with path \(finalPath)", Game.shared.scale)
+        
+        if let texture:Texture2D = GD.load(path: finalPath) {
+            self.init(texture: texture)
+        }else{
+            self.init()
+        }
+    }
+    
     func hasPoint(_ point:Vector2) -> Bool {
         rectInParent().hasPoint(point)
     }

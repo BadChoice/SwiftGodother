@@ -10,6 +10,22 @@ extension String {
     }    
     
     func withoutFilename() -> String {
-        split(separator: ".").dropLast().joined(separator: ".")
+        if !contains(".") { return self }
+        return split(separator: ".").dropLast().joined(separator: ".")
+    }
+    
+    func withoutScale() -> String {
+        var copy = self
+        copy.replace("@2x", with:"")
+        return copy
+    }
+    
+    func appendBeforeExtension(_ string:String) -> String {
+        if !contains(".") { return self + string }
+        let components = split(separator: ".")
+        let path = components.dropLast()
+        let ext = components.last ?? ""
+        
+        return path.joined(separator: ".") + string + "." + ext
     }
 }

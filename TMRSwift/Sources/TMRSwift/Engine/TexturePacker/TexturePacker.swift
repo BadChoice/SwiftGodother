@@ -54,7 +54,9 @@ class TexturePacker {
             var details = try PropertyListDecoder().decode(TexturePackerStruct.self, from: plist.data(using: .utf8)!)
             
             //Remove 2x version until we know how it works
-            details.images = details.images.filter { !$0.path.contains("@2x") }
+            details.images = details.images.filter {
+                Game.shared.scale == 1 ? !$0.path.contains("@2x") : $0.path.contains("@2x")
+            }
             
             GD.print("[TexturePacker] loaded \(path) \(filename): \(details.images.count)")
             return details
@@ -65,19 +67,24 @@ class TexturePacker {
     }
     
     func textureNamed(name:String) -> Texture2D? {
+        let nameWithoutFilename = name.withoutFilename()
         guard let textures, let info else { return nil }
+        
         guard let subimageIndex = (info.images.firstIndex {
             $0.subimages.contains {
-                $0.name.withoutFilename() == name.withoutFilename()
+                return $0.name.withoutFilename().withoutScale() == nameWithoutFilename
             }
-        }) else  { return nil }
+        }) else  {
+            GD.printErr("[TexturePacker] Texture named \(nameWithoutFilename) not found")
+            return nil
+        }
         
         
         let texture = textures[subimageIndex]
         guard let imageInfo = (info.images[subimageIndex].subimages.first {
-            $0.name.withoutFilename() == name.withoutFilename() }
+            $0.name.withoutFilename().withoutScale() == nameWithoutFilename }
         ) else {
-            GD.printErr("[TexturePacker] Texture named \(name) not found")
+            GD.printErr("[TexturePacker] Texture named \(nameWithoutFilename) not found")
             return nil
         }
         

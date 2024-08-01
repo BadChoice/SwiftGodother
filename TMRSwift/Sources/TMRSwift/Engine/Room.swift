@@ -15,24 +15,18 @@ class Room : Node2D {
     var objects:[Object] = []
     var camera = Camera2D()
     
-    var tp:TexturePacker!
+    var atlas:TexturePacker!
     
     override func _ready() {
+        loadDetails()
+        loadAtlas()
+        
         addBackgroundAndForeground()
         addBgMusic()
         addPlayer()
         setupCamera()
         addObjects()
         addWalkPath()
-        
-        tp = TexturePacker(path: "res://assets/part3/Part3.atlasc", filename:"Part3.plist")
-        tp.load()
-        
-        if let texture = tp.textureNamed(name: "Dork/Dork-make-pizza-07.png") {
-            let sprite = Sprite2D(texture: texture)
-            sprite.zIndex = 100
-            addChild(node: sprite)
-        }
     }
     
     private func addPlayer(){
@@ -43,29 +37,28 @@ class Room : Node2D {
     
     private func setupCamera(){
         camera.positionSmoothingEnabled = true
-        camera.positionSmoothingSpeed = 0.8
+        camera.positionSmoothingSpeed = 1.0
         
         camera.limitSmoothed = true
-        camera.limitBottom = 512
-        camera.limitTop = -512
-        camera.limitRight = 1024
-        camera.limitLeft = -1024
+        camera.limitBottom = 1024
+        camera.limitTop = -1024
+        camera.limitRight = 2048
+        camera.limitLeft = -2048
+        
+        
         
         player.addChild(node: camera)
     }
     
     private func addBackgroundAndForeground(){
-        if let bg:Texture2D = GD.load(path: "res://assets/part3/JunkShop/bg.jpg") {
-            background = Sprite2D(texture: bg)
-            background.zIndex = Constants.background_zIndex
-            self.addChild(node: background)
-        }
         
-        if let fg:Texture2D = GD.load(path: "res://assets/part3/JunkShop/fg.png") {
-            foreground = Sprite2D(texture: fg)
-            foreground.zIndex = Constants.foreground_zIndex
-            self.addChild(node: foreground)
-        }
+        background = Sprite2D(path: "res://assets/part3/JunkShop/bg.jpg")
+        background.zIndex = Constants.background_zIndex
+        addChild(node: background)
+                
+        foreground = Sprite2D(path: "res://assets/part3/JunkShop/fg.png")
+        foreground.zIndex = Constants.foreground_zIndex
+        addChild(node: foreground)
     }
     
     private func addBgMusic(){
@@ -78,9 +71,20 @@ class Room : Node2D {
         }
     }
     
+    private func loadAtlas(){
+        atlas = TexturePacker(path: "res://assets/part3/Part3.atlasc", filename:"Part3.plist")
+        atlas.load()
+        
+        if let text = atlas.textureNamed(name: "Monster/Monster-defeated") {
+            let sprite = Sprite2D(texture: text)
+            sprite.zIndex = 100
+            addChild(node: sprite)
+        }
+    }
+    
     private func addObjects() {
                         
-        details = RoomDetails.load(path: "res://assets/part3/JunkShop/JunkShop.json")
+        
         details?.objects.forEach { object in
             guard let position = object.position else {
                 GD.print("Object without position: \(object.name)")
@@ -91,6 +95,10 @@ class Room : Node2D {
             addChild(node: finalObject.node)
             objects.append(finalObject)
         }
+    }
+    
+    private func loadDetails(){
+        details = RoomDetails.load(path: "res://assets/part3/JunkShop/JunkShop.json")
     }
         
     private func addWalkPath(){            

@@ -1,15 +1,15 @@
 import SwiftGodot
 
 class Inventory {
-    let node = Node2D()
-    var toggleNode = Sprite2D()
-    var inventory = Sprite2D()
+    let node       = Node2D()
+    var toggleNode:Sprite2D!
+    var inventory:Sprite2D!
     
     init(){
         node.zIndex = Constants.inventory_zIndex
         
-        toggleNode.texture = GD.load(path: "res://assets/ui/inventory-toggle.png")
-        inventory.texture = GD.load(path: "res://assets/ui/inventory-open.png")
+        toggleNode = Sprite2D(path: "res://assets/ui/inventory-toggle.png")
+        inventory  = Sprite2D(path: "res://assets/ui/inventory-open.png")
         
         node.addChild(node: toggleNode)
         node.addChild(node: inventory)

@@ -24,6 +24,11 @@ window/size/viewport_height=1024
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
 [input]
 
 move_right={
@@ -41,7 +46,9 @@ move_left={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="forward_plus"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.0784314, 0.0352941, 0.00784314, 1)
-anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=1
+viewport/hdr_2d=true

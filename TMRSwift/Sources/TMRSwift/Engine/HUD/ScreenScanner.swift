@@ -11,9 +11,9 @@ struct ScreenScanner {
         if let font:Font = GD.load(path: "res://assets/fonts/UglyQua.ttf")  {
             let settings = LabelSettings()
             settings.font = font
-            settings.fontSize = 50
+            settings.fontSize = 50 * Int32(Game.shared.scale)
             settings.outlineColor = .black
-            settings.outlineSize = 6
+            settings.outlineSize = 6 * Int32(Game.shared.scale)
             label.horizontalAlignment = .center
             label.labelSettings = settings
             label.text = ""
@@ -33,7 +33,7 @@ struct ScreenScanner {
     }
     
     func show(object:Object, at position:Vector2){
-        label.setPosition(position - (label.getSize() * 0.5) - Vector2(x: 0, y: 60))
+        label.setPosition(position - (label.getSize() * 0.5) - Vector2(x: 0, y: 60) * Game.shared.scale)
         label.text = object.name
     }
     

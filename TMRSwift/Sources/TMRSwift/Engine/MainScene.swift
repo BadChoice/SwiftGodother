@@ -5,13 +5,16 @@ import Foundation
 class MainScene : Node2D {
     
     var room:Room!
-    var scanner     = ScreenScanner()
-    var inventory   = Inventory()
-    var verbWheel   = VerbWheel()
+    var scanner:ScreenScanner!
+    var inventory:Inventory!
+    var verbWheel:VerbWheel!
     var pressedAt:Date? = nil
     
     //MARK: - Setup
     override func _ready() {
+                
+        initialize()
+        
         room = Room()
         addChild(node: room)
         addChild(node: scanner.label)
@@ -19,15 +22,26 @@ class MainScene : Node2D {
         addChild(node: inventory.node)
         
         inventory.close()
-        
+                
         onViewPortChanged() //Reposition hud
         
         getWindow()?.sizeChanged.connect { [unowned self] in
             onViewPortChanged()
         }
         
+        
         //It sets the base content, so it can scale to 200/1024 before showing black stripes
-        getWindow()?.contentScaleSize = Vector2i(x:200, y:1024)
+        getWindow()?.contentScaleSize = Vector2i(x:200, y:1024) * Int(Game.shared.scale)
+    }
+    
+    private func initialize(){
+        GD.print("DPI: \(DisplayServer.screenGetDpi(screen: -1))")
+        GD.print("Screen scale: \(DisplayServer.screenGetScale())")
+        
+        Game.shared.scale = DisplayServer.screenGetScale()
+        scanner = ScreenScanner()
+        inventory = Inventory()
+        verbWheel = VerbWheel()
     }
     
     public func onViewPortChanged(){

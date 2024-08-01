@@ -13,7 +13,7 @@ class Walkbox {
     init(points:String){
         let values = points.components(separatedBy: " ")
         self.points = values.chunked(into: 2).map {
-            Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:712, y:512)
+            (Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:712, y:512)) * Game.shared.scale
         }
         self.points.append(self.points.first!)
         polygon = Polygon(points: self.points)
