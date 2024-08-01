@@ -4,7 +4,7 @@ import SwiftGodot
 class Object {
     
     var details:ObjectDetails!
-    
+    var json: String { "" }
     var name:String { details.name }
     
     init(_ details:ObjectDetails){

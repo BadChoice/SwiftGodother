@@ -15,14 +15,18 @@ class MainScene : Node2D {
                 
         initialize()
         
-        room = Room()
-        addChild(node: room)
+        room = JunkShop()
+        addChild(node: room.node)
+        room._ready()
+        
+        
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
         addChild(node: inventory.node)
         
         inventory.close()
                 
+        //getWindow()?.size = getWindow()!.size * Int(Game.shared.scale)
         onViewPortChanged() //Reposition hud
         
         getWindow()?.sizeChanged.connect { [unowned self] in

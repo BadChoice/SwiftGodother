@@ -1,9 +1,10 @@
 import SwiftGodot
 import Foundation
 
-@Godot
-class Room : Node2D {
+
+class Room {
         
+    var node = Node2D()
     var player:Player!
     var background:Sprite2D!
     var foreground:Sprite2D!
@@ -17,7 +18,7 @@ class Room : Node2D {
     
     var atlas:TexturePacker!
     
-    override func _ready() {
+    func _ready() {
         loadDetails()
         loadAtlas()
         
@@ -32,7 +33,7 @@ class Room : Node2D {
     private func addPlayer(){
         player = Player()
         player.zIndex = 1
-        self.addChild(node: player)
+        addChild(node: player)
     }
     
     private func setupCamera(){
@@ -44,8 +45,7 @@ class Room : Node2D {
         camera.limitTop = -1024
         camera.limitRight = 2048
         camera.limitLeft = -2048
-        
-        
+                
         
         player.addChild(node: camera)
     }
@@ -106,6 +106,10 @@ class Room : Node2D {
         if Constants.debug {
             addChild(node: walkbox.node)
         }
+    }
+    
+    public func addChild(node:Node){
+        self.node.addChild(node: node)
     }
     
 }
