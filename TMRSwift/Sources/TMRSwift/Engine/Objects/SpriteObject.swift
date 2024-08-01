@@ -7,6 +7,10 @@ class SpriteObject : Object {
         super.init(details)
     }
     
+    override func isTouched(at: Vector2) -> Bool {
+        node?.rectInParent().hasPoint(at) ?? false
+    }
+    
     override func getNode() -> Node2D? {
         guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: details.image!) else {
             return nil
