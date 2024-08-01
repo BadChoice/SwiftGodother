@@ -1,6 +1,6 @@
 import SwiftGodot
 
-class Inventory : HandlesTouch {
+class Inventory {
     let node = Node2D()
     var toggleNode = Sprite2D()
     var inventory = Sprite2D()

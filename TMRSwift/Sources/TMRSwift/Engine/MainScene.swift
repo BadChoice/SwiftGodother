@@ -52,7 +52,7 @@ class MainScene : Node2D {
         }
         
         if let mouseMove = event as? InputEventMouseMotion {
-            scanner.onMouseMoved(room:room, at: getLocalMousePosition())
+            scanner.onMouseMoved(at: getLocalMousePosition(), object: object(at: getLocalMousePosition()))
         }
     }
     
@@ -65,17 +65,25 @@ class MainScene : Node2D {
     }
     
     private func onLongPress(at position:Vector2){
-        if verbWheel.onLongPressed(at:position) { return }
-        inventory.onLongPressed(at:position)
+
+        //inventory.onLongPressed(at: position)
+        
+        guard let object = object(at: position) else {
+            return
+        }
+        verbWheel.show(at: position, for:object)
     }
     
     private func onTouched(at position:Vector2){
-        if verbWheel.onTouched(at:position)  { return }
+        if verbWheel.onTouched(at: position)  { return }
         if inventory.onTouched(at: position) { return }
         
         walk(to: getLocalMousePosition())
     }
     
+    private func object(at position: Vector2) -> Object? {
+        room.objects.first { $0.isTouched(at: position) }
+    }
     
     //MARK: - Walk
     private func walk(to destination:Vector2) {

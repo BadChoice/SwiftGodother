@@ -1,6 +1,6 @@
 import SwiftGodot
 
-class VerbWheel : HandlesTouch {
+class VerbWheel {
     
     let node  = Node2D()
     var hack  = Sprite2D()
@@ -8,6 +8,9 @@ class VerbWheel : HandlesTouch {
     var use   = Sprite2D()
     var look  = Sprite2D()
     var label = Label()
+    
+    var verbs:[Sprite2D]!
+    var object:Object?
     
     init(){
         node.zIndex = Constants.verbwheel_zIndex
@@ -23,13 +26,15 @@ class VerbWheel : HandlesTouch {
         hack.position = Vector2(x: 185, y: -30)
         
         label.setPosition(Vector2(x:0, y: -260))
-        label.text = "PATATA"
+        label.text = "--"
         
         node.addChild(node: hack)
         node.addChild(node: talk)
         node.addChild(node: use)
         node.addChild(node: look)
         node.addChild(node: label)
+        
+        verbs = [hack, talk, use, look]
         
         node.hide()
     }
@@ -38,20 +43,40 @@ class VerbWheel : HandlesTouch {
         node.isVisibleInTree()
     }
     
+    func show(at position:Vector2, for object:Object){
+        node.show()
+        node.position = position
+        label.text = __(object.name)
+        self.object = object
+    }
+    
     func onTouched(at position:Vector2) -> Bool {
         if isOpen {
+            let localPosition = node.toLocal(globalPoint: position)
+            if let verb = verbs.first (where: {
+                return $0.rectInParent().hasPoint(localPosition)
+            }){
+                doVerb(verb)
+            }
+            
             node.hide()
+            object = nil
             return true
         }
         return false
     }
     
-    func onLongPressed(at position:Vector2) -> Bool {
-        node.show()
-        node.position = position
-        return true
+    
+    private func doVerb(_ verb:Sprite2D){
+        GD.print("DO verb")
+        switch verb {
+        case hack:  object?.onPhoned()
+        case talk:  object?.onMouthed()
+        case use:   object?.onUse()
+        case look:  object?.onLookedAt()
+        default: return
+        }
     }
-    
-    
+
 
 }

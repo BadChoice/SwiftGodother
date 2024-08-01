@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-struct ScreenScanner : HandlesDrag {
+struct ScreenScanner {
     
     let label:Label
     
@@ -21,10 +21,8 @@ struct ScreenScanner : HandlesDrag {
         }
     }
     
-    func onMouseMoved(room:Room, at position:Vector2) -> Bool {
-        if let object = (room.objects.first {
-            $0.isTouched(at: position)
-        }) {
+    func onMouseMoved(at position:Vector2, object:Object?) -> Bool {
+        if let object {
             label.show()
             show(object: object, at: position)
         } else {
@@ -36,6 +34,10 @@ struct ScreenScanner : HandlesDrag {
     
     func show(object:Object, at position:Vector2){
         label.setPosition(position - (label.getSize() * 0.5) - Vector2(x: 0, y: 60))
-        label.text = object.details.name
+        label.text = object.name
+    }
+    
+    func stop(){
+        label.modulate.alpha = 0
     }
 }
