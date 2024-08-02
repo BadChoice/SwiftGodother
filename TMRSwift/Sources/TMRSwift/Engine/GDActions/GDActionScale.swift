@@ -19,6 +19,7 @@ class GDActionScale : GDAction {
             finalVal: Variant(Vector2(x:finalScale, y:finalScale)),
             duration: duration
         )?.setEase(Tween.EaseType.inOut)
+                
         
         tween?.finished.connect {
             completion?()

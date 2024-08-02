@@ -60,4 +60,12 @@ class Inventory {
         ]))
     }
     
+    func reposition(room:Room){
+        inventory.position = room.camera.getScreenCenterPosition()
+        toggleNode.position = Vector2(
+            x:room.camera.getScreenCenterPosition().x - (room.camera.getViewportRect().size.x / 2),
+            y:room.camera.getScreenCenterPosition().y + (room.camera.getViewportRect().size.y / 2)
+        ) + Vector2(x: 120, y: -100) * Game.shared.scale
+    }
+    
 }

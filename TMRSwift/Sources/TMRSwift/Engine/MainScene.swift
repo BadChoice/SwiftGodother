@@ -49,17 +49,9 @@ class MainScene : Node2D {
     }
     
     public func onViewPortChanged(){
-        
-        room.camera.getScreenCenterPosition()
-        inventory.toggleNode.position = Vector2(
-            x: room.camera.getScreenCenterPosition().x 
-                - room.camera.getViewportRect().size.x / 2 + 120,
-            y: room.camera.getScreenCenterPosition().y +
-                room.camera.getViewportRect().size.y / 2 - 100
-        )
+        inventory.reposition(room: room)
     }
-    
-    
+
     //MARK: - Touch
     override func _input(event: InputEvent) {
         if let mouseEvent = event as? InputEventMouseButton, event.isPressed(){
