@@ -42,7 +42,7 @@ class MainScene : Node2D {
         GD.print("DPI: \(DisplayServer.screenGetDpi(screen: -1))")
         GD.print("Screen scale: \(DisplayServer.screenGetScale())")
         
-        Game.shared.scale = DisplayServer.screenGetScale()
+        Game.shared.scale = min(2, DisplayServer.screenGetScale())
         scanner = ScreenScanner()
         inventory = Inventory()
         verbWheel = VerbWheel()
