@@ -33,10 +33,10 @@ class MainScene : Node2D {
             onViewPortChanged()
         }
         
-        
         //It sets the base content, so it can scale to 200/1024 before showing black stripes
         getWindow()?.contentScaleSize = Vector2i(x:200, y:1024) * Int(Game.shared.scale)
     }
+    
     
     private func initialize(){
         GD.print("DPI: \(DisplayServer.screenGetDpi(screen: -1))")
@@ -49,9 +49,13 @@ class MainScene : Node2D {
     }
     
     public func onViewPortChanged(){
+        
+        room.camera.getScreenCenterPosition()
         inventory.toggleNode.position = Vector2(
-            x: -room.camera.getViewportRect().size.x / 2 + 120,
-            y: room.camera.getViewportRect().size.y / 2 - 100
+            x: room.camera.getScreenCenterPosition().x 
+                - room.camera.getViewportRect().size.x / 2 + 120,
+            y: room.camera.getScreenCenterPosition().y +
+                room.camera.getViewportRect().size.y / 2 - 100
         )
     }
     
@@ -75,6 +79,8 @@ class MainScene : Node2D {
     }
     
     override func _process(delta: Double) {
+        onViewPortChanged()
+        
         if pressedAt != nil && -pressedAt!.timeIntervalSinceNow > Constants.longPressMinTime {
             pressedAt = nil
             onLongPress(at: getLocalMousePosition())
