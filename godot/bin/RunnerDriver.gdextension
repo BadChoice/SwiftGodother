@@ -4,15 +4,33 @@ compatibility_minimum = 4.2
 
 
 [libraries]
-macos.debug = "res://bin/libTMRSwift.dylib"
-macos.release = "res://bin/libTMRSwift.dylib"
+macos.debug.arm64 = "res://bin/arm64-apple-macosx/libTMRSwift.dylib"
+macos.release.arm64 = "res://bin/arm64-apple-macosx/libTMRSwift.dylib"
+macos.debug.x86_64 = "res://bin/x86_64-apple-macosx/libTMRSwift.dylib"
+macos.release.x86_64 = "res://bin/x86_64-apple-macosx/libTMRSwift.dylib"
 
-ios.debug.x86_64 = "res://bin/libTMRSwift.dylib"
-ios.release.x86_64 = "res://bin/libTMRSwift.dylib"
-ios.debug.arm64 = "res://bin/libTMRSwift.dylib"
-ios.release.arm64 = "res://bin/libTMRSwift.dylib"
+ios.debug.x86_64 = "res://bin/TMRSwift.framework"
+ios.release.x86_64 = "res://bin/TMRSwift.framework"
+ios.debug.arm64 = "res://bin/TMRSwift.framework"
+ios.release.arm64 = "res://bin/TMRSwift.framework"
+
+windows.debug.x86_32 = "res://bin/x86_32-windows-debug/TMRSwift"
+windows.release.x86_32 = "res://bin/x86_32-windows-release/TMRSwift"
+windows.debug.x86_64 = "res://bin/x86_64-windows-debug/TMRSwift"
+windows.release.x86_64 = "res://bin/x86_64-windows-release/TMRSwift"
 
 [dependencies]
-macos.debug = {"res://bin/libSwiftGodot.dylib" : ""}
-macos.release = {"res://bin/libSwiftGodot.dylib" : ""}
+macos.debug.arm64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
+macos.release.arm64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
+macos.debug.x86_64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
+macos.release.x86_64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
 
+
+ios.debug.x86_64 = {"res://bin/SwiftGodot.framework" : ""}
+ios.release.x86_64 = {"res://bin/SwiftGodot.framework" : ""}
+ios.debug.arm64 = {"res://bin/SwiftGodot.framework" : ""}
+ios.release.arm64 {= "res://bin/SwiftGodot.framework" : ""}
+
+
+windows.debug.x86_64 = {"res://bin/x86_64-windows-debug/libSwiftGodot.dll" : ""}
+windows.release.x86_64 = {"res://bin/x86_64-windows-release/libSwiftGodot.dll" : ""}
