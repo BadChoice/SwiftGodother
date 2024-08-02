@@ -1,0 +1,11 @@
+{
+  "name": "iOS",
+  "destination": {
+    "platform": "iOS",
+    "os": "16.0",          // Specify the minimum OS version you are targeting
+    "name": "iPhone 14",   // Specify the device you are targeting (e.g., "iPhone 14", "iPhone 13", etc.)
+    "variant": "iPhone"    // Variant of the device; for iPad, use "iPad"
+  },
+  "archs": ["arm64", "x86_64"], // Specify architectures, "arm64" for device, "x86_64" for simulator
+  "sdk": "iphoneos"     // Specify the SDK; "iphoneos" for device builds, "iphonesimulator" for simulator builds
+}
