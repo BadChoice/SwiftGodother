@@ -177,7 +177,7 @@ class JunkNoteSmall : ShapeObject  {
 
 
 }
-
+*/
 class TvAntenna : PolygonShapedObject  {
     override var json: String { "JunkShop" }
 
@@ -185,7 +185,7 @@ class TvAntenna : PolygonShapedObject  {
 
 
 }
-
+/*
 class JunkShopToPortal : ShapeObject, ChangesRoom {
     override var json: String { "JunkShop" }
 }

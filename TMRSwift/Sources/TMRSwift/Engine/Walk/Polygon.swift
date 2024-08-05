@@ -115,4 +115,8 @@ struct Polygon {
 
         return cross < 0
     }*/
+    
+    public func contains(point:Vector2) -> Bool {
+        Geometry2D.isPointInPolygon(point:point, polygon:polygon)
+    }
 }
