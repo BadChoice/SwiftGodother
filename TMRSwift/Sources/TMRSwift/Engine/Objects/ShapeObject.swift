@@ -13,10 +13,12 @@ class ShapeObject: Object {
                             
         node.color = .yellow
         node.modulate.alpha = Constants.debug ? 0.3 : 0.0
-        
+        node.zIndex = 100
         node.setSize(size * Game.shared.scale)
         //node.setPosition(position - Vector2(x: size.x * Float(Game.shared.scale), y:0))
-        node.setPosition(position - Vector2(x: size.x * 2, y:0))
+        node.setPosition(
+            position - Vector2(x: SketchApp.shared.screenSize.x / 2,  y:0) + Vector2(x:size.x * 2, y:0)
+        )
     }
     
     override func isTouched(at: Vector2) -> Bool {
