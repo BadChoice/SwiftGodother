@@ -61,14 +61,16 @@ class MainScene : Node2D {
         }
         
         if let mouseEvent = event as? InputEventMouseButton, event.isReleased(){
-            if pressedAt == nil { return } //It meands long press has been handled
-            GD.print("Touch at: \(getLocalMousePosition())")
+            if pressedAt == nil {  //It meands long press has been handled
+                verbWheel.onTouched(at: getLocalMousePosition(), shouldHide: false)
+                return
+            }
             pressedAt = nil
             return onTouched(at: getLocalMousePosition())
         }
         
         if let mouseMove = event as? InputEventMouseMotion {
-            scanner.onMouseMoved(at: getLocalMousePosition(), object: object(at: getLocalMousePosition()))
+            onMouseMoved(at: getLocalMousePosition())
         }
     }
     
@@ -97,6 +99,11 @@ class MainScene : Node2D {
         if inventory.onTouched(at: position) { return }
         
         walk(to: getLocalMousePosition())
+    }
+    
+    private func onMouseMoved(at position:Vector2) {
+        if verbWheel.onMouseMoved(at: position) { return }
+        scanner.onMouseMoved(at: getLocalMousePosition(), object: object(at: getLocalMousePosition()))
     }
     
     private func object(at position: Vector2) -> Object? {

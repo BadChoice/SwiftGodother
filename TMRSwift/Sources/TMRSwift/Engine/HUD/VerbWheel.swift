@@ -44,13 +44,17 @@ class VerbWheel {
     }
     
     func show(at position:Vector2, for object:Object){
+        verbs.forEach { $0.globalScale = .one }
         node.show()
         node.position = position
         label.text = __(object.name)
         self.object = object
+        
+        node.globalScale = .zero
+        node.run(.scale(to: 1, duration: 0.1))
     }
     
-    func onTouched(at position:Vector2) -> Bool {
+    func onTouched(at position:Vector2, shouldHide:Bool = true) -> Bool {
         if isOpen {
             let localPosition = node.toLocal(globalPoint: position)
             if let verb = verbs.first (where: {
@@ -59,13 +63,37 @@ class VerbWheel {
                 doVerb(verb)
             }
             
-            node.hide()
-            object = nil
+            if shouldHide {
+                hide()
+            }
+            
             return true
         }
         return false
     }
     
+    private func hide(){
+        /*node.run(.scale(to: 0, duration: 0.1)) { [unowned self] in
+            node.hide()
+        }*/
+        node.hide()
+        object = nil
+    }
+    
+    func onMouseMoved(at position:Vector2) -> Bool {
+        guard isOpen else { return false }
+        
+        let localPosition = node.toLocal(globalPoint: position)
+        verbs.forEach { $0.globalScale = .one }
+        
+        if let verb = verbs.first (where: {
+            return $0.rectInParent().hasPoint(localPosition)
+        }){
+            verb.globalScale = Vector2(value:1.2)
+        }
+        
+        return true
+    }
     
     private func doVerb(_ verb:Sprite2D){
         switch verb {

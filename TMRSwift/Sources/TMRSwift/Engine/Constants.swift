@@ -37,7 +37,7 @@ struct Constants {
     static var fingerOffset         = /*isPhone ? 80 : */40
     static var fontName:String      = "Janda Manatee Solid"
     static var font:String          = "JandaManateeSolid.ttf"
-    static var talkBackgroundAlpha:Float  = 0.6
+    static var talkBackgroundAlpha:Float  = 0.8
     //static var guyTalkColor:Color  = "#EDEB67"
 
 }

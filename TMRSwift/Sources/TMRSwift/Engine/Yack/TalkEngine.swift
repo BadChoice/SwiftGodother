@@ -200,7 +200,7 @@ class TalkEngine {
             settings.font = font
             settings.fontSize = Int32(Constants.fontSize * Int(Game.shared.scale))
             settings.outlineColor = .black
-            settings.outlineSize = 6 * Int32(Game.shared.scale)
+            settings.outlineSize = 18 * Int32(Game.shared.scale)
             label.horizontalAlignment = .center
             label.labelSettings = settings
             label.zIndex = Constants.talk_zIndex

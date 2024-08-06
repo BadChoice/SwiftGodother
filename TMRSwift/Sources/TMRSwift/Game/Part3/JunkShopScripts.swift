@@ -16,6 +16,7 @@ extension GasTube {
         Script {
             Walk(to: self)
             Say("Hello baby")
+            Say("I hope you are completely right with me wandering arround here")
         }
     }
 }
