@@ -6,7 +6,7 @@ class Player : AnimatedSprite2D, Talks {
     
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }
-    var talkPosition: SwiftGodot.Vector2 { Vector2(x: 0, y: 0) }
+    var talkPosition: SwiftGodot.Vector2 { position + Vector2(x:0, y: offset.y * 2) - Vector2(x:0, y:50 * Float(Game.shared.scale))}
     var voiceType: VoiceType { .male }
     
     //MARK: -

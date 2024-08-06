@@ -17,7 +17,6 @@ class SpriteObject : Object {
         }
         node = sprite
         
-        GD.print("Node size \(node?.getRect().size)")
         let size = node?.getRect().size ?? .zero
         //node?.position = position - ((node?.getRect().size ?? Vector2.zero) * Game.shared.scale)
         node?.position   = position

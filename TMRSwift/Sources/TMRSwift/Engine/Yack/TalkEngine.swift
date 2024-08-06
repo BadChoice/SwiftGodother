@@ -56,15 +56,16 @@ class TalkEngine {
         self.actor = actor
         
         label = labelWith(text: text, color: talkable.talkColor)
+        scene.addChild(node: label)
         label.setPosition(
-            getTextPosition(scene, labelWidth: label.getRect().size.x, labelHeight: label.getRect().size
-            .y)
+            getTextPosition(scene, 
+                labelWidth: label.getRect().size.x,
+                labelHeight: label.getRect().size.y
+           )
         )
         background = backgroundWith(label: label)
-        
-        
         scene.addChild(node: background)
-        scene.addChild(node: label)
+        
         
         talkable.animate("talk")
         talkable.setExpression(expression)
@@ -81,6 +82,7 @@ class TalkEngine {
     fileprivate func showText(_ text: String) {
         background.show()
         label.show()
+        
         background.run(.sequence([
             .fadeAlpha(to: Constants.talkBackgroundAlpha, duration: 0.1),
             .wait(forDuration: textDuration(text)),
@@ -116,7 +118,8 @@ class TalkEngine {
     func getTextPosition(_ scene:MainScene, labelWidth:Float, labelHeight:Float) -> Vector2 {
         let talkPoint = talkable.talkPosition
         //var scenePoint = Game.shared.room.node.convert(talkPoint, to: scene)
-        var scenePoint = talkPoint
+        var scenePoint = talkPoint - (Vector2(x: labelWidth, y: labelHeight) / 2)
+        
                 
         /*let leftOutOfScreen = (scenePoint.x - labelWidth / 2) + (scene.size.width / 2)
         if leftOutOfScreen < 10 {
@@ -142,6 +145,7 @@ class TalkEngine {
         let lines           = text.splitedByLineLenght(Constants.lineWordLength)
         label.text          = lines.joined(separator: "\n")
         //label.numberOfLines = lines.count
+        label.modulate.alpha = 0
         
         label.labelSettings?.fontColor = color
         return label
@@ -150,10 +154,11 @@ class TalkEngine {
     func backgroundWith(label:Label) -> ColorRect {
         let bg = ColorRect()
         //rect: label.getRect()/*.insetBy(dx: -15, dy: -10), cornerRadius: 14)*/
-        //background.setPosition(label.getPosition())
-        //background.setSize(label.getSize())
-        bg.setPosition(.zero)
-        bg.setSize(Vector2(x: 200, y: 200))
+        
+        bg.setPosition(label.getRect().position)
+        bg.setSize(label.getRect().size)
+        
+        
         bg.color = .black
         bg.modulate.alpha = 0
         bg.zIndex    = Constants.talk_zIndex - 1
@@ -175,8 +180,8 @@ class TalkEngine {
     
     func onPhraseEnded(){
         //voiceOver.stop()
-        //label?.removeFromParent()
-        //background?.removeFromParent()
+        label?.removeFromParent()
+        background?.removeFromParent()
         talkable.animate(nil)
         actor = nil
         //label = nil
