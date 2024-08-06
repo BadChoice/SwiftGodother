@@ -1,34 +1,37 @@
 import SwiftGodot
 import Foundation
 
-@Godot
-class Player : AnimatedSprite2D, Talks {
+class Player : Talks {
     
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }
-    var talkPosition: SwiftGodot.Vector2 { position + Vector2(x:0, y: offset.y * 2) - Vector2(x:0, y:50 * Float(Game.shared.scale))}
+    var talkPosition: SwiftGodot.Vector2 {
+        node.position + Vector2(x:0, y: node.offset.y * 2) - Vector2(x:0, y:50 * Float(Game.shared.scale))
+    }
     var voiceType: VoiceType { .male }
     
     //MARK: -
+    var node = AnimatedSprite2D()
     var frames:SpriteFrames!
     var facing:Facing = .frontRight
     
+    //MARK: - WALK
     var walk:PlayerWalk?
     lazy var footsteps:AudioStreamPlayer = {
-        let player = AudioStreamPlayer()
-        addChild(node: player)
-        return player
+        let audioPlayer = AudioStreamPlayer()
+        node.addChild(node: audioPlayer)
+        return audioPlayer
     }()
     
     public func face(_ facing:Facing){
         self.facing = facing
-        play(name: "\(facing)")
+        node.play(name: "\(facing)")
     }
     
-    override func _ready() {
+    init() {
         loadAnimations()
         face(.frontRight)
-        offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + 20
+        node.offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + 20
     }
     
     private func loadAnimations(){
@@ -39,14 +42,14 @@ class Player : AnimatedSprite2D, Talks {
             frames.addAnimation(anim: animation)
             (0...31).forEach {
                 let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
-                frames.addFrame(anim: animation, texture:  GD.load(path: "res://assets/actors/crypto/walk/\(animation)/\(number).png") as? Texture2D, duration:0.12)
+                frames.addFrame(anim: animation, texture:  GD.load(path: "res://assets/actors/crypto_new/walk/\(animation)/\(number).png") as? Texture2D, duration:0.12)
             }
         }
         
-        spriteFrames = frames
+        node.spriteFrames = frames
     }
     
-    override func _process(delta: Double) {
+    func _process(delta: Double) {
         walk?.update(delta: Float(delta))
     }
 
@@ -60,7 +63,7 @@ class Player : AnimatedSprite2D, Talks {
     
     public func stopWalk(){
         walk = nil
-        stop()
+        node.stop()
         footsteps.stop()
     }
     

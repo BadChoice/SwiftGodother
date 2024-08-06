@@ -18,7 +18,8 @@ class MainScene : Node2D {
         room = JunkShop()
         addChild(node: room.node)
         Game.shared.room = room
-        room._ready()        
+        room._ready()
+        Game.shared.player = room.player
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
@@ -76,10 +77,10 @@ class MainScene : Node2D {
     }
     
     override func _process(delta: Double) {
-        if Game.shared.touchLocked { return }
-        
         onViewPortChanged()
+        Game.shared.player?._process(delta: delta)
         
+        if Game.shared.touchLocked { return }
         if pressedAt != nil && -pressedAt!.timeIntervalSinceNow > Constants.longPressMinTime {
             pressedAt = nil
             onLongPress(at: getLocalMousePosition())
@@ -117,7 +118,7 @@ class MainScene : Node2D {
     
     //MARK: - Walk
     private func walk(to destination:Vector2) {
-        if let path = room.walkbox.calculatePath(from: room.player.position, to: destination) {
+        if let path = room.walkbox.calculatePath(from: room.player.node.position, to: destination) {
             room.player.walk(path: path, walkbox: room.walkbox)
             
             if Constants.debug {

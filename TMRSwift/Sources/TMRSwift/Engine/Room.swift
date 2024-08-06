@@ -32,8 +32,8 @@ class Room {
     
     private func addPlayer(){
         player = Player()
-        player.zIndex = 1
-        addChild(node: player)
+        player.node.zIndex = 1
+        addChild(node: player.node)
     }
     
     private func setupCamera(){
@@ -47,7 +47,7 @@ class Room {
         camera.limitLeft = -2048
                 
         
-        player.addChild(node: camera)
+        player.node.addChild(node: camera)
     }
     
     private func addBackgroundAndForeground(){

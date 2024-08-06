@@ -18,8 +18,8 @@ class PlayerWalk {
     
     public func walk(then:(()->Void)? = nil){
         
-        if let to = path.first, player.position.near(to) {
-            player.position = to
+        if let to = path.first, player.node.position.near(to) {
+            player.node.position = to
             then?()
             return
         }
@@ -33,31 +33,31 @@ class PlayerWalk {
     
     private func walkTo(position:Vector2?){
         walkingTo = position
-        calculateMediaVelocity(from: player.position, to: position)
+        calculateMediaVelocity(from: player.node.position, to: position)
     }
     
     public func update(delta:Float) {
         guard let walkingTo else { return }
         
-        let awayFactor = walkbox.getAwayScaleForActorAt(point: player.position)
+        let awayFactor = walkbox.getAwayScaleForActorAt(point: player.node.position)
         
         let walkSpeed:Float = getWalkSpeed(awayFactor:awayFactor)
         
         let nextPoint = Vector2(
-            x: player.position.x.near(walkingTo.x) ? 0 : (((walkingTo.x > player.position.x) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.x),
-            y: player.position.y.near(walkingTo.y) ? 0 : (((walkingTo.y > player.position.y) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.y)
+            x: player.node.position.x.near(walkingTo.x) ? 0 : (((walkingTo.x > player.node.position.x) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.x),
+            y: player.node.position.y.near(walkingTo.y) ? 0 : (((walkingTo.y > player.node.position.y) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.y)
         )
         
         player.face(detectDirection(nextPoint: nextPoint))
         
-        player.position = Vector2(x:player.position.x + nextPoint.x, y:player.position.y + nextPoint.y)
+        player.node.position = Vector2(x:player.node.position.x + nextPoint.x, y:player.node.position.y + nextPoint.y)
         
-        player.scale = Vector2(x: awayFactor, y:awayFactor)
+        player.node.scale = Vector2(x: awayFactor, y:awayFactor)
         
         //notifyObjects()
         
         
-        if player.position.near(walkingTo, treshold:15 /*treshold: fastWalk ? 20 : 15*/) {
+        if player.node.position.near(walkingTo, treshold:15 /*treshold: fastWalk ? 20 : 15*/) {
             walkTo(position: path.popLast())
         }
         
@@ -67,7 +67,7 @@ class PlayerWalk {
     }
 
     private func stopWalk(finalPosition:Vector2){
-        player.position = finalPosition
+        player.node.position = finalPosition
         player.stopWalk()
         walkCompletion?()
         walkCompletion = nil

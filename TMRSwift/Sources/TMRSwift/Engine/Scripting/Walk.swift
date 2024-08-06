@@ -36,7 +36,7 @@ struct Walk : CompletableAction {
         guard let walkBox = room.walkbox else {
             return then()
         }
-        if var path = walkBox.calculatePath(from:(actor ?? room.player).position, to:point){
+        if var path = walkBox.calculatePath(from:(actor ?? room.player).node.position, to:point){
             if Constants.debug {
                 let pathNode = Line2D()
                 pathNode.closed = false
