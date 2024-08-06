@@ -31,7 +31,7 @@ class Player : Talks {
     init() {
         loadAnimations()
         face(.frontRight)
-        node.offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + 20
+        node.offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
     }
     
     private func loadAnimations(){

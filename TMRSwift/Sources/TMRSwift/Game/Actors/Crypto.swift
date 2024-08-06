@@ -30,11 +30,24 @@ class Crypto : Player {
         
         node.spriteFrames = frames
         
+        node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
         node.play(name: "walk")
     }
     
     override func face(_ facing: Facing) {
-        node.play(name: "walk")
+        self.facing = facing
+        
+        switch facing {
+        case .left, .backLeft, .frontLeft: node.globalScale = Vector2(x: -1, y: 1)
+        default: node.globalScale = Vector2(x: 1, y: 1)
+        }
+        
+        
+        if walk?.walkingTo != nil {
+            node.play(name: "walk")
+        }else{
+            node.play(name: "idle")
+        }
     }
     
     override func stopWalk() {
