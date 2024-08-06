@@ -198,9 +198,9 @@ class TalkEngine {
         if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)")  {
             let settings = LabelSettings()
             settings.font = font
-            settings.fontSize = Int32(Constants.fontSize * Int(Game.shared.scale))
+            settings.fontSize = Constants.fontSize * Int32(Game.shared.scale)
             settings.outlineColor = .black
-            settings.outlineSize = 18 * Int32(Game.shared.scale)
+            settings.outlineSize = Constants.fontOutlineSize * Int32(Game.shared.scale)
             label.horizontalAlignment = .center
             label.labelSettings = settings
             label.zIndex = Constants.talk_zIndex

@@ -26,17 +26,18 @@ struct Constants {
     
     
     //MARK: - TALK
-    static var language:String      = "en"
-    static let languages = ["en", "es", "de", /*"fr", */"ca"]
-    static var fontSize:Int         = /*isPhone ? 50 : */40
-    static var wordTime             = 0.4
-    static var charTime             = 0.07
-    static var useWordTiming        = false
-    static var lineWordLength:Int   { Constants.language == "de" ? 7 : 9 }
-    static var yackSpacing          = /*isPhone ? 80 : */60
-    static var fingerOffset         = /*isPhone ? 80 : */40
-    static var fontName:String      = "Janda Manatee Solid"
-    static var font:String          = "JandaManateeSolid.ttf"
+    static var language:String       = "en"
+    static let languages             = ["en", "es", "de", /*"fr", */"ca"]
+    static var fontSize:Int32        = /*isPhone ? 50 : */40
+    static var fontOutlineSize:Int32 = /*isPhone ? 50 : */18
+    static var wordTime              = 0.4
+    static var charTime              = 0.07
+    static var useWordTiming         = false
+    static var lineWordLength:Int    { Constants.language == "de" ? 7 : 9 }
+    static var yackSpacing           = /*isPhone ? 80 : */60
+    static var fingerOffset          = /*isPhone ? 80 : */40
+    static var fontName:String       = "Janda Manatee Solid"
+    static var font:String           = "JandaManateeSolid.ttf"
     static var talkBackgroundAlpha:Float  = 0.8
     //static var guyTalkColor:Color  = "#EDEB67"
 

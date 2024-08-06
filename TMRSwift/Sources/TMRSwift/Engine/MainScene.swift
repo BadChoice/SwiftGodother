@@ -56,6 +56,7 @@ class MainScene : Node2D {
 
     //MARK: - Touch
     override func _input(event: InputEvent) {
+        if Game.shared.touchLocked { return }
         if let mouseEvent = event as? InputEventMouseButton, event.isPressed(){
             pressedAt = Date()
         }
@@ -75,6 +76,8 @@ class MainScene : Node2D {
     }
     
     override func _process(delta: Double) {
+        if Game.shared.touchLocked { return }
+        
         onViewPortChanged()
         
         if pressedAt != nil && -pressedAt!.timeIntervalSinceNow > Constants.longPressMinTime {
@@ -85,13 +88,15 @@ class MainScene : Node2D {
     }
     
     private func onLongPress(at position:Vector2){
-
+        if Game.shared.touchLocked { return }
+        
         //inventory.onLongPressed(at: position)
         
         guard let object = object(at: position) else {
             return
         }
         verbWheel.show(at: position, for:object)
+        scanner.stop()
     }
     
     private func onTouched(at position:Vector2){
