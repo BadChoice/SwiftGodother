@@ -3,10 +3,10 @@ import SwiftGodot
 class VerbWheel {
     
     let node  = Node2D()
-    var hack  = Sprite2D()
-    var talk  = Sprite2D()
-    var use   = Sprite2D()
-    var look  = Sprite2D()
+    var hack:Sprite2D!
+    var talk:Sprite2D!
+    var use :Sprite2D!
+    var look:Sprite2D!
     var label = Label()
     
     var verbs:[Sprite2D]!
@@ -15,17 +15,17 @@ class VerbWheel {
     init(){
         node.zIndex = Constants.verbwheel_zIndex
         
-        hack.texture = GD.load(path: "res://assets/ui/verbwheel/hack.png")
-        talk.texture = GD.load(path: "res://assets/ui/verbwheel/talk.png")
-        use.texture  = GD.load(path: "res://assets/ui/verbwheel/use.png")
-        look.texture = GD.load(path: "res://assets/ui/verbwheel/look.png")
+        hack = Sprite2D(path: "res://assets/ui/verbwheel/hack.png")
+        talk = Sprite2D(path: "res://assets/ui/verbwheel/talk.png")
+        use  = Sprite2D(path: "res://assets/ui/verbwheel/use.png")
+        look = Sprite2D(path: "res://assets/ui/verbwheel/look.png")
         
-        use.position  = Vector2(x: -185, y: -30)
-        look.position = Vector2(x: -75, y: -160)
-        talk.position = Vector2(x: 75,  y: -160)
-        hack.position = Vector2(x: 185, y: -30)
+        use.position  = Vector2(x: -185, y: -30) * Game.shared.scale
+        look.position = Vector2(x: -75, y: -160) * Game.shared.scale
+        talk.position = Vector2(x: 75,  y: -160) * Game.shared.scale
+        hack.position = Vector2(x: 185, y: -30) * Game.shared.scale
         
-        label.setPosition(Vector2(x:0, y: -260))
+        label.setPosition(Vector2(x:0, y: -260) * Game.shared.scale) 
         label.text = "--"
         
         node.addChild(node: hack)

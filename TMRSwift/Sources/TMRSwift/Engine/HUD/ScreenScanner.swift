@@ -8,7 +8,7 @@ struct ScreenScanner {
     init(){
         label = Label()
         
-        if let font:Font = GD.load(path: "res://assets/fonts/JandaManateeSolid.ttf")  {
+        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)" )  {
             let settings = LabelSettings()
             settings.font = font
             settings.fontSize = 50 * Int32(Game.shared.scale)

@@ -153,15 +153,19 @@ class TalkEngine {
     
     func backgroundWith(label:Label) -> ColorRect {
         let bg = ColorRect()
-        //rect: label.getRect()/*.insetBy(dx: -15, dy: -10), cornerRadius: 14)*/
+       
+        let rect = label.getRect().insetBy(dx: -15 * Float(Game.shared.scale), dy: -10 * Float(Game.shared.scale))
         
-        bg.setPosition(label.getRect().position)
-        bg.setSize(label.getRect().size)
+        bg.setPosition(rect.position)
+        bg.setSize(rect.size)
         
+        let style = StyleBoxFlat()
+        style.cornerRadiusTopLeft = 60
+        bg.addThemeStyleboxOverride(name: "panel", stylebox: style)
         
         bg.color = .black
         bg.modulate.alpha = 0
-        bg.zIndex    = Constants.talk_zIndex - 1
+        bg.zIndex = Constants.talk_zIndex - 1
         return bg
     }
     
@@ -191,7 +195,7 @@ class TalkEngine {
     
     private func setupLabel() -> Label{
         let label = Label()
-        if let font:Font = GD.load(path: "res://assets/fonts/JandaManateeSolid.ttf")  {
+        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)")  {
             let settings = LabelSettings()
             settings.font = font
             settings.fontSize = Int32(Constants.fontSize * Int(Game.shared.scale))
