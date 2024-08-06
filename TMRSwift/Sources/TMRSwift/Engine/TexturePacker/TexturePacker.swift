@@ -11,10 +11,11 @@ class TexturePacker {
 
     struct TexturePackerSubimage: Decodable {
         let name:String
-        let spriteOffset:String
-        let spriteSourceSize:String
-        var textureRect:String
-        let textureRotated:Bool
+        let spriteOffset:String     // translation vector: the offset of the sprite's untrimmed center to the sprite's trimmed center
+        //let spriteSize:String     // Size of the trimmed sprite
+        let spriteSourceSize:String // Size of the untrimmed sprite
+        var textureRect:String      // Sprite's position and size in the texture
+        let textureRotated:Bool     // true if the sprite is rotated
         
         var region:Rect2 {
             var rectCopy = textureRect
@@ -104,16 +105,34 @@ class TexturePacker {
             return nil
         }
         
-        
+        return extractTexture(info:imageInfo, texture:texture)
+    }
+    
+    private func extractTexture(info:TexturePackerSubimage, texture:Texture2D) -> Texture2D? {
         let atlas = AtlasTexture()
         atlas.atlas = texture
-        atlas.region = imageInfo.region
-        if imageInfo.textureRotated {
-            let image = atlas.getImage()
-            image?.rotate90(direction: .counterclockwise)
-            return ImageTexture.createFromImage(image)
+        atlas.region = info.region
+        
+        let image = atlas.getImage()!
+        
+        let expandedImage = Image.create(
+            width: Int32(info.sourceSize.x),
+            height: Int32(info.sourceSize.y),
+            useMipmaps: false,
+            format: image.getFormat()
+        )!
+            
+        if info.textureRotated {
+            image.rotate90(direction: .counterclockwise)
         }
-        return atlas
+    
+        expandedImage.blitRect(
+            src: image,
+            srcRect: Rect2i(position: .zero, size: image.getSize()),
+            dst: Vector2i(x: Int32(info.offset.x), y: Int32(info.offset.y))
+        )
+        
+        return ImageTexture.createFromImage(expandedImage)
     }
     
     func imageInfoFor(name:String) -> TexturePackerSubimage? {

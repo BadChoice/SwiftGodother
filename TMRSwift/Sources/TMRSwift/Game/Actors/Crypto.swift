@@ -24,7 +24,9 @@ class Crypto : Player {
         frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/07"), duration: 0.55)
         frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/08"), duration: 0.55)
         
-        
+        frames.addAnimation(anim: "idle")
+        frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/00"), duration: 2.50)
+        frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/01"), duration: 2.50)
         
         node.spriteFrames = frames
         
@@ -33,5 +35,10 @@ class Crypto : Player {
     
     override func face(_ facing: Facing) {
         node.play(name: "walk")
+    }
+    
+    override func stopWalk() {
+        super.stopWalk()
+        node.play(name: "idle")
     }
 }
