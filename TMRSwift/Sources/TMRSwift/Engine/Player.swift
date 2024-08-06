@@ -7,7 +7,7 @@ class Player : AnimatedSprite2D {
     var frames:SpriteFrames!
     var facing:Facing = .frontRight
     
-    var walk:Walk?
+    var walk:PlayerWalk?
     lazy var footsteps:AudioStreamPlayer = {
         let player = AudioStreamPlayer()
         addChild(node: player)
@@ -47,9 +47,9 @@ class Player : AnimatedSprite2D {
     //--------------------------------------
     //MARK: Walk
     //--------------------------------------
-    public func walk(path: [Vector2], walkbox:Walkbox){
-        walk = Walk(path: path, player: self, walkbox:walkbox)
-        walk?.walk { }
+    public func walk(path: [Vector2], walkbox:Walkbox, then:(()->Void)? = nil){
+        walk = PlayerWalk(path: path, player: self, walkbox:walkbox)
+        walk?.walk { then?() }
     }
     
     public func stopWalk(){

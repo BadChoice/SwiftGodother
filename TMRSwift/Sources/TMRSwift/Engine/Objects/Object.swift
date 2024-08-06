@@ -8,8 +8,16 @@ class Object : ProvidesState {
     var name:String { details.name }
     
     var position:Vector2 {
+        //SketchApp.shared.screenSize
         (Vector2(stringLiteral: details.position! ) - Vector2(x:512, y:512)) * Game.shared.scale
     }
+    
+    var hotspot:Vector2 {
+        //SketchApp.shared.screenSize
+        (Vector2(stringLiteral: details.hotspot! ) - Vector2(x:512, y:512)) * Game.shared.scale
+    }
+    
+    var facing:Facing { details.facing }
     
     required init(_ details:ObjectDetails){
         self.details = details

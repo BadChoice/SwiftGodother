@@ -4,7 +4,7 @@ import SwiftGodot
 struct ObjectDetails : Codable {
     let objectClass:String
     let name:String
-    let hostspot:String?
+    let hotspot:String?
     let position:String?
     let zPos:Int
     let image:String?

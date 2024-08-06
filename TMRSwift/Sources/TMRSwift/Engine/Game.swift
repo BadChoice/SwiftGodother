@@ -10,6 +10,8 @@ class Game  {
     var state = GameState()
     
     var scale:Double = 1.0
+    
+    var touchLocked:Bool = false
 }
 
 

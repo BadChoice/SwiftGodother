@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-class Walk {
+class PlayerWalk {
     
     var path:[Vector2]
     let player:Player
