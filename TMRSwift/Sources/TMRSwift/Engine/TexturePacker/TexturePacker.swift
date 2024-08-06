@@ -109,7 +109,9 @@ class TexturePacker {
         atlas.atlas = texture
         atlas.region = imageInfo.region
         if imageInfo.textureRotated {
-            //TODO: How this is done?
+            let image = atlas.getImage()
+            image?.rotate90(direction: .counterclockwise)
+            return ImageTexture.createFromImage(image)
         }
         return atlas
     }

@@ -31,7 +31,7 @@ class Room {
     }
     
     private func addPlayer(){
-        player = Player()
+        player = Crypto()
         player.node.zIndex = 1
         addChild(node: player.node)
     }
