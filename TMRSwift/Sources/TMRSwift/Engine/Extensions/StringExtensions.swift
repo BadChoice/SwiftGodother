@@ -9,6 +9,11 @@ extension String {
       }
     }    
     
+    func splitedByLineLenght(_ length:Int) -> [String] {
+        let words = components(separatedBy: " ")
+        return words.chunked(into: length).map { $0.joined(separator: " ")}
+    }
+    
     func withoutFilename() -> String {
         if !contains(".") { return self }
         return split(separator: ".").dropLast().joined(separator: ".")

@@ -1,7 +1,7 @@
 import SwiftGodot
 
 class GDAction {
-    func run(_ node:Node2D, completion:(()->Void)?){
+    func run(_ node:Node, completion:(()->Void)?){
         completion?()
     }
     
@@ -42,8 +42,12 @@ class GDAction {
     
     //fadeAlpha by duration
 
-    static func fadeAlpha(to alpha:Float, withDuration duration:Double) -> GDActionAlpha {
+    static func fadeAlpha(to alpha:Float, duration duration:Double) -> GDActionAlpha {
         GDActionAlpha(to: alpha, duration: duration)
+    }
+    
+    static func wait(forDuration duration:Double) -> GDActionWait {
+        GDActionWait(duration: duration)
     }
 }
 

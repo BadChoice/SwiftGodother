@@ -3,9 +3,10 @@ import Foundation
 class Game  {
     static let shared:Game = Game()
     
-    //var scene:Scene!
+    var scene:MainScene!
     var room:Room!
     var player:Player!
+    var talkEngine:TalkEngine!
     
     var state = GameState()
     

@@ -3,20 +3,20 @@ import Foundation
 
 struct Walk : CompletableAction {
     
-    let player:Player?
+    let actor:Player?
     let room:Room
     let point:Vector2?
     let facing:Facing?
     
     init(to point:Vector2?, facing:Facing? = nil){
-        self.player = Game.shared.room.player
-        self.room = Game.shared.room
-        self.point = point
+        self.actor  = Game.shared.room.player
+        self.room   = Game.shared.room
+        self.point  = point
         self.facing = facing
     }
     
     init(to object:Object, facing:Facing? = nil){
-        self.player = Game.shared.room.player
+        self.actor = Game.shared.room.player
         self.room   = Game.shared.room
         self.point  = object.hotspot
         self.facing = facing ?? object.facing
@@ -36,7 +36,7 @@ struct Walk : CompletableAction {
         guard let walkBox = room.walkbox else {
             return then()
         }
-        if var path = walkBox.calculatePath(from:(player ?? room.player).position, to:point){
+        if var path = walkBox.calculatePath(from:(actor ?? room.player).position, to:point){
             if Constants.debug {
                 let pathNode = Line2D()
                 pathNode.closed = false
@@ -44,9 +44,9 @@ struct Walk : CompletableAction {
                 room.addChild(node: pathNode)
             }
             //room.player.walk(path: path, walkbox: room.walkbox) {
-            (player ?? room.player).walk(path: path, walkbox: room.walkbox){
+            (actor ?? room.player).walk(path: path, walkbox: room.walkbox){
                 if let facing = self.facing  {
-                    (player ?? room.player).face(facing)
+                    (actor ?? room.player).face(facing)
                 }
                 then()
             }

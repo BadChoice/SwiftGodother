@@ -43,9 +43,11 @@ class MainScene : Node2D {
         GD.print("Screen scale: \(DisplayServer.screenGetScale())")
         
         Game.shared.scale = min(2, DisplayServer.screenGetScale())
+        Game.shared.scene = self
         scanner = ScreenScanner()
         inventory = Inventory()
         verbWheel = VerbWheel()
+        Game.shared.talkEngine = TalkEngine()
     }
     
     public func onViewPortChanged(){

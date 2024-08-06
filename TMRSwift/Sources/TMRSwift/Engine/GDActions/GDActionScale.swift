@@ -10,7 +10,7 @@ class GDActionScale : GDAction {
         self.duration = duration
     }
     
-    override func run(_ node:Node2D, completion:(()->Void)? = nil){
+    override func run(_ node:Node, completion:(()->Void)? = nil){
         let tween = node.createTween()
                 
         tween?.tweenProperty(

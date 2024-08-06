@@ -9,19 +9,19 @@ class GDActionSequence : GDAction {
         self.actions = actions.reversed()
     }
     
-    override func run(_ node:Node2D, completion:(()->Void)? = nil){
+    override func run(_ node:Node, completion:(()->Void)? = nil){
         self.completion = completion
         runNext(node)
     }
     
-    func runNext(_ node:Node2D){
+    func runNext(_ node:Node){
         guard let action = actions.popLast() else {
             completion?()
             completion = nil
             return
         }
         
-        action.run(node) { [unowned self] in
+        action.run(node) { [self] in
             runNext(node)
         }
     }

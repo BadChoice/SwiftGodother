@@ -8,12 +8,12 @@ struct ScreenScanner {
     init(){
         label = Label()
         
-        if let font:Font = GD.load(path: "res://assets/fonts/UglyQua.ttf")  {
+        if let font:Font = GD.load(path: "res://assets/fonts/JandaManateeSolid.ttf")  {
             let settings = LabelSettings()
             settings.font = font
             settings.fontSize = 50 * Int32(Game.shared.scale)
             settings.outlineColor = .black
-            settings.outlineSize = 6 * Int32(Game.shared.scale)
+            settings.outlineSize = 12 * Int32(Game.shared.scale)
             label.horizontalAlignment = .center
             label.labelSettings = settings
             label.text = ""

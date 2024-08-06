@@ -11,4 +11,13 @@ extension WalkieTalkies {
 
 extension GasTube {
     var inventoryImage: String { "todo" }
+    
+    override func onLookedAt() {
+        Script {
+            Walk(to: self)
+            Say("Hello baby")
+        }
+    }
 }
+
+

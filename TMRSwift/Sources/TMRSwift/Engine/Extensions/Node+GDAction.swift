@@ -1,7 +1,9 @@
 import SwiftGodot
 
-extension Node2D {
+extension Node {
     func run(_ action:GDAction, completion:(()->Void)? = nil) {
         action.run(self, completion: completion)
     }
 }
+
+

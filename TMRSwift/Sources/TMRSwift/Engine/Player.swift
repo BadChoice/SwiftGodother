@@ -2,8 +2,14 @@ import SwiftGodot
 import Foundation
 
 @Godot
-class Player : AnimatedSprite2D {
-        
+class Player : AnimatedSprite2D, Talks {
+    
+    //MARK: - TALK
+    var talkColor: SwiftGodot.Color { .yellow }
+    var talkPosition: SwiftGodot.Vector2 { Vector2(x: 0, y: 0) }
+    var voiceType: VoiceType { .male }
+    
+    //MARK: -
     var frames:SpriteFrames!
     var facing:Facing = .frontRight
     

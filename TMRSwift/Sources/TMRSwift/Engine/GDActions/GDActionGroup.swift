@@ -10,7 +10,7 @@ class GDActionGroup : GDAction {
         self.actions = actions.reversed()
     }
     
-    override func run(_ node:Node2D, completion:(()->Void)? = nil){
+    override func run(_ node:Node, completion:(()->Void)? = nil){
         self.completion = completion
         actions.forEach { action in
             action.run(node) { [self] in
