@@ -42,11 +42,11 @@ class VerbWheel {
     }
     
     var isOpen : Bool {
-        node.isVisibleInTree()
+        node.scale.x == 1
     }
     
     func show(at position:Vector2, for object:Object){
-        verbs.forEach { $0.globalScale = .one }
+        verbs.forEach { $0.scale = .one }
         node.show()
         node.position = position
         
@@ -57,14 +57,21 @@ class VerbWheel {
         
         node.scale = .zero
         node.run(.scale(to: 1, duration: 0.1))
-        
+    }
+    
+    private func hide(){
+        object = nil
+        node.run(.scale(to: 0, duration: 0.1)) { [unowned self] in
+            node.scale = .zero
+            node.hide()
+        }
     }
     
     func onTouched(at position:Vector2, shouldHide:Bool = true) -> Bool {
         guard isOpen else { return false }
         
         let localPosition = node.toLocal(globalPoint: position)
-        if let verb = (verbs.first { $0.rectInParent().hasPoint(localPosition)}) {
+        if let verb = verb(at: localPosition) {
             doVerb(verb)
         }
         
@@ -74,13 +81,7 @@ class VerbWheel {
         return true
     }
     
-    private func hide(){
-        object = nil
-        node.run(.scale(to: 0, duration: 0.1)) { [unowned self] in
-            node.globalScale = .zero
-            node.hide()
-        }
-    }
+
     
     func onMouseMoved(at position:Vector2) -> Bool {
         guard isOpen else { return false }
@@ -88,13 +89,15 @@ class VerbWheel {
         let localPosition = node.toLocal(globalPoint: position)
         verbs.forEach { $0.globalScale = .one }
         
-        if let verb = verbs.first (where: {
-            return $0.rectInParent().hasPoint(localPosition)
-        }){
-            verb.globalScale = Vector2(value:1.2)
+        if let verb = verb(at: localPosition) {
+            verb.scale = Vector2(value: 1.2)
         }
         
         return true
+    }
+    
+    private func verb(at position:Vector2) -> Sprite2D?{
+        (verbs.first { $0.rectInParent().hasPoint(position)})
     }
     
     private func doVerb(_ verb:Sprite2D){
