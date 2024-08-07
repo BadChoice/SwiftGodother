@@ -9,6 +9,10 @@ class InventoryUI {
     
     let inventory = Inventory()
     var grid = Grid()
+    
+    var usingObject:InventoryObject?
+    var usingObjectSprite:Sprite2D?
+    var bannedIcon:Sprite2D = Sprite2D(path: "res://assets/ui/ban.png")
         
     init(){
         node.zIndex = Constants.inventory_zIndex
@@ -25,11 +29,22 @@ class InventoryUI {
         inventoryBag.addChild(node: grid.node)
     }
     
-    func onTouched(at position:Vector2) -> Bool {
+    func onTouched(at position:Vector2, roomObject:Object?) -> Bool {
+        if let usingObject {
+            useInventory(at: position, roomObject:roomObject)
+            return true
+        }
+        
         if isOpen {
             if !inventoryBag.hasPoint(position){
-                close()
+                hide()
+                return true
             }
+            
+            if let object = object(at: position) {
+                selectObject(object)
+            }
+            
             return true
         }
         
@@ -39,6 +54,64 @@ class InventoryUI {
         }
         
         return false
+    }
+    
+    private func selectObject(_ object:InventoryObject) {
+        Sound.play(once: "item_take")
+        usingObject = object
+        usingObjectSprite = object.sprite.duplicate() as! Sprite2D
+        usingObjectSprite?.zIndex = Constants.inventory_zIndex
+        usingObjectSprite!.position = usingObjectSprite!.position - (Vector2(x: 40, y: 60) * Game.shared.scale)
+        inventoryBag.getParent()?.addChild(node: usingObjectSprite)
+        GD.print("Inventory object pressed:", object.object.name)
+    }
+    
+    private func deselect(){
+        Sound.play(once: "item_put")
+        usingObjectSprite?.removeFromParent()
+        usingObjectSprite = nil
+        usingObject = nil
+    }
+    
+    private func useInventory(at position:Vector2, roomObject:Object?){
+        defer {
+            Game.shared.scene.scanner.show(text: "", at: position)
+            deselect()
+        }
+        
+        guard let useWith = findUseWithObject(at: position, roomObject: roomObject) else {
+            return
+        }
+        
+        usingObject!.object.onUseWith(useWith, reversed: false)
+    }
+    
+    func onMouseMoved(at position:Vector2, roomObject:Object?) -> Bool {
+        guard let objectSprite = usingObjectSprite else {
+            if isOpen {
+                Game.shared.scene.scanner.show(object: object(at: position)?.object, at: position)
+                return true
+            }
+            return false
+        }
+        
+        if !(inventoryBag.hasPoint(position)) {
+            hide()
+        }
+        
+        objectSprite.position = position
+        
+        if let useWith = findUseWithObject(at: position, roomObject: roomObject) {
+            let text = __("Use {object1} with {object2}")
+                .replacingOccurrences(of: "{object1}", with:__(usingObject!.object.name))
+                .replacingOccurrences(of: "{object2}", with:__(useWith.name))
+            
+            Game.shared.scene.scanner.show(text: text, at: position)
+        }else{
+            Game.shared.scene.scanner.show(text: "", at: position)
+        }
+        
+        return true
     }
     
     func object(at position:Vector2) -> InventoryObject? {
@@ -51,19 +124,30 @@ class InventoryUI {
         return object
     }
     
+    private func findUseWithObject(at position:Vector2, roomObject:Object?) -> Object?{
+        guard let useWith = isOpen ? object(at:position)?.object : roomObject else {
+            return nil
+        }
+        
+        guard usingObject!.object.canBeUsedWith(useWith) || useWith.canBeUsedWith(usingObject!.object) else {
+            return nil
+        }
+        return useWith
+    }
+    
     func onLongPressed(at position:Vector2) -> Bool {
         return false
     }
     
     func toggle(){
-        isOpen ? close() : open()
+        isOpen ? hide() : show()
     }
     
     var isOpen:Bool {
         inventoryBag.modulate.alpha == 1
     }
     
-    func open(){
+    func show(){
         inventoryBag.modulate.alpha = 0
         inventoryBag.scale = Vector2(x: 0, y: 0)
         inventoryBag.run(.group([
@@ -74,7 +158,8 @@ class InventoryUI {
         grid.showObjectsForCurrentPage(inventory.objects)
     }
     
-    func close() {
+    func hide() {
+        if inventoryBag.modulate.alpha == 0 { return }
         inventoryBag.run(.group([
             .fadeOut(withDuration: 0.2),
             .scale(to: 0, duration: 0.2)

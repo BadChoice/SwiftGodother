@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-class Object : ProvidesState {
+class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
@@ -20,7 +20,17 @@ class Object : ProvidesState {
     var facing:Facing { details.facing }
     
     required init(_ details:ObjectDetails? = nil){
-        self.details = details
+        super.init()
+        if let details {
+            self.details = details
+        } else {
+            let json = "res://assets/part3/JunkShop/JunkShop.json"
+            self.details = RoomDetails.loadCached(path: json).detailsFor(self)
+            if details == nil {
+                GD.printErr("No details found for \(self)")
+                //abort()
+            }
+        }
     }
     
     func isTouched(at: Vector2) -> Bool {
@@ -30,6 +40,17 @@ class Object : ProvidesState {
     
     func shouldShowHotspotHint() -> Bool {
         true
+    }
+    
+    /** Each object can define with what it does combine to speed up puzzle resolution */
+    func canBeUsedWith(_ object:Object) -> Bool {
+        guard Features.useCanBeUsedWith else { return true }
+        return combinesWith().contains { object.isKind(of: $0) }
+    }
+    
+    
+    @objc dynamic func combinesWith() -> [Object.Type] {
+        []
     }
     
     //=======================================
@@ -61,5 +82,21 @@ class Object : ProvidesState {
     
     @objc dynamic func onMouthed()    {
         GD.print("on mouthed at \(name)")
+    }
+    
+    @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
+        if !reversed {
+            return object.onUseWith(self, reversed:true)
+        }
+        ScriptSay(random: [
+            "Mmmm... No",
+            "I can't mix those",
+            "I don't think this will work",
+            //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
+            __("I can't use {object1} with {object2}")
+                .replacingOccurrences(of: "{object1}", with:__(self.name))
+                .replacingOccurrences(of: "{object2}", with:__(object.name))
+        ])
+        return
     }
 }

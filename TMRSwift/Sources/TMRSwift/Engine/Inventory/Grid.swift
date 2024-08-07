@@ -19,10 +19,10 @@ class Grid  {
         
         var i:Float        = 0
         var j:Float        = 0
-        let initialX:Float = -320
-        let initialY:Float = 180
-        let xSpacing:Float = 200
-        let ySpacing:Float = 200
+        let initialX:Float = Float(-320 * Game.shared.scale)
+        let initialY:Float = Float(180 * Game.shared.scale)
+        let xSpacing:Float = Float(200 * Game.shared.scale)
+        let ySpacing:Float = Float(200 * Game.shared.scale)
         
         node.removeAllChildren()
         
@@ -32,7 +32,7 @@ class Grid  {
                 node.addChild(node: object.sprite)
                 object.sprite.run(
                     .move(
-                        to: Vector2(x: initialX + i * xSpacing, y: initialY - j * ySpacing) * Game.shared.scale,
+                        to: Vector2(x: initialX + i * xSpacing, y: initialY - j * ySpacing),
                         duration: 0
                     )
                 ) //The move action fixes the bug that sometimes items were not repositionated

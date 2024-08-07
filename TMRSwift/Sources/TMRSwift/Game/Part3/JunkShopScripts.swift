@@ -19,6 +19,10 @@ extension WalkieTalkies {
         if Self.placedAtPizza || Self.placedAtMassage { return "WalkieTalkie" }
         return "WalkieTalkies"
     }
+    
+    override func combinesWith() -> [Object.Type] {
+        [GasTube.self, JunkShopTv.self]
+    }
 }
 
 extension GasTube {

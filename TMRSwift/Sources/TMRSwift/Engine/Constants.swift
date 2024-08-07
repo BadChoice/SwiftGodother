@@ -4,12 +4,12 @@ struct Constants {
     
     static var debug:Bool = true
     
-    //MARK: - RoOM
+    //MARK: - Room
     static let background_zIndex:Int32  = -1
     static let foreground_zIndex:Int32  = 100
-    static let scanner_zIndex:Int32     = 200
-    static let inventory_zIndex:Int32   = 201
-    static let verbwheel_zIndex:Int32   = 202
+    static let inventory_zIndex:Int32   = 200
+    static let scanner_zIndex:Int32     = 250
+    static let verbwheel_zIndex:Int32   = 251
     static let talk_zIndex:Int32        = 300
     
     //MARK: - WALK
@@ -41,4 +41,11 @@ struct Constants {
     static var talkBackgroundAlpha:Float  = 0.8
     //static var guyTalkColor:Color  = "#EDEB67"
 
+}
+
+struct Features {
+    //static var useCanBeUsedWith = (UserDefaults.standard.object(forKey: "hardMode") as AnyObject?)?.boolValue ?? true
+    static var useCanBeUsedWith = true
+    static var doubleDoorClickChangesRoom = true
+    static var showVerbWheelActionNames = false
 }

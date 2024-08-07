@@ -78,8 +78,7 @@ class Room {
     }
     
     private func addObjects() {
-                        
-        
+                                
         details?.objects.forEach { object in
             
             if let objectType = NSClassFromString(safeClassName(object.objectClass)) as? Object.Type {
@@ -103,7 +102,7 @@ class Room {
     }
     
     private func loadDetails(){
-        details = RoomDetails.load(path: "res://assets/part3/JunkShop/JunkShop.json")
+        details = RoomDetails.loadCached(path: "res://assets/part3/JunkShop/JunkShop.json")
     }
         
     private func addWalkPath(){            

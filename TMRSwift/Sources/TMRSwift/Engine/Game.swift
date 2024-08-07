@@ -30,6 +30,17 @@ func safeClassName(_ name:String) -> String {
     return module + "." + name.components(separatedBy: ".").last!.components(separatedBy: ":").first!
 }
 
+func ScriptSay(_ text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil){
+    Script{
+        Say(text, expression: expression, armsExpression:armsExpression)
+    }
+}
+
+func ScriptSay(random:[String]){
+    Script{
+        Say(random:random)
+    }
+}
 
 #if os(Linux)
 // Code specific to Linux

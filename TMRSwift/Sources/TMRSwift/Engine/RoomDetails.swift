@@ -40,9 +40,15 @@ struct RoomDetails : Codable {
     let lights:[LightDetails]
     let walkBoxes:[String]
     
+    
+    static func loadCached(path: String) -> RoomDetails {
+        Cache.shared.cache(key: "roomDetails-\(path)", {
+            RoomDetails.load(path: path)!
+        })
+    }
+    
     static func load(path: String) -> RoomDetails? {
         let json = FileAccess.getFileAsString(path: path)
-            
         do {
             let details = try JSONDecoder().decode(RoomDetails.self, from: json.data(using: .utf8)!)
             //GD.print(details)
@@ -54,4 +60,8 @@ struct RoomDetails : Codable {
         }
     }
     
+    func detailsFor(_ object:Object) -> ObjectDetails?{
+        let className = String(String("\(object)".split(separator: ".").last!).split(separator: ":").first!)
+        return (objects).first { $0.objectClass == className }
+    }
 }

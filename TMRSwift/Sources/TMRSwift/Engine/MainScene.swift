@@ -25,7 +25,7 @@ class MainScene : Node2D {
         addChild(node: verbWheel.node)
         addChild(node: inventoryUI.node)
         
-        inventoryUI.close()
+        inventoryUI.hide()
                 
         //getWindow()?.size = getWindow()!.size * Int(Game.shared.scale)
         onViewPortChanged() //Reposition hud
@@ -94,7 +94,7 @@ class MainScene : Node2D {
     }
     
     private func onLongPress(at position:Vector2){
-        if Game.shared.touchLocked { return }
+        guard !Game.shared.touchLocked else { return }
         
         //inventoryUI.onLongPressed(at: position)
         
@@ -102,19 +102,27 @@ class MainScene : Node2D {
             return
         }
         verbWheel.show(at: position, for:object)
-        scanner.stop()
+        //scanner.stop()
     }
     
     private func onTouched(at position:Vector2){
+        guard !Game.shared.touchLocked else { return }
+        
         if verbWheel.onTouched(at: position)  { return }
-        if inventoryUI.onTouched(at: position) { return }
+        if inventoryUI.onTouched(at: position, roomObject:object(at: getLocalMousePosition())) { return }
         
         walk(to: getLocalMousePosition())
     }
     
     private func onMouseMoved(at position:Vector2) {
+        guard !Game.shared.touchLocked else { return }
+        
+        let object = object(at: getLocalMousePosition())
+                            
         if verbWheel.onMouseMoved(at: position) { return }
-        scanner.onMouseMoved(at: getLocalMousePosition(), object: object(at: getLocalMousePosition()))
+        if inventoryUI.onMouseMoved(at: position, roomObject:object) { return }
+        
+        scanner.onMouseMoved(at: getLocalMousePosition(), object: object)
     }
     
     private func object(at position: Vector2) -> Object? {
