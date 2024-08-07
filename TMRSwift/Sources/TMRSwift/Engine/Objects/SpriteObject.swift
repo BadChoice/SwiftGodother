@@ -3,7 +3,7 @@ import SwiftGodot
 class SpriteObject : Object {
     var node:Sprite2D?
     
-    required init(_ details: ObjectDetails) {
+    required init(_ details: ObjectDetails? = nil) {
         super.init(details)
     }
     

@@ -8,7 +8,7 @@ class ShapeObject: Object {
         return Vector2(stringLiteral: size)
     }
     
-    required override init(_ details: ObjectDetails) {
+    required override init(_ details: ObjectDetails? = nil) {
         super.init(details)
                             
         node.color = .yellow

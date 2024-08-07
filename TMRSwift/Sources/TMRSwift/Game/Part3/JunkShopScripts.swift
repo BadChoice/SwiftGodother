@@ -2,15 +2,37 @@ import Foundation
 
 
 extension AncientCube {
-    var inventoryImage: String { "todo" }
+    static var isCompleted : Bool {
+        Self.hasYouthWater && Self.hasZombiePart
+    }
+    
+    var inventoryImage: String {
+        if Self.isCompleted   { return "AncientCubeCompleted"}
+        if Self.hasYouthWater { return "AncientCubeWithWater" }
+        if Self.hasZombiePart { return "AncientCube" }
+        return "AncientCube"
+    }
 }
 
 extension WalkieTalkies {
-    var inventoryImage: String { "todo" }
+    var inventoryImage: String {
+        if Self.placedAtPizza || Self.placedAtMassage { return "WalkieTalkie" }
+        return "WalkieTalkies"
+    }
 }
 
 extension GasTube {
-    var inventoryImage: String { "todo" }
+    override var name: String {
+        if Self.hasYouthWater {return "gas tank with youth water" }
+        if Self.placedAtCave { return "gas tank" }
+        return "gas tank with a tube"
+    }
+    
+    var inventoryImage: String {
+        if Self.hasYouthWater {return "GasTubeWithYouthWater" }
+        if Self.placedAtCave { return "GasTubeWithoutTube" }
+        return "GasTube"
+    }
     
     override func onLookedAt() {
         Script {

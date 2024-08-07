@@ -7,7 +7,10 @@ class GDAction {
     
     //move by delta:Vector duration
     //move by deltaX deltaY duration
-    //move to location duration
+    
+    static func move(to position:Vector2, duration:Double) -> GDActionMoveTo {
+        GDActionMoveTo(to: position, duration: duration)
+    }
     //moveTo x duration
     //moveTo y duration
     //rotate by angle radians duration

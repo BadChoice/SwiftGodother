@@ -6,7 +6,7 @@ class MainScene : Node2D {
     
     var room:Room!
     var scanner:ScreenScanner!
-    var inventory:Inventory!
+    var inventoryUI:InventoryUI!
     var verbWheel:VerbWheel!
     var pressedAt:Date? = nil
     
@@ -23,9 +23,9 @@ class MainScene : Node2D {
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
-        addChild(node: inventory.node)
+        addChild(node: inventoryUI.node)
         
-        inventory.close()
+        inventoryUI.close()
                 
         //getWindow()?.size = getWindow()!.size * Int(Game.shared.scale)
         onViewPortChanged() //Reposition hud
@@ -46,13 +46,18 @@ class MainScene : Node2D {
         Game.shared.scale = min(2, DisplayServer.screenGetScale())
         Game.shared.scene = self
         scanner = ScreenScanner()
-        inventory = Inventory()
+        inventoryUI = InventoryUI()
         verbWheel = VerbWheel()
         Game.shared.talkEngine = TalkEngine()
+        
+        
+        inventory.pickup(GasTube())
+        inventory.pickup(WalkieTalkies())
+        inventory.pickup(AncientCube())
     }
     
     public func onViewPortChanged(){
-        inventory.reposition(room: room)
+        inventoryUI.reposition(room: room)
     }
 
     //MARK: - Touch
@@ -91,7 +96,7 @@ class MainScene : Node2D {
     private func onLongPress(at position:Vector2){
         if Game.shared.touchLocked { return }
         
-        //inventory.onLongPressed(at: position)
+        //inventoryUI.onLongPressed(at: position)
         
         guard let object = object(at: position) else {
             return
@@ -102,7 +107,7 @@ class MainScene : Node2D {
     
     private func onTouched(at position:Vector2){
         if verbWheel.onTouched(at: position)  { return }
-        if inventory.onTouched(at: position) { return }
+        if inventoryUI.onTouched(at: position) { return }
         
         walk(to: getLocalMousePosition())
     }

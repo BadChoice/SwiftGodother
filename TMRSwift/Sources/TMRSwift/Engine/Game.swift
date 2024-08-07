@@ -16,6 +16,10 @@ class Game  {
 }
 
 
+var inventory: Inventory {
+    Game.shared.scene.inventoryUI.inventory
+}
+
 /** Tihs will handle the translations*/
 func __(_ key:String) -> String {
     key

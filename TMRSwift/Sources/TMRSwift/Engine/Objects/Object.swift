@@ -5,7 +5,7 @@ class Object : ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
-    var name:String { details.name }
+    @objc dynamic var name:String { details.name }
     
     var position:Vector2 {
         //SketchApp.shared.screenSize
@@ -19,7 +19,7 @@ class Object : ProvidesState {
     
     var facing:Facing { details.facing }
     
-    required init(_ details:ObjectDetails){
+    required init(_ details:ObjectDetails? = nil){
         self.details = details
     }
     
