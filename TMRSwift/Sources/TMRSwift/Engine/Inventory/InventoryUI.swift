@@ -63,7 +63,6 @@ class InventoryUI {
         usingObjectSprite?.zIndex = Constants.inventory_zIndex
         usingObjectSprite!.position = usingObjectSprite!.position - (Vector2(x: 40, y: 60) * Game.shared.scale)
         inventoryBag.getParent()?.addChild(node: usingObjectSprite)
-        GD.print("Inventory object pressed:", object.object.name)
         addBannedIcon()
     }
     
@@ -102,7 +101,9 @@ class InventoryUI {
     func onMouseMoved(at position:Vector2, roomObject:Object?) -> Bool {
         guard let objectSprite = usingObjectSprite else {
             if isOpen {
-                Game.shared.scene.scanner.show(object: object(at: position)?.object, at: position)
+                let object = object(at: position)
+                object?.sprite.shake()
+                Game.shared.scene.scanner.show(object: object?.object, at: position)
                 return true
             }
             return false

@@ -12,15 +12,14 @@ class GDActionMoveTo : GDAction {
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
         let tween = node.createTween()
-                
+                        
         tween?.tweenProperty(
             object: node,
             property: "position",
             finalVal: Variant(to),
             duration: duration
         )?.setEase(Tween.EaseType.inOut)
-                
-        
+                        
         tween?.finished.connect {
             completion?()
         }

@@ -7,18 +7,10 @@ struct ScreenScanner {
     
     init(){
         label = Label()
-        
-        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)" )  {
-            let settings = LabelSettings()
-            settings.font = font
-            settings.fontSize = Constants.fontSize * Int32(Game.shared.scale)
-            settings.outlineColor = .black
-            settings.outlineSize = Constants.fontOutlineSize * Int32(Game.shared.scale)
-            label.horizontalAlignment = .center
-            label.labelSettings = settings
-            label.text = ""
-            label.zIndex = Constants.scanner_zIndex
-        }
+        label.horizontalAlignment = .center
+        label.labelSettings = Label.settings()
+        label.text = ""
+        label.zIndex = Constants.scanner_zIndex    
     }
     
     func onMouseMoved(at position:Vector2, object:Object?) -> Bool {

@@ -109,7 +109,7 @@ class MainScene : Node2D {
             return
         }
         verbWheel.show(at: position, for:object)
-        //scanner.stop()
+        scanner.show(text: "", at: position)
     }
     
     private func onTouched(at position:Vector2){

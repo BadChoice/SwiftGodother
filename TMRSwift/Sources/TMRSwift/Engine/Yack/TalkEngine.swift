@@ -195,16 +195,9 @@ class TalkEngine {
     
     private func setupLabel() -> Label{
         let label = Label()
-        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)")  {
-            let settings = LabelSettings()
-            settings.font = font
-            settings.fontSize = Constants.fontSize * Int32(Game.shared.scale)
-            settings.outlineColor = .black
-            settings.outlineSize = Constants.fontOutlineSize * Int32(Game.shared.scale)
-            label.horizontalAlignment = .center
-            label.labelSettings = settings
-            label.zIndex = Constants.talk_zIndex
-        }
+        label.horizontalAlignment = .center
+        label.labelSettings = Label.settings()
+        label.zIndex = Constants.talk_zIndex
         return label
     }
 }

@@ -26,7 +26,7 @@ class VerbWheel {
         hack.position = Vector2(x: 185, y: -30) * Game.shared.scale
         
         makeLabel()
-        label.setPosition(Vector2(x:0, y: -280) * Game.shared.scale)
+        label.setPosition(Vector2(x:0, y: -300) * Game.shared.scale)
         label.text = "--"
         
         
@@ -49,29 +49,29 @@ class VerbWheel {
         verbs.forEach { $0.globalScale = .one }
         node.show()
         node.position = position
-        label.text = __(object.name)
+        
         self.object = object
         
-        node.globalScale = .zero
+        label.text = __(object.name)
+        label.offsetLeft = Double(-label.getSize().x / 2)
+        
+        node.scale = .zero
         node.run(.scale(to: 1, duration: 0.1))
+        
     }
     
     func onTouched(at position:Vector2, shouldHide:Bool = true) -> Bool {
-        if isOpen {
-            let localPosition = node.toLocal(globalPoint: position)
-            if let verb = verbs.first (where: {
-                return $0.rectInParent().hasPoint(localPosition)
-            }){
-                doVerb(verb)
-            }
-            
-            if shouldHide {
-                hide()
-            }
-            
-            return true
+        guard isOpen else { return false }
+        
+        let localPosition = node.toLocal(globalPoint: position)
+        if let verb = (verbs.first { $0.rectInParent().hasPoint(localPosition)}) {
+            doVerb(verb)
         }
-        return false
+        
+        if shouldHide {
+            hide()
+        }
+        return true
     }
     
     private func hide(){
@@ -108,15 +108,8 @@ class VerbWheel {
     }
     
     private func makeLabel(){
-        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)")  {
-            let settings = LabelSettings()
-            settings.font = font
-            settings.fontSize = Constants.fontSize * Int32(Game.shared.scale)
-            settings.outlineSize = Constants.fontOutlineSize * Int32(Game.shared.scale)
-            settings.outlineColor = .black
-            label.labelSettings = settings
-            label.horizontalAlignment = .center
-        }
+        label.labelSettings = Label.settings()
+        label.horizontalAlignment = .center
     }
 
 }
