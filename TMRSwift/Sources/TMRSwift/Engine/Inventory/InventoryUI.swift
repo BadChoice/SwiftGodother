@@ -64,7 +64,20 @@ class InventoryUI {
         usingObjectSprite!.position = usingObjectSprite!.position - (Vector2(x: 40, y: 60) * Game.shared.scale)
         inventoryBag.getParent()?.addChild(node: usingObjectSprite)
         GD.print("Inventory object pressed:", object.object.name)
+        addBannedIcon()
     }
+    
+    func addBannedIcon(){
+        bannedIcon.removeFromParent()
+        bannedIcon.zIndex = 1
+        bannedIcon.position = Vector2(
+            x: usingObjectSprite!.getRect().size.x/2 - 30 * Float(Game.shared.scale),
+            y: usingObjectSprite!.getRect().size.y/2 + 30 * Float(Game.shared.scale)
+        )
+        bannedIcon.hide()
+        usingObjectSprite?.addChild(node: bannedIcon)
+    }
+    
     
     private func deselect(){
         Sound.play(once: "item_put")
@@ -105,9 +118,10 @@ class InventoryUI {
             let text = __("Use {object1} with {object2}")
                 .replacingOccurrences(of: "{object1}", with:__(usingObject!.object.name))
                 .replacingOccurrences(of: "{object2}", with:__(useWith.name))
-            
+            bannedIcon.hide()
             Game.shared.scene.scanner.show(text: text, at: position)
         }else{
+            bannedIcon.show()
             Game.shared.scene.scanner.show(text: "", at: position)
         }
         
