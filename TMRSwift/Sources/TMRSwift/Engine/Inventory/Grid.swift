@@ -20,9 +20,9 @@ class Grid  {
         var i:Float        = 0
         var j:Float        = 0
         let initialX:Float = Float(-320 * Game.shared.scale)
-        let initialY:Float = Float(180 * Game.shared.scale)
+        let initialY:Float = Float(-190 * Game.shared.scale)
         let xSpacing:Float = Float(200 * Game.shared.scale)
-        let ySpacing:Float = Float(200 * Game.shared.scale)
+        let ySpacing:Float = Float(-200 * Game.shared.scale)
         
         node.removeAllChildren()
         

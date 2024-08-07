@@ -71,8 +71,8 @@ class InventoryUI {
         bannedIcon.removeFromParent()
         bannedIcon.zIndex = 1
         bannedIcon.position = Vector2(
-            x: usingObjectSprite!.getRect().size.x/2 - 30 * Float(Game.shared.scale),
-            y: usingObjectSprite!.getRect().size.y/2 + 30 * Float(Game.shared.scale)
+            x: usingObjectSprite!.getRect().size.x/2  - (20 * Float(Game.shared.scale)),
+            y: -usingObjectSprite!.getRect().size.y/2 + (20 * Float(Game.shared.scale))
         )
         bannedIcon.hide()
         usingObjectSprite?.addChild(node: bannedIcon)

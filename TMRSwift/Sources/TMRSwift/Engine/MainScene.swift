@@ -54,6 +54,7 @@ class MainScene : Node2D {
         inventory.pickup(GasTube())
         inventory.pickup(WalkieTalkies())
         inventory.pickup(AncientCube())
+        inventory.pickup(GasTube())
     }
     
     public func onViewPortChanged(){
@@ -63,6 +64,12 @@ class MainScene : Node2D {
     //MARK: - Touch
     override func _input(event: InputEvent) {
         if Game.shared.touchLocked { return }
+        
+        if let mouseEvent = event as? InputEventMouseButton, event.isPressed(), mouseEvent.buttonIndex == .right {
+            inventoryUI.toggle()
+            return
+        }
+        
         if let mouseEvent = event as? InputEventMouseButton, event.isPressed(){
             pressedAt = Date()
         }
