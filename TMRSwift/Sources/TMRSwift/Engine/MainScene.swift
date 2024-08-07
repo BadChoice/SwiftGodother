@@ -102,10 +102,8 @@ class MainScene : Node2D {
     
     private func onLongPress(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
-        
-        //inventoryUI.onLongPressed(at: position)
-        
-        guard let object = object(at: position) else {
+                
+        guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position)?.object : object(at: position) else {
             return
         }
         verbWheel.show(at: position, for:object)
