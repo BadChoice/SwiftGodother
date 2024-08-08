@@ -8,8 +8,8 @@ class MainScene : Node2D {
     var scanner:ScreenScanner!
     var inventoryUI:InventoryUI!
     var verbWheel:VerbWheel!
+    var cursor:Cursor!
     var pressedAt:Date? = nil
-    let cursor = Cursor()
     
     //MARK: - Setup
     override func _ready() {
@@ -50,6 +50,7 @@ class MainScene : Node2D {
         scanner = ScreenScanner()
         inventoryUI = InventoryUI()
         verbWheel = VerbWheel()
+        cursor = Cursor()
         Game.shared.talkEngine = TalkEngine()
         
         
@@ -122,7 +123,7 @@ class MainScene : Node2D {
     }
     
     private func onMouseMoved(at position:Vector2) {
-        cursor.node.position = position
+        cursor.onMouseMoved(at: position)
         guard !Game.shared.touchLocked else { return }
         
         let object = object(at: getLocalMousePosition())
