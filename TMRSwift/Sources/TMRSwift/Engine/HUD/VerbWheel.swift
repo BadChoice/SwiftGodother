@@ -42,7 +42,8 @@ class VerbWheel {
     }
     
     var isOpen : Bool {
-        node.scale.x == 1
+        object != nil
+        //node.scale.x == 1
     }
     
     func show(at position:Vector2, for object:Object){
