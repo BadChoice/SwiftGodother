@@ -188,7 +188,7 @@ class TalkEngine {
         background?.removeFromParent()
         talkable.animate(nil)
         actor = nil
-        //label = nil
+        label = nil
         then?()
         //then = nil
     }

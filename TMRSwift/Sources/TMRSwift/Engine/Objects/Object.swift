@@ -6,6 +6,7 @@ class Object : NSObject, ProvidesState {
     var details:ObjectDetails!
     var json: String { "" }
     @objc dynamic var name:String { details.name }
+    @objc dynamic var zIndex:Int32 { Int32(details.zPos) }
     
     var position:Vector2 {
         SketchApp.shared.point(Vector2(stringLiteral: details.position!))
@@ -88,7 +89,7 @@ class Object : NSObject, ProvidesState {
         guard shouldBeAddedToRoom() else { return }
         guard let node = getNode() else { return }
         
-        node.zIndex = Int32(details.zPos)
+        node.zIndex = zIndex
         room.node.addChild(node: node)
     }
     

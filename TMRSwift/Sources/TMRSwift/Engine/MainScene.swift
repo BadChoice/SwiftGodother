@@ -66,6 +66,7 @@ class MainScene : Node2D {
                 
         if let mouseMove = event as? InputEventMouseMotion {
             onMouseMoved(at: getLocalMousePosition())
+            return
         }
         
         if let keyInput = event as? InputEventKey, keyInput.keycode == .period, keyInput.isReleased() { //Period
@@ -73,7 +74,9 @@ class MainScene : Node2D {
             return
         }
         
-        if Game.shared.touchLocked { return }
+        if Game.shared.touchLocked {
+            return
+        }
         
         if let mouseEvent = event as? InputEventMouseButton, event.isPressed(), mouseEvent.buttonIndex == .right {
             inventoryUI.toggle()

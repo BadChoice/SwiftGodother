@@ -1,4 +1,4 @@
-import Foundation
+import SwiftGodot
 
 class Game  {
     static let shared:Game = Game()
