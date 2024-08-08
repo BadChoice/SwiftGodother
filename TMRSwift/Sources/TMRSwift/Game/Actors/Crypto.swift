@@ -36,18 +36,23 @@ class Crypto : Player {
     
     override func face(_ facing: Facing) {
         self.facing = facing
-        
-        switch facing {
-        case .left, .backLeft, .frontLeft: node.globalScale = Vector2(x: -1, y: 1)
-        default: node.globalScale = Vector2(x: 1, y: 1)
-        }
-        
-        
+                
         if walk?.walkingTo != nil {
             node.play(name: "walk")
         }else{
             node.play(name: "idle")
         }
+    }
+    
+    private func getFacingScale() -> Vector2 {
+        switch facing {
+        case .left, .backLeft, .frontLeft: Vector2(x: -1, y: 1)
+        default: Vector2(x: 1, y: 1)
+        }
+    }
+    
+    override func setAwayScale(_ scale: Float) {
+        node.scale = Vector2(x: scale, y:scale) * getFacingScale()
     }
     
     override func stopWalk() {

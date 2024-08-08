@@ -6,7 +6,7 @@ class Player : Talks {
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }
     var talkPosition: SwiftGodot.Vector2 {
-        node.position + Vector2(x:0, y: node.offset.y * 2) - Vector2(x:0, y:50 * Float(Game.shared.scale))
+        node.position + Vector2(x:0, y: node.offset.y * 2 * node.scale.y) - Vector2(x:0, y:50 * Float(Game.shared.scale))
     }
     var voiceType: VoiceType { .male }
     
@@ -26,6 +26,10 @@ class Player : Talks {
     public func face(_ facing:Facing){
         self.facing = facing
         node.play(name: "\(facing)")
+    }
+    
+    public func setAwayScale(_ scale:Float){
+        node.scale = Vector2(x: scale, y:scale)
     }
     
     init() {

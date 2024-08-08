@@ -2,15 +2,18 @@ import SwiftGodot
 
 class Walkbox {
     
-    let frontScale:Float = 0.8
-    let backScale:Float = 0.1
+    let frontScale:Float
+    let backScale:Float
+    
     let footsteps:Footsteps = .concrete
     
     let node = Line2D()
     var points:[Vector2]
     let polygon:Polygon
     
-    init(points:String){
+    init(points:String, frontScale:Float, backScale:Float){
+        self.frontScale = frontScale
+        self.backScale = backScale
         let values = points.components(separatedBy: " ")
         self.points = values.chunked(into: 2).map {
             (Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:712, y:512)) * Game.shared.scale

@@ -39,6 +39,8 @@ struct RoomDetails : Codable {
     let doors:[DoorDetails]
     let lights:[LightDetails]
     let walkBoxes:[String]
+    let frontZScale:Float
+    let backZScale:Float
     
     
     static func loadCached(path: String) -> RoomDetails {

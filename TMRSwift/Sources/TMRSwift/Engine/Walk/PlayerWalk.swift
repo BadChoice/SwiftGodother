@@ -52,7 +52,7 @@ class PlayerWalk {
         
         player.node.position = Vector2(x:player.node.position.x + nextPoint.x, y:player.node.position.y + nextPoint.y)
         
-        player.node.scale = Vector2(x: awayFactor, y:awayFactor)
+        player.setAwayScale(awayFactor)
         
         //notifyObjects()
         

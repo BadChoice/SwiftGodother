@@ -105,8 +105,13 @@ class Room {
         details = RoomDetails.loadCached(path: "res://assets/part3/JunkShop/JunkShop.json")
     }
         
-    private func addWalkPath(){            
-        walkbox = Walkbox(points: details.walkBoxes.first!)
+    private func addWalkPath(){        
+        walkbox = Walkbox(
+            points: details.walkBoxes.first!,
+            frontScale: details.frontZScale,
+            backScale: details.backZScale
+        )
+        
         if Constants.debug {
             addChild(node: walkbox.node)
         }

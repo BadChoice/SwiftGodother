@@ -75,7 +75,7 @@ class VerbWheel {
             doVerb(verb)
         }
         
-        if shouldHide {
+        if shouldHide || verb != nil {
             hide()
         }
         return true
