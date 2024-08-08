@@ -9,6 +9,7 @@ class MainScene : Node2D {
     var inventoryUI:InventoryUI!
     var verbWheel:VerbWheel!
     var pressedAt:Date? = nil
+    let cursor = Cursor()
     
     //MARK: - Setup
     override func _ready() {
@@ -24,6 +25,7 @@ class MainScene : Node2D {
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
         addChild(node: inventoryUI.node)
+        addChild(node: cursor.node)
         
         inventoryUI.hide()
                 
@@ -120,6 +122,7 @@ class MainScene : Node2D {
     }
     
     private func onMouseMoved(at position:Vector2) {
+        cursor.node.position = position
         guard !Game.shared.touchLocked else { return }
         
         let object = object(at: getLocalMousePosition())

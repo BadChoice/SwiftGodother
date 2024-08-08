@@ -30,6 +30,7 @@ class InventoryUI {
     }
     
     func onTouched(at position:Vector2, roomObject:Object?) -> Bool {
+        let localPosition = inventoryBag.toLocal(globalPoint: position)
         if let usingObject {
             useInventory(at: position, roomObject:roomObject)
             return true
@@ -41,7 +42,7 @@ class InventoryUI {
                 return true
             }
             
-            if let object = object(at: position) {
+            if let object = object(at: localPosition) {
                 selectObject(object)
             }
             
@@ -61,7 +62,7 @@ class InventoryUI {
         usingObject = object
         usingObjectSprite = object.sprite.duplicate() as! Sprite2D
         usingObjectSprite?.zIndex = Constants.inventory_zIndex
-        usingObjectSprite!.position = usingObjectSprite!.position - (Vector2(x: 40, y: 60) * Game.shared.scale)
+        usingObjectSprite!.position = inventoryBag.toGlobal(localPoint: usingObjectSprite!.position) - (Vector2(x: 40, y: 60) * Game.shared.scale)
         inventoryBag.getParent()?.addChild(node: usingObjectSprite)
         addBannedIcon()
     }
@@ -99,9 +100,10 @@ class InventoryUI {
     }
     
     func onMouseMoved(at position:Vector2, roomObject:Object?) -> Bool {
+        let localPosition = inventoryBag.toLocal(globalPoint: position)
         guard let objectSprite = usingObjectSprite else {
             if isOpen {
-                let object = object(at: position)
+                let object = object(at: localPosition)
                 object?.sprite.shake()
                 Game.shared.scene.scanner.show(object: object?.object, at: position)
                 return true

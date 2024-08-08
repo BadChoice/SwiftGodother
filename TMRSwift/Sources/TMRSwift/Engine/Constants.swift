@@ -11,6 +11,7 @@ struct Constants {
     static let scanner_zIndex:Int32     = 250
     static let verbwheel_zIndex:Int32   = 251
     static let talk_zIndex:Int32        = 300
+    static let cursor_zIndex:Int32      = 5000
     
     //MARK: - WALK
     static var walkSpeed:Float       = 800
