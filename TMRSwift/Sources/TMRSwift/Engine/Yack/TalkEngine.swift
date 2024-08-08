@@ -3,8 +3,8 @@ import SwiftGodot
 protocol Talks {
     var talkColor:Color { get }
     var talkPosition:Vector2 { get }
-    var voices:[String:(String, Double)]? { get }
-    var voiceType:VoiceType { get }
+    //var voices:[String:(String, Double)]? { get }
+    //var voiceType:VoiceType { get }
     
     func animate(_ animation:String?)
     func setExpression(_ expression:Expression?)
@@ -36,7 +36,7 @@ class TalkEngine {
     //var voiceOver = VoiceOverTextToSpeach()
 
     var talkable:Talks {
-        (actor ?? Game.shared.room.player)
+        (actor ?? Game.shared.room.actor)
     }
     
     func say(scene:MainScene, actor:Talks?, text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil, then:@escaping()->Void) {

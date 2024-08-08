@@ -16,11 +16,11 @@ class MainScene : Node2D {
                 
         initialize()
         
-        room = JunkShop()
+        room = ArcadeEntrance()
         addChild(node: room.node)
         Game.shared.room = room
         room._ready()
-        Game.shared.player = room.player
+        Game.shared.actor = room.actor
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
@@ -94,7 +94,7 @@ class MainScene : Node2D {
     
     override func _process(delta: Double) {
         onViewPortChanged()
-        Game.shared.player?._process(delta: delta)
+        Game.shared.actor?._process(delta: delta)
         
         if Game.shared.touchLocked { return }
         if pressedAt != nil && -pressedAt!.timeIntervalSinceNow > Constants.longPressMinTime {
@@ -141,8 +141,8 @@ class MainScene : Node2D {
     
     //MARK: - Walk
     private func walk(to destination:Vector2) {
-        if let path = room.walkbox.calculatePath(from: room.player.node.position, to: destination) {
-            room.player.walk(path: path, walkbox: room.walkbox)
+        if let path = room.walkbox.calculatePath(from: room.actor.node.position, to: destination) {
+            room.actor.walk(path: path, walkbox: room.walkbox)
             
             if Constants.debug {
                 let pathNode = Line2D()

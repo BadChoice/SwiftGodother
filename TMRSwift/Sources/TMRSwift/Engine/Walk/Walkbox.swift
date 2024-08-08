@@ -48,8 +48,8 @@ class Walkbox {
     // Away scale factor
     public func getAwayScaleForActorAt(point:Vector2) -> Float {
         let screenHeight:Float = 1024
-        let factor = (point.y + screenHeight/2) / screenHeight
-        return valueBetween(min: backScale, max: frontScale, factor: factor)
+        let factor = (screenHeight/2 + point.y) / screenHeight
+        return valueBetween(min: backScale, max: frontScale, factor: factor) / 1.5
     }
     
     func valueBetween(min:Float, max:Float, factor:Float) -> Float {

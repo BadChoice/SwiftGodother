@@ -1,6 +1,6 @@
 import SwiftGodot
 
-class Crypto : Player {
+class Crypto : Actor {
  
     var tp:TexturePacker!
     

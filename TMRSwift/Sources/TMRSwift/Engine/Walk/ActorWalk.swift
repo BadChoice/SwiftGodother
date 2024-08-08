@@ -1,26 +1,26 @@
 import Foundation
 import SwiftGodot
 
-class PlayerWalk {
+class ActorWalk {
     
     var path:[Vector2]
-    let player:Player
+    let actor:Actor
     var walkingTo:Vector2?
     let walkbox:Walkbox
     var walkingToSpeedFactor = Vector2(x: 1, y: 1)
     var walkCompletion:(()->Void)?
     var fastWalk:Bool = false
     
-    init(path:[Vector2], player:Player, walkbox:Walkbox){
+    init(path:[Vector2], actor:Actor, walkbox:Walkbox){
         self.path = path.reversed()
-        self.player = player
+        self.actor = actor
         self.walkbox = walkbox
     }
     
     public func walk(then:(()->Void)? = nil){
         
-        if let to = path.first, player.node.position.near(to) {
-            player.node.position = to
+        if let to = path.first, actor.node.position.near(to) {
+            actor.node.position = to
             then?()
             return
         }
@@ -29,12 +29,12 @@ class PlayerWalk {
         
         walkCompletion = then
         walkTo(position: self.path.popLast())
-        player.playFootsteps()
+        actor.playFootsteps()
     }
     
     private func walkTo(position:Vector2?){
         walkingTo = position
-        calculateMediaVelocity(from: player.node.position, to: position)
+        calculateMediaVelocity(from: actor.node.position, to: position)
     }
     
     public func checkIfFastWalk(newDestination:Vector2?) -> Bool {
@@ -50,25 +50,25 @@ class PlayerWalk {
     public func update(delta:Float) {
         guard let walkingTo else { return }
         
-        let awayFactor = walkbox.getAwayScaleForActorAt(point: player.node.position)
+        let awayFactor = walkbox.getAwayScaleForActorAt(point: actor.node.position)
         
         let walkSpeed:Float = getWalkSpeed(awayFactor:awayFactor)
         
         let nextPoint = Vector2(
-            x: player.node.position.x.near(walkingTo.x) ? 0 : (((walkingTo.x > player.node.position.x) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.x),
-            y: player.node.position.y.near(walkingTo.y) ? 0 : (((walkingTo.y > player.node.position.y) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.y)
+            x: actor.node.position.x.near(walkingTo.x) ? 0 : (((walkingTo.x > actor.node.position.x) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.x),
+            y: actor.node.position.y.near(walkingTo.y) ? 0 : (((walkingTo.y > actor.node.position.y) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.y)
         )
         
-        player.face(detectDirection(nextPoint: nextPoint))
+        actor.face(detectDirection(nextPoint: nextPoint))
         
-        player.node.position = Vector2(x:player.node.position.x + nextPoint.x, y:player.node.position.y + nextPoint.y)
+        actor.node.position = Vector2(x:actor.node.position.x + nextPoint.x, y:actor.node.position.y + nextPoint.y)
         
-        player.setAwayScale(awayFactor)
+        actor.setAwayScale(awayFactor)
         
         //notifyObjects()
         
         
-        if player.node.position.near(walkingTo, treshold:15 /*treshold: fastWalk ? 20 : 15*/) {
+        if actor.node.position.near(walkingTo, treshold: (fastWalk ? 20 : 15) * Float(Game.shared.scale)) {
             walkTo(position: path.popLast())
         }
         
@@ -78,8 +78,8 @@ class PlayerWalk {
     }
 
     private func stopWalk(finalPosition:Vector2){
-        player.node.position = finalPosition
-        player.stopWalk()
+        actor.node.position = finalPosition
+        actor.stopWalk()
         walkCompletion?()
         walkCompletion = nil
     }

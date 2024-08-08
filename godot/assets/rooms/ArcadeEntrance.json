@@ -1,0 +1,297 @@
+{
+  "actor" : "Transparent",
+  "backZScale" : 0.20000000000000001,
+  "name" : "ArcadeEntrance",
+  "lights" : [
+
+  ],
+  "music" : "part1",
+  "foreground" : "arcade-entrance-fg",
+  "walkBoxes" : [
+    "971.44 749.37 730.59 736.36 703.75 829.21 592.90 857.56 473.02 820.20 186.67 1001.72 1405.08 1010.19 1205.48 866.13 1156.85 900.23 1078.49 912.72 970.09 893.48 942.09 835.46"
+  ],
+  "actorZPos" : 2,
+  "background" : "arcade-entrance-bg",
+  "ambienceSound" : "amb_palace_entrance",
+  "objects" : [
+    {
+      "image" : "van-front",
+      "zPos" : 0,
+      "hotspot" : "405.93 937.56",
+      "reach" : "normal",
+      "subImages" : [
+
+      ],
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "VanFront",
+      "facing" : "front",
+      "position" : "46.87 168.06",
+      "name" : "VanFront"
+    },
+    {
+      "name" : "Car oil",
+      "hotspot" : "528.44 888.00",
+      "objectClass" : "CarOil",
+      "zPos" : 0,
+      "verbOverrides" : {
+        "talk" : "Drink"
+      },
+      "image" : "Car-oil",
+      "reach" : "low",
+      "subImages" : [
+
+      ],
+      "position" : "242.79 827.27",
+      "facing" : "left"
+    },
+    {
+      "facing" : "left",
+      "reach" : "normal",
+      "objectClass" : "MultiUseKnife",
+      "name" : "Multi use knife",
+      "hotspot" : "481.99 845.81",
+      "subImages" : [
+
+      ],
+      "position" : "240.30 420.20",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "image" : "multiuse-knife"
+    },
+    {
+      "objectClass" : "BowlingBall",
+      "zPos" : 0,
+      "reach" : "normal",
+      "facing" : "left",
+      "subImages" : [
+
+      ],
+      "hotspot" : "294.26 971.68",
+      "name" : "Bowling ball",
+      "verbOverrides" : {
+
+      },
+      "image" : "bowling-ball",
+      "position" : "-116.72 551.44"
+    },
+    {
+      "facing" : "right",
+      "image" : "balloon",
+      "zPos" : 0,
+      "hotspot" : "918.69 872.79",
+      "reach" : "up",
+      "subImages" : [
+
+      ],
+      "name" : "Balloon",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "Balloon",
+      "position" : "1044.41 514.27"
+    },
+    {
+      "position" : "-119.09 400.31",
+      "verbOverrides" : {
+
+      },
+      "facing" : "left",
+      "subImages" : [
+
+      ],
+      "polygon" : "58.89 657.48 53.96 552.33 93.72 451.87 217.28 459.33 219.23 528.88 199.86 655.11",
+      "hotspot" : "496.03 886.17",
+      "name" : "Revisor",
+      "image" : "revisor\/revisor",
+      "reach" : "normal",
+      "objectClass" : "Revisor",
+      "zPos" : 1
+    },
+    {
+      "hotspot" : "1052.34 924.54",
+      "image" : "leia\/leia",
+      "name" : "Leia",
+      "subImages" : [
+
+      ],
+      "reach" : "normal",
+      "objectClass" : "MainteinanceGirl",
+      "verbOverrides" : {
+
+      },
+      "facing" : "right",
+      "position" : "1262.75 671.82",
+      "zPos" : 0
+    },
+    {
+      "image" : "ArcadeEntranceCoffeeCup",
+      "name" : "Coffee cup",
+      "hotspot" : "1006.82 910.33",
+      "facing" : "right",
+      "position" : "1170.54 872.94",
+      "verbOverrides" : {
+
+      },
+      "reach" : "up",
+      "objectClass" : "ArcadeEntranceCoffeeCup",
+      "zPos" : 0,
+      "subImages" : [
+
+      ]
+    },
+    {
+      "reach" : "normal",
+      "image" : "TicketBox",
+      "zPos" : 0,
+      "hotspot" : "338.47 941.63",
+      "objectClass" : "TicketsBox",
+      "name" : "Tickets box",
+      "position" : "100.91 652.39",
+      "verbOverrides" : {
+
+      },
+      "facing" : "left",
+      "subImages" : [
+
+      ]
+    },
+    {
+      "position" : "-110.17 449.79",
+      "objectClass" : "TicketsCounterDisplay",
+      "subImages" : [
+
+      ],
+      "zPos" : 0,
+      "hotspot" : "200.00 824.00",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "facing" : "front",
+      "name" : "TicketsCounterDisplay",
+      "image" : "tickets-counter-plain"
+    },
+    {
+      "subImages" : [
+
+      ],
+      "hotspot" : "453.26 859.26",
+      "image" : "EntranceRabbit",
+      "position" : "186.00 299.83",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "facing" : "left",
+      "objectClass" : "Rabbit",
+      "name" : "Rabbit",
+      "reach" : "reallyUp"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "name" : "Minions",
+      "objectClass" : "Minions",
+      "reach" : "reallyUp",
+      "facing" : "left",
+      "size" : "100.00 100.00",
+      "position" : "109.88 361.18",
+      "zPos" : 0,
+      "hotspot" : "451.33 858.13"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "zPos" : 0,
+      "position" : "237.32 674.92",
+      "facing" : "left",
+      "name" : "Tickets sign",
+      "size" : "100.00 100.00",
+      "reach" : "normal",
+      "hotspot" : "474.02 879.44",
+      "objectClass" : "WinTickets"
+    },
+    {
+      "facing" : "left",
+      "verbOverrides" : {
+
+      },
+      "size" : "107.40 176.33",
+      "zPos" : 0,
+      "name" : "Grown ups sign",
+      "reach" : "normal",
+      "objectClass" : "MoreThan18YearsSign",
+      "hotspot" : "496.52 855.87",
+      "position" : "297.52 409.49"
+    },
+    {
+      "position" : "73.08 -117.31",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "hotspot" : "314.85 968.49",
+      "name" : "Lighter",
+      "facing" : "front",
+      "size" : "100.00 100.00",
+      "zPos" : 0,
+      "objectClass" : "Lighter"
+    },
+    {
+      "size" : "100.00 100.00",
+      "reach" : "normal",
+      "name" : "ArcadeNote",
+      "hotspot" : "200.00 824.00",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "ArcadeNote",
+      "facing" : "front",
+      "zPos" : 0,
+      "position" : "191.61 -117.43"
+    },
+    {
+      "facing" : "front",
+      "hotspot" : "273.91 986.90",
+      "size" : "133.89 143.23",
+      "position" : "-158.11 369.39",
+      "verbOverrides" : {
+
+      },
+      "name" : "Tickets counter",
+      "zPos" : 0,
+      "reach" : "normal",
+      "objectClass" : "CountTicketsMachine"
+    }
+  ],
+  "frontZScale" : 1.8,
+  "atlasName" : "Part1",
+  "doors" : [
+    {
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "facing" : "back",
+      "size" : "310.36 496.78",
+      "hotspot" : "805.73 794.74",
+      "position" : "692.39 210.94",
+      "objectClass" : "EntranceToArcadeDoor",
+      "name" : "Arcade",
+      "reach" : "normal",
+      "door" : {
+        "nextRoomEntryPoint" : "979.34 559.21",
+        "nextRoomFacing" : "front",
+        "nextRoom" : "Arcade",
+        "changeRoomSound" : "goto_arcades_from_entrance.mp3",
+        "nextRoomArrowDirection" : "up"
+      }
+    }
+  ]
+}

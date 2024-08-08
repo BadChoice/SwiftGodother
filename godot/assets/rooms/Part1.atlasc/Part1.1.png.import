@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chjk2brx28lmm"
-path="res://.godot/imported/bg@2x.jpg-5285ff8d8e35468bc021d6c4353dd94d.ctex"
+uid="uid://dptxydymm0352"
+path="res://.godot/imported/Part1.1.png-df1c04be3e5cc60cdb096b6afae18501.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/part3/JunkShop/bg@2x.jpg"
-dest_files=["res://.godot/imported/bg@2x.jpg-5285ff8d8e35468bc021d6c4353dd94d.ctex"]
+source_file="res://assets/rooms/Part1.atlasc/Part1.1.png"
+dest_files=["res://.godot/imported/Part1.1.png-df1c04be3e5cc60cdb096b6afae18501.ctex"]
 
 [params]
 

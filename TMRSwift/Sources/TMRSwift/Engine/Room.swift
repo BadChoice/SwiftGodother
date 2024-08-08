@@ -2,10 +2,10 @@ import SwiftGodot
 import Foundation
 
 
-class Room {
+class Room : NSObject, ProvidesState {
         
     var node = Node2D()
-    var player:Player!
+    var actor:Actor!
     var background:Sprite2D!
     var foreground:Sprite2D!
     var bgMusic:AudioStreamPlayer!
@@ -18,23 +18,26 @@ class Room {
     
     var atlas:TexturePacker!
     
+    
+    @objc dynamic var actorType:Actor.Type { Crypto.self }
+    
     func _ready() {
         loadDetails()
         loadAtlas()
         
         addBackgroundAndForeground()
         //addBgMusic()
-        addPlayer()
+        addActor()
         setupCamera()
         addObjects()
         addWalkPath()
     }
     
     
-    private func addPlayer(){
-        player = Crypto()
-        player.node.zIndex = 1
-        addChild(node: player.node)
+    private func addActor(){
+        actor = Crypto()
+        actor.node.zIndex = 1
+        addChild(node: actor.node)
     }
     
     private func setupCamera(){
@@ -48,22 +51,25 @@ class Room {
         camera.limitLeft = -2048
                 
         
-        player.node.addChild(node: camera)
+        actor.node.addChild(node: camera)
     }
     
     private func addBackgroundAndForeground(){
         
-        background = Sprite2D(path: "res://assets/part3/JunkShop/bg.jpg")
+        background = Sprite2D(path: "res://assets/rooms/" + details.background + ".jpg")
         background.zIndex = Constants.background_zIndex
         addChild(node: background)
                 
-        foreground = Sprite2D(path: "res://assets/part3/JunkShop/fg.png")
-        foreground.zIndex = Constants.foreground_zIndex
-        addChild(node: foreground)
+        if let foregroundName = details.foreground {
+            foreground = Sprite2D(path: "res://assets/rooms/" + foregroundName + ".png")
+            foreground.zIndex = Constants.foreground_zIndex
+            addChild(node: foreground)
+        }
     }
     
     private func addBgMusic(){
-        if let bgMusic:AudioStreamMP3 = GD.load(path: "res://assets/music/8bits-final.mp3") {
+        guard let musicName = details.music else { return }
+        if let bgMusic:AudioStreamMP3 = GD.load(path: "res://assets/music/" + musicName + ".mp3") {
             let bgMusicPlayer = AudioStreamPlayer()
             bgMusic.loop = true
             bgMusicPlayer.stream = bgMusic
@@ -73,7 +79,7 @@ class Room {
     }
     
     private func loadAtlas(){
-        atlas = TexturePacker(path: "res://assets/part3/Part3.atlasc", filename:"Part3.plist")
+        atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
         atlas.load()
     }
     
@@ -102,7 +108,8 @@ class Room {
     }
     
     private func loadDetails(){
-        details = RoomDetails.loadCached(path: "res://assets/part3/JunkShop/JunkShop.json")
+        let json = String("\(self)".split(separator: ".").last!.split(separator: ":").first!)
+        details = RoomDetails.loadCached(path: "res://assets/rooms/" + json + ".json")
     }
         
     private func addWalkPath(){        

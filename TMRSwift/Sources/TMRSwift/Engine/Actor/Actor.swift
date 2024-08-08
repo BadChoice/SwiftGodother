@@ -1,7 +1,7 @@
 import SwiftGodot
 import Foundation
 
-class Player : Talks {
+class Actor : NSObject, Talks {
     
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }
@@ -16,7 +16,7 @@ class Player : Talks {
     var facing:Facing = .frontRight
     
     //MARK: - WALK
-    var walk:PlayerWalk?
+    var walk:ActorWalk?
     lazy var footsteps:AudioStreamPlayer = {
         let audioPlayer = AudioStreamPlayer()
         node.addChild(node: audioPlayer)
@@ -32,7 +32,8 @@ class Player : Talks {
         node.scale = Vector2(x: scale, y:scale)
     }
     
-    init() {
+    override init() {
+        super.init()
         loadAnimations()
         face(.frontRight)
         node.offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
@@ -65,7 +66,7 @@ class Player : Talks {
             return
         }
         
-        walk = PlayerWalk(path: path, player: self, walkbox:walkbox)
+        walk = ActorWalk(path: path, actor: self, walkbox:walkbox)
         walk?.walk { then?() }
     }
     

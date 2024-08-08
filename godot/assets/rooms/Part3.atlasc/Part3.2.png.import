@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmupia8wy2pdr"
-path="res://.godot/imported/fg.png-9876b7fedf44c3b7c8afa12da9d56276.ctex"
+uid="uid://dl1a2ghphcaat"
+path="res://.godot/imported/Part3.2.png-a1b25a51dc8c7cf1fddebaa33d879404.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/part3/JunkShop/fg.png"
-dest_files=["res://.godot/imported/fg.png-9876b7fedf44c3b7c8afa12da9d56276.ctex"]
+source_file="res://assets/rooms/Part3.atlasc/Part3.2.png"
+dest_files=["res://.godot/imported/Part3.2.png-a1b25a51dc8c7cf1fddebaa33d879404.ctex"]
 
 [params]
 

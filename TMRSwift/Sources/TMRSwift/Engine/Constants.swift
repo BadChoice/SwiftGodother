@@ -18,7 +18,7 @@ struct Constants {
     static var fastWalkFactor:Float  = 2.5
     
     
-    static var longPressMinTime = 0.5
+    static var longPressMinTime = 0.3
     
     //MARK: - SOUND
     static var musicVolume:Float     = 0.4

@@ -1,8 +1,8 @@
 import SwiftGodot
 
-/*extension Color : ExpressibleByStringLiteral {
+extension Color : ExpressibleByStringLiteral {
     public init(stringLiteral value: StringLiteralType) {
-        self.init(string: value)
+        self.init(code: value)
     }
 }
-*/
+

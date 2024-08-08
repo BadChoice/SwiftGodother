@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1whaq62bg3l5"
-path="res://.godot/imported/fg@2x.png-93d0afd8a62d17340d79afe8657fb191.ctex"
+uid="uid://c4hdg1014tovm"
+path="res://.godot/imported/arcade-entrance-fg@2x.png-2c71088dce0505221e659ec66bd86b9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/part3/JunkShop/fg@2x.png"
-dest_files=["res://.godot/imported/fg@2x.png-93d0afd8a62d17340d79afe8657fb191.ctex"]
+source_file="res://assets/rooms/arcade-entrance-fg@2x.png"
+dest_files=["res://.godot/imported/arcade-entrance-fg@2x.png-2c71088dce0505221e659ec66bd86b9e.ctex"]
 
 [params]
 

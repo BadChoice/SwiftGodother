@@ -5,7 +5,7 @@ class Game  {
     
     var scene:MainScene!
     var room:Room!
-    var player:Player!
+    var actor:Actor!
     var talkEngine:TalkEngine!
     
     var state = GameState()

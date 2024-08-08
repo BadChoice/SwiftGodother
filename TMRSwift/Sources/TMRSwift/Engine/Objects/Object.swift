@@ -8,13 +8,11 @@ class Object : NSObject, ProvidesState {
     @objc dynamic var name:String { details.name }
     
     var position:Vector2 {
-        //SketchApp.shared.screenSize
-        (Vector2(stringLiteral: details.position! ) - Vector2(x:512, y:512)) * Game.shared.scale
+        SketchApp.shared.point(Vector2(stringLiteral: details.position!))
     }
     
     var hotspot:Vector2 {
-        //SketchApp.shared.screenSize
-        (Vector2(stringLiteral: details.hotspot! ) - Vector2(x:512, y:512)) * Game.shared.scale
+        SketchApp.shared.point(Vector2(stringLiteral: details.hotspot!))
     }
     
     var facing:Facing { details.facing }
@@ -24,7 +22,7 @@ class Object : NSObject, ProvidesState {
         if let details {
             self.details = details
         } else {
-            let json = "res://assets/part3/JunkShop/JunkShop.json"
+            let json = "res://assets/rooms/" + json + ".json"
             self.details = RoomDetails.loadCached(path: json).detailsFor(self)
             if details == nil {
                 GD.printErr("No details found for \(self)")
@@ -32,6 +30,15 @@ class Object : NSObject, ProvidesState {
             }
         }
     }
+    
+    /*@objc dynamic func addToRoom(_ room:SKNode){
+     guard shouldBeAddedToRoom() else { return }
+     guard let node = getNodePositionated() else { return }
+     
+     node.zPosition = zindex
+     room.addChild(node)
+     onAddedToRoom()
+     }*/
     
     func isTouched(at: Vector2) -> Bool {
         guard let position = details.position else { return false }
@@ -49,8 +56,34 @@ class Object : NSObject, ProvidesState {
     }
     
     
+    //=======================================
+    // MARK:- OVERRIDABLE
+    //=======================================
+    /**
+     @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
+     */
+    @objc dynamic func shouldBeAddedToRoom() ->Bool {
+        if let inventoriable = self as? Inventoriable {
+            return !inventory.contains(inventoriable)
+        }
+        return true
+    }
+    
+    /**
+     * To override the default verb
+     */
+    var verbTexts:[Verbs : String]{
+        [:]
+    }
+    
+    /** The objects which can combine with (no ban icon appears) */
     @objc dynamic func combinesWith() -> [Object.Type] {
         []
+    }
+    
+    /** If it should show when showing the hotspot hints */
+    @objc dynamic var showItsHotspotHint: Bool {
+        true
     }
     
     //=======================================
@@ -69,19 +102,45 @@ class Object : NSObject, ProvidesState {
     // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
-        GD.print("on looked at \(name)")
+        ScriptSay(random:[
+            "Looks interesting...",
+            "Mmmm...",
+            __("It is a") + " " + __(name).lowercased()
+            ]
+        )
     }
     
     @objc dynamic func onPhoned() {
-        GD.print("on phoned at \(name)")
+        ScriptSay(random: [
+            "No...",
+            "This won't work",
+            "Bad idea...",
+            "I can't hack that with my phone.",
+        ])
     }
     
     @objc dynamic func onUse()    {
-        GD.print("on use at \(name)")
+        /*if let door = self as? ChangesRoom {
+            return door.goThrough()
+        }*/
+        
+        ScriptSay(random: [
+            "I don't think it is a good idea",
+            "This leads to anything",
+            "This won't work",
+            "There needs to be something else"
+        ])
     }
     
     @objc dynamic func onMouthed()    {
-        GD.print("on mouthed at \(name)")
+        ScriptSay(random: [
+            "I don't want to lick this",
+            "Aaarhg no",
+            "I don't want to taste it",
+            "I won't put my lips there",
+            "It won't make any difference",
+            "Don't be ridiculous, I won't talk to THAT!"
+        ])
     }
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
