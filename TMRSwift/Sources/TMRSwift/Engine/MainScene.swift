@@ -117,10 +117,15 @@ class MainScene : Node2D {
     private func onTouched(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
         
+        let object = object(at: getLocalMousePosition())
         if verbWheel.onTouched(at: position)  { return }
-        if inventoryUI.onTouched(at: position, roomObject:object(at: getLocalMousePosition())) { return }
+        if inventoryUI.onTouched(at: position, roomObject:object) { return }
         
-        walk(to: getLocalMousePosition())
+        if let object {
+            walk(to: object)
+        } else {
+            walk(to: getLocalMousePosition())
+        }
     }
     
     private func onMouseMoved(at position:Vector2) {
@@ -151,5 +156,12 @@ class MainScene : Node2D {
                 room.addChild(node: pathNode)
             }            
         }
+    }
+    
+    private func walk(to object:Object){
+        Script([
+            Walk(to: object),
+            Face(object.facing)
+        ])
     }
 }

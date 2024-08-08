@@ -1,7 +1,7 @@
 import SwiftGodot
 import Foundation
 
-class Actor : NSObject, Talks {
+class Actor : NSObject, Talks, Animable {
     
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }

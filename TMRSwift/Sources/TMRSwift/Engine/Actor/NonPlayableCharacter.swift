@@ -11,7 +11,7 @@ class NonPlayableCharacter : SpriteObject, Animable {
         
     }
     
-    func face(_ direction: Facing) {
+    func face(_ facing: Facing) {
         
     }
 }
