@@ -73,9 +73,10 @@ class VerbWheel {
         let localPosition = node.toLocal(globalPoint: position)
         if let verb = verb(at: localPosition) {
             doVerb(verb)
+            hide()
         }
         
-        if shouldHide || verb != nil {
+        if shouldHide {
             hide()
         }
         return true

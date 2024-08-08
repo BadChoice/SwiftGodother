@@ -61,6 +61,10 @@ class Player : Talks {
     //MARK: Walk
     //--------------------------------------
     public func walk(path: [Vector2], walkbox:Walkbox, then:(()->Void)? = nil){
+        if walk?.checkIfFastWalk(newDestination: path.last) ?? false {
+            return
+        }
+        
         walk = PlayerWalk(path: path, player: self, walkbox:walkbox)
         walk?.walk { then?() }
     }

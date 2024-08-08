@@ -9,6 +9,7 @@ class PlayerWalk {
     let walkbox:Walkbox
     var walkingToSpeedFactor = Vector2(x: 1, y: 1)
     var walkCompletion:(()->Void)?
+    var fastWalk:Bool = false
     
     init(path:[Vector2], player:Player, walkbox:Walkbox){
         self.path = path.reversed()
@@ -34,6 +35,16 @@ class PlayerWalk {
     private func walkTo(position:Vector2?){
         walkingTo = position
         calculateMediaVelocity(from: player.node.position, to: position)
+    }
+    
+    public func checkIfFastWalk(newDestination:Vector2?) -> Bool {
+        guard let newDestination else { return false }
+        
+        if newDestination.near(path.first ?? walkingTo ?? .zero) {
+            fastWalk = true
+            return true
+        }
+        return false
     }
     
     public func update(delta:Float) {
@@ -74,9 +85,7 @@ class PlayerWalk {
     }
     
     private func getWalkSpeed(awayFactor:Float) -> Float {
-        //let awayFactor = player.scale.y < 0.7 ? max(0.3, player.scale.y) : 1
-        //return (walk.fastWalk ? Constants.walkSpeed * Constants.fastWalkFactor : Constants.walkSpeed) * Float(awayFactor)
-        return Constants.walkSpeed * awayFactor
+        (fastWalk ? Constants.walkSpeed * Constants.fastWalkFactor : Constants.walkSpeed) * awayFactor
     }
     
     private func detectDirection(nextPoint:Vector2) -> Facing {

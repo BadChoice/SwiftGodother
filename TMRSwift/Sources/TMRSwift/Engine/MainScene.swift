@@ -66,6 +66,11 @@ class MainScene : Node2D {
 
     //MARK: - Touch
     override func _input(event: InputEvent) {
+        
+        if let mouseMove = event as? InputEventMouseMotion {
+            onMouseMoved(at: getLocalMousePosition())
+        }
+        
         if Game.shared.touchLocked { return }
         
         if let mouseEvent = event as? InputEventMouseButton, event.isPressed(), mouseEvent.buttonIndex == .right {
@@ -84,10 +89,6 @@ class MainScene : Node2D {
             }
             pressedAt = nil
             return onTouched(at: getLocalMousePosition())
-        }
-        
-        if let mouseMove = event as? InputEventMouseMotion {
-            onMouseMoved(at: getLocalMousePosition())
         }
     }
     
