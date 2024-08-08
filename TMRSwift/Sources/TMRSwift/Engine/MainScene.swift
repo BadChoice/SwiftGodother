@@ -50,17 +50,11 @@ class MainScene : Node2D {
         
         Game.shared.scale = min(2, DisplayServer.screenGetScale())
         Game.shared.scene = self
-        scanner = ScreenScanner()
+        scanner     = ScreenScanner()
         inventoryUI = InventoryUI()
-        verbWheel = VerbWheel()
-        cursor = Cursor()
+        verbWheel   = VerbWheel()
+        cursor      = Cursor()
         Game.shared.talkEngine = TalkEngine()
-        
-        
-        inventory.pickup(GasTube())
-        inventory.pickup(WalkieTalkies())
-        inventory.pickup(AncientCube())
-        inventory.pickup(GasTube())
     }
     
     public func onViewPortChanged(){
@@ -74,7 +68,7 @@ class MainScene : Node2D {
             onMouseMoved(at: getLocalMousePosition())
         }
         
-        if let keyInput = event as? InputEventKey, keyInput.keycode == .period { //Period
+        if let keyInput = event as? InputEventKey, keyInput.keycode == .period, keyInput.isReleased() { //Period
             Game.shared.talkEngine.skip()
             return
         }

@@ -10,7 +10,12 @@ class GDActionMoveTo : GDAction {
         self.duration = duration
     }
     
-    override func run(_ node:Node, completion:(()->Void)? = nil){
+    override func run(_ node:Node, completion:(()->Void)? = nil){        
+        guard node.getParent() != nil else {
+            completion?()
+            return
+        }
+        
         let tween = node.createTween()
                         
         tween?.tweenProperty(

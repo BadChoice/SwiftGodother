@@ -11,6 +11,11 @@ class GDActionGroup : GDAction {
     }
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
+        guard node.getParent() != nil else {
+            completion?()
+            return
+        }
+        
         self.completion = completion
         actions.forEach { action in
             action.run(node) { [self] in

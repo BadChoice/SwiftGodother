@@ -15,6 +15,11 @@ class GDActionSequence : GDAction {
     }
     
     func runNext(_ node:Node){
+        guard node.getParent() != nil else {
+            completion?()
+            return
+        }
+        
         guard let action = actions.popLast() else {
             completion?()
             completion = nil

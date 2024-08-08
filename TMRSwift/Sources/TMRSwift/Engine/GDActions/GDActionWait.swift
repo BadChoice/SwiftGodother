@@ -10,7 +10,15 @@ class GDActionWait : GDAction {
     }
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
+        guard node.getParent() != nil else {
+            completion?()
+            return
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            guard node.getParent() != nil else {
+                return
+            }
             completion?()
         }
     }

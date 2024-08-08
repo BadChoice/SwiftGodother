@@ -31,14 +31,6 @@ class Object : NSObject, ProvidesState {
         }
     }
     
-    /*@objc dynamic func addToRoom(_ room:SKNode){
-     guard shouldBeAddedToRoom() else { return }
-     guard let node = getNodePositionated() else { return }
-     
-     node.zPosition = zindex
-     room.addChild(node)
-     onAddedToRoom()
-     }*/
     
     func isTouched(at: Vector2) -> Bool {
         guard let position = details.position else { return false }

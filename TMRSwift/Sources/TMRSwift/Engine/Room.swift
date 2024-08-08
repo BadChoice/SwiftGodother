@@ -95,26 +95,6 @@ class Room : NSObject, ProvidesState {
         objects.forEach {
             $0.addToRoom(self)
         }
-        /*details?.objects.forEach { object in
-            
-            if let objectType = NSClassFromString(safeClassName(object.objectClass)) as? Object.Type {
-                let finalObject = objectType.init(object)
-                if let node = finalObject.getNode() {
-                    addChild(node: node)
-                }
-                objects.append(finalObject)
-                return
-            }
-                    
-            guard let position = object.position else {
-                GD.print("Object without position: \(object.name)")
-                return
-            }
-                        
-            let finalObject = ShapeObject(object)
-            addChild(node: finalObject.node)
-            objects.append(finalObject)
-        }*/
     }
     
     private func loadDetails(){
