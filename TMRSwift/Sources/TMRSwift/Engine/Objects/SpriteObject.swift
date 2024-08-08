@@ -22,8 +22,7 @@ class SpriteObject : Object {
         
         node?.position = position
         node?.centered = true
-        node?.offset = (size / 2)
-        node?.zIndex = Int32(details.zPos)
+        node?.offset = (size / 2)        
         
         return node
     }

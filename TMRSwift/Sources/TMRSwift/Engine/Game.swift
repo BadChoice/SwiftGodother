@@ -13,6 +13,10 @@ class Game  {
     var scale:Double = 1.0
     
     var touchLocked:Bool = false
+    
+    func objectAtRoom<T:Object>(ofType:T.Type) -> T?{
+        room.objects.first { $0 is T } as? T
+    }
 }
 
 
@@ -40,6 +44,10 @@ func ScriptSay(random:[String]){
     Script{
         Say(random:random)
     }
+}
+
+func roomObject<T:Object>(_ ofType:T.Type) -> T?{
+    Game.shared.objectAtRoom(ofType: ofType)
 }
 
 #if os(Linux)

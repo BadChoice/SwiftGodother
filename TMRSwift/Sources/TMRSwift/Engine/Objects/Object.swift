@@ -45,16 +45,18 @@ class Object : NSObject, ProvidesState {
         return at.near(Vector2(stringLiteral: position))
     }
     
-    func shouldShowHotspotHint() -> Bool {
-        true
-    }
-    
     /** Each object can define with what it does combine to speed up puzzle resolution */
     func canBeUsedWith(_ object:Object) -> Bool {
         guard Features.useCanBeUsedWith else { return true }
         return combinesWith().contains { object.isKind(of: $0) }
     }
     
+    /**
+     Finds the object at the room and returns the instance
+     */
+    static func findAtRoom() -> Self {
+        Game.shared.objectAtRoom(ofType: self)!
+    }
     
     //=======================================
     // MARK:- OVERRIDABLE
@@ -86,9 +88,18 @@ class Object : NSObject, ProvidesState {
         true
     }
     
+    
     //=======================================
     // MARK:- NODE
     //=======================================
+    @objc dynamic func addToRoom(_ room:Room){
+        guard shouldBeAddedToRoom() else { return }
+        guard let node = getNode() else { return }
+        
+        node.zIndex = Int32(details.zPos)
+        room.node.addChild(node: node)
+    }
+    
     func getNode() -> Node2D? {
         nil
     }

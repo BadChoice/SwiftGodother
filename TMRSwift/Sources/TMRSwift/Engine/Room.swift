@@ -21,6 +21,11 @@ class Room : NSObject, ProvidesState {
     
     @objc dynamic var actorType:Actor.Type { Crypto.self }
     
+    //MARK: - Lifecycle
+    @objc dynamic func onEnter(){ }
+    @objc dynamic func onExit(){ }
+    
+    //MARK: - Load
     func _ready() {
         loadDetails()
         loadAtlas()
@@ -85,7 +90,12 @@ class Room : NSObject, ProvidesState {
     
     private func addObjects() {
                                 
-        details?.objects.forEach { object in
+        objects = details.setup()
+        
+        objects.forEach {
+            $0.addToRoom(self)
+        }
+        /*details?.objects.forEach { object in
             
             if let objectType = NSClassFromString(safeClassName(object.objectClass)) as? Object.Type {
                 let finalObject = objectType.init(object)
@@ -104,7 +114,7 @@ class Room : NSObject, ProvidesState {
             let finalObject = ShapeObject(object)
             addChild(node: finalObject.node)
             objects.append(finalObject)
-        }
+        }*/
     }
     
     private func loadDetails(){

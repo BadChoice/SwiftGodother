@@ -38,6 +38,9 @@ class MainScene : Node2D {
         
         //It sets the base content, so it can scale to 200/1024 before showing black stripes
         getWindow()?.contentScaleSize = Vector2i(x:200, y:1024) * Int(Game.shared.scale)
+        
+        
+        room.onEnter()
     }
     
     
@@ -66,9 +69,14 @@ class MainScene : Node2D {
 
     //MARK: - Touch
     override func _input(event: InputEvent) {
-        
+                
         if let mouseMove = event as? InputEventMouseMotion {
             onMouseMoved(at: getLocalMousePosition())
+        }
+        
+        if let keyInput = event as? InputEventKey, keyInput.keycode == .period { //Period
+            Game.shared.talkEngine.skip()
+            return
         }
         
         if Game.shared.touchLocked { return }
