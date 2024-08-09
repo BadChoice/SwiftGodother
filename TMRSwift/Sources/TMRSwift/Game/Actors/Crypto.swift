@@ -17,14 +17,14 @@ class Crypto : Actor {
         frames = SpriteFrames()
         
         frames.addAnimation(anim: "walk")
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/01"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/02"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/03"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/04"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/05"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/06"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/07"), duration: 0.55)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/08"), duration: 0.55)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/01"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/02"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/03"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/04"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/05"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/06"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/07"), duration: 0.50)
+        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/08"), duration: 0.50)
         
         frames.addAnimation(anim: "idle")
         frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/00"), duration: 2.50)
@@ -35,11 +35,22 @@ class Crypto : Actor {
         
         frames.addAnimation(anim: "pickup")
         frames.addFrame(anim: "pickup", texture: tp.textureNamed(name: "pickup/normal"))
-                
         
-        //pickup/normal
-        //pickup/up
-        //pickup/really-up
+        frames.addAnimation(anim: "pickup-up")
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.05)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.05)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.05)
+        
+        frames.addAnimation(anim: "pickup-low")
+        frames.addFrame(anim: "pickup-low", texture: tp.textureNamed(name: "pickup/low"))
+        
+        frames.addAnimation(anim: "pickup-really-up")
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.50)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.50)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/reall-up"), duration: 0.50)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.50)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.50)
+                
         //pickup/pickup-back-low.png
         //pickup/pickup-back-up.png
         //pickup/low
@@ -110,8 +121,7 @@ class Crypto : Actor {
     }
     
     private func animatePickup(_ animation:String){
-        node.play(name: "pickup")
-        node.pause()
+        node.play(name: StringName(animation))
     }
     
     //MARK: - Facing

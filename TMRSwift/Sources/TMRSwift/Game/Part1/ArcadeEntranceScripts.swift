@@ -6,11 +6,14 @@ extension ArcadeEntrance {
     
     override func onEnter() {
         if ArcadeEntrance.entered { return }
-        
+                
         inventory.pickup(ArcadeNote())
         //inventory.pickup(CheatSheet())
         let revisor = roomObject(Revisor.self)!
         let arcadeDoor = roomObject(EntranceToArcadeDoor.self)!
+        
+        Game.shared.actor.node.position = Vector2(x:400, y:400)
+        
         Script ({
             /*BlackCutScene(fadingIn: false, texts: [
                 "DISK 1",

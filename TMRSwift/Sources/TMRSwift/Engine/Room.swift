@@ -126,16 +126,19 @@ class Room : NSObject, ProvidesState {
         tp.load()
         tp.debug = true
         
-        let idle1  = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
-        let noFace = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
+        let idle1     = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
+        let noFace    = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
+        let pickupLow = Sprite2D(texture: tp.textureNamed(name: "pickup/low")!)
         
-        GD.print(idle1.getRect(), noFace.getRect())
+        GD.print(idle1.getRect(), noFace.getRect(), pickupLow.getRect())
         
         addChild(node: idle1)
         addChild(node: noFace)
+        addChild(node: pickupLow)
         
-        idle1.position = Vector2(x:-0, y:0)
-        noFace.position = Vector2(x:0, y:0)
+        idle1.position = Vector2(x:-600, y:0)
+        pickupLow.position = .zero
+        noFace.position = Vector2(x:600, y:0)
         
         let idle1Rect = ColorRect()
         idle1Rect.setPosition(idle1.position - idle1.getRect().size / 2)
@@ -148,6 +151,12 @@ class Room : NSObject, ProvidesState {
         noFaceRect.setSize(noFace.getRect().size)
         noFaceRect.modulate.alpha = 0.2
         addChild(node: noFaceRect)
+        
+        let pickupLowRect = ColorRect()
+        pickupLowRect.setPosition(pickupLow.position - pickupLow.getRect().size / 2)
+        pickupLowRect.setSize(pickupLow.getRect().size)
+        pickupLowRect.modulate.alpha = 0.2
+        addChild(node: pickupLowRect)
     }*/
     
 }

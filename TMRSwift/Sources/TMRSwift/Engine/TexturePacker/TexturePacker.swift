@@ -117,17 +117,31 @@ class TexturePacker {
         
         let image = atlas.getImage()!
         
+        if debug {
+            GD.print(info)
+        }
+        
         let expandedImage = Image.create(
             width: Int32(info.textureRotated ? info.sourceSize.y : info.sourceSize.x),
             height: Int32(info.textureRotated ? info.sourceSize.x : info.sourceSize.y),
             useMipmaps: false,
             format: image.getFormat()
         )!
+                
+        let offset = Vector2i(
+            x: Int32(info.textureRotated ? info.offset.y : info.offset.x),
+            y: Int32(info.textureRotated ? info.offset.x : -info.offset.y)
+        )
+                
+        let destination = Vector2i(
+            x:0,
+            y:info.textureRotated ? 0 : expandedImage.getSize().y - image.getSize().y
+        ) + offset
         
         expandedImage.blitRect(
             src: image,
             srcRect: Rect2i(position: .zero, size: image.getSize()),
-            dst: Vector2i(x: Int32(info.textureRotated ? info.offset.y : info.offset.x), y: Int32(info.textureRotated ? info.offset.x : info.offset.y))
+            dst: destination //Texture packer places the image at bottom left, and then applies the offset
         )
                     
         if info.textureRotated {

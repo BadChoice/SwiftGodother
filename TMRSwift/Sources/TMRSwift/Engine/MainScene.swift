@@ -40,6 +40,9 @@ class MainScene : Node2D {
         getWindow()?.contentScaleSize = Vector2i(x:200, y:1024) * Int(Game.shared.scale)
         
         
+        
+        getWindow()?.size = Vector2i(x:4096, y:2048)
+        
         room.onEnter()
     }
     
