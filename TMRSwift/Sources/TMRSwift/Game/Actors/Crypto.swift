@@ -32,24 +32,26 @@ class Crypto : Actor {
         
         frames.addAnimation(anim: "no_face_profile")
         frames.addFrame(anim: "no_face_profile", texture: tp.textureNamed(name: "no-face"))
+        frames.setAnimationLoop(anim: "no_face_profile", loop: false)
         
         frames.addAnimation(anim: "pickup")
         frames.addFrame(anim: "pickup", texture: tp.textureNamed(name: "pickup/normal"))
+        frames.setAnimationLoop(anim: "pickup", loop: false)
         
         frames.addAnimation(anim: "pickup-up")
-        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.05)
-        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.05)
-        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.05)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.5)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.5)
+        frames.setAnimationLoop(anim: "pickup-up", loop: false)
         
         frames.addAnimation(anim: "pickup-low")
         frames.addFrame(anim: "pickup-low", texture: tp.textureNamed(name: "pickup/low"))
+        frames.setAnimationLoop(anim: "pickup-low", loop: false)
         
         frames.addAnimation(anim: "pickup-really-up")
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.50)
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.50)
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/reall-up"), duration: 0.50)
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.50)
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.50)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.5)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.5)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/reall-up"), duration: 0.5)
+        frames.setAnimationLoop(anim: "pickup-really-up", loop: false)
                 
         //pickup/pickup-back-low.png
         //pickup/pickup-back-up.png
