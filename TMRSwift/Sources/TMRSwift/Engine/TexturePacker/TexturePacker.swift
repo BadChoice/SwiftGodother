@@ -8,6 +8,8 @@ class TexturePacker {
     
     var textures:[Texture2D]?
     var info:TexturePackerStruct?
+    
+    var debug:Bool = false
 
     struct TexturePackerSubimage: Decodable {
         let name:String
@@ -116,21 +118,21 @@ class TexturePacker {
         let image = atlas.getImage()!
         
         let expandedImage = Image.create(
-            width: Int32(info.sourceSize.x),
-            height: Int32(info.sourceSize.y),
+            width: Int32(info.textureRotated ? info.sourceSize.y : info.sourceSize.x),
+            height: Int32(info.textureRotated ? info.sourceSize.x : info.sourceSize.y),
             useMipmaps: false,
             format: image.getFormat()
         )!
-            
-        if info.textureRotated {
-            image.rotate90(direction: .counterclockwise)
-        }
-    
+        
         expandedImage.blitRect(
             src: image,
             srcRect: Rect2i(position: .zero, size: image.getSize()),
-            dst: Vector2i(x: Int32(info.offset.x), y: Int32(info.offset.y))
+            dst: Vector2i(x: Int32(info.textureRotated ? info.offset.y : info.offset.x), y: Int32(info.textureRotated ? info.offset.x : info.offset.y))
         )
+                    
+        if info.textureRotated {
+            expandedImage.rotate90(direction: .counterclockwise)
+        }
         
         return ImageTexture.createFromImage(expandedImage)
     }
