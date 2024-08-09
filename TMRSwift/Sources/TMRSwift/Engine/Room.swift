@@ -36,6 +36,8 @@ class Room : NSObject, ProvidesState {
         setupCamera()
         addObjects()
         addWalkPath()
+        
+        //addTest()
     }
     
     
@@ -117,5 +119,35 @@ class Room : NSObject, ProvidesState {
     public func addChild(node:Node){
         self.node.addChild(node: node)
     }
+    
+    
+    /*private func addTest(){
+        let tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"Crypto.plist")
+        tp.load()
+        tp.debug = true
+        
+        let idle1  = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
+        let noFace = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
+        
+        GD.print(idle1.getRect(), noFace.getRect())
+        
+        addChild(node: idle1)
+        addChild(node: noFace)
+        
+        idle1.position = Vector2(x:-0, y:0)
+        noFace.position = Vector2(x:0, y:0)
+        
+        let idle1Rect = ColorRect()
+        idle1Rect.setPosition(idle1.position - idle1.getRect().size / 2)
+        idle1Rect.setSize(idle1.getRect().size)
+        idle1Rect.modulate.alpha = 0.2
+        addChild(node: idle1Rect)
+        
+        let noFaceRect = ColorRect()
+        noFaceRect.setPosition(noFace.position - noFace.getRect().size / 2)
+        noFaceRect.setSize(noFace.getRect().size)
+        noFaceRect.modulate.alpha = 0.2
+        addChild(node: noFaceRect)
+    }*/
     
 }

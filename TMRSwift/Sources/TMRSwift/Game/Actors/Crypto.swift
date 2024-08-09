@@ -4,6 +4,8 @@ class Crypto : Actor {
  
     var tp:TexturePacker!
     
+    var face = Sprite2D()
+    
     override init() {
         super.init()
         tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"Crypto.plist")
@@ -30,18 +32,43 @@ class Crypto : Actor {
         
         frames.addAnimation(anim: "no_face_profile")
         frames.addFrame(anim: "no_face_profile", texture: tp.textureNamed(name: "no-face"))
+        
+        frames.addAnimation(anim: "pickup")
+        frames.addFrame(anim: "pickup", texture: tp.textureNamed(name: "pickup/normal"))
                 
         
         //pickup/normal
         //pickup/up
         //pickup/really-up
         //pickup/pickup-back-low.png
+        //pickup/pickup-back-up.png
+        //pickup/low
+        //pickup/pickup-back
+        
         //puzzles/hand-lightgun-dark.png
-        //talk/face-look-phone.png
+        
         //no-right-hand.png
         //no-face
+        //front-no-face
+        //back-no-face
         
-        //combine/00.png --
+        //puzzles/hand-spiral-01 - 03
+        
+        
+        //talk/face-front
+        //talk/face
+        //talk/face-jaw-open
+        //talk/face-back-talk
+        //talk/face-back
+        //talk/face-look-phone.png
+                
+        //combine/00.png -- 12
+        
+        face.texture = tp.textureNamed(name: "talk/face")
+        face.position = Vector2(x:-6, y:-236) * Game.shared.scale
+        node.addChild(node: face)
+        face.hide()
+                
                 
         frames.getAnimationNames().forEach {
             for i in 0...frames.getFrameCount(anim: StringName($0)) {
@@ -55,15 +82,39 @@ class Crypto : Actor {
         
         node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
         node.play(name: "walk")
-        
-        
-        let idle1 = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
-        let noFace = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
-        
-        node.addChild(node:idle1)
-        node.addChild(node:noFace)
     }
     
+
+    //MARK: - Animations
+    override func animate(_ animation: String?) {
+        clearAnimations()
+        
+        if animation?.contains("pickup") ?? false {
+            return animatePickup(animation!)
+        }
+        
+        switch animation {
+        case "talk" : animateTalk()
+        default: node.play(name: "idle")
+        }
+    }
+    
+    private func clearAnimations() {
+        face.hide()
+    }
+
+    private func animateTalk(){
+        node.play(name: "no_face_profile")
+        node.pause()
+        face.show()
+    }
+    
+    private func animatePickup(_ animation:String){
+        node.play(name: "pickup")
+        node.pause()
+    }
+    
+    //MARK: - Facing
     override func face(_ facing: Facing) {
         self.facing = facing
                 
@@ -71,13 +122,6 @@ class Crypto : Actor {
             node.play(name: "walk")
         } else {
             node.play(name: "idle")
-        }
-    }
-    
-    override func animate(_ animation: String?) {
-        switch animation {
-        case "talk" : node.play(name: "no_face_profile")
-        default: node.play(name: "idle")
         }
     }
     
