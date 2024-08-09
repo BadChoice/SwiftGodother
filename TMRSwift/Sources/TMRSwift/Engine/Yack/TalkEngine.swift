@@ -65,8 +65,7 @@ class TalkEngine {
         )
         background = backgroundWith(label: label)
         scene.addChild(node: background)
-        
-        
+                
         talkable.animate("talk")
         talkable.setExpression(expression)
         talkable.setArmsExpression(armsExpression)

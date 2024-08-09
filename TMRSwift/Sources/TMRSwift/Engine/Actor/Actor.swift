@@ -59,6 +59,13 @@ class Actor : NSObject, Talks, Animable {
     }
 
     //--------------------------------------
+    //MARK: Animations
+    //--------------------------------------
+    func animate(_ animation: String?) {
+        
+    }
+    
+    //--------------------------------------
     //MARK: Walk
     //--------------------------------------
     public func walk(path: [Vector2], walkbox:Walkbox, then:(()->Void)? = nil){

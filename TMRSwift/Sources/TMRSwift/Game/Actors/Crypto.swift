@@ -28,10 +28,40 @@ class Crypto : Actor {
         frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/00"), duration: 2.50)
         frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/01"), duration: 2.50)
         
+        frames.addAnimation(anim: "no_face_profile")
+        frames.addFrame(anim: "no_face_profile", texture: tp.textureNamed(name: "no-face"))
+                
+        
+        //pickup/normal
+        //pickup/up
+        //pickup/really-up
+        //pickup/pickup-back-low.png
+        //puzzles/hand-lightgun-dark.png
+        //talk/face-look-phone.png
+        //no-right-hand.png
+        //no-face
+        
+        //combine/00.png --
+                
+        frames.getAnimationNames().forEach {
+            for i in 0...frames.getFrameCount(anim: StringName($0)) {
+                if let frameTexture = frames.getFrameTexture(anim: StringName($0), idx: i) {
+                    //GD.print($0, frameTexture.getSize(), frameTexture.getRegion())
+                }
+            }
+        }
+        
         node.spriteFrames = frames
         
         node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
         node.play(name: "walk")
+        
+        
+        let idle1 = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
+        let noFace = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
+        
+        node.addChild(node:idle1)
+        node.addChild(node:noFace)
     }
     
     override func face(_ facing: Facing) {
@@ -39,8 +69,15 @@ class Crypto : Actor {
                 
         if walk?.walkingTo != nil {
             node.play(name: "walk")
-        }else{
+        } else {
             node.play(name: "idle")
+        }
+    }
+    
+    override func animate(_ animation: String?) {
+        switch animation {
+        case "talk" : node.play(name: "no_face_profile")
+        default: node.play(name: "idle")
         }
     }
     
