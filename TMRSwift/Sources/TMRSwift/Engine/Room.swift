@@ -86,8 +86,7 @@ class Room : NSObject, ProvidesState {
     }
     
     private func loadAtlas(){
-        //atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
-        atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".json")
+        atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
         atlas.load()
     }
     
