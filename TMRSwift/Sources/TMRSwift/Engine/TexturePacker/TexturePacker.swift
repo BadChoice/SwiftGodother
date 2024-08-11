@@ -16,7 +16,7 @@ class TexturePacker {
         let spriteOffset:String     // translation vector: the offset of the sprite's untrimmed center to the sprite's trimmed center
         //let spriteSize:String     // Size of the trimmed sprite
         let spriteSourceSize:String // Size of the untrimmed sprite
-        var textureRect:String      // Sprite's position and size in the texture
+        let textureRect:String      // Sprite's position and size in the texture
         let textureRotated:Bool     // true if the sprite is rotated
         
         var region:Rect2 {
@@ -121,21 +121,26 @@ class TexturePacker {
             GD.print(info)
         }
         
+        if info.textureRotated {
+            image.rotate90(direction: .counterclockwise)
+        }
+        
+        
         let expandedImage = Image.create(
-            width: Int32(info.textureRotated ? info.sourceSize.y : info.sourceSize.x),
-            height: Int32(info.textureRotated ? info.sourceSize.x : info.sourceSize.y),
+            width: Int32(info.sourceSize.x),
+            height: Int32(info.sourceSize.y),
             useMipmaps: false,
             format: image.getFormat()
         )!
                 
         let offset = Vector2i(
-            x: Int32(info.textureRotated ? info.offset.y : info.offset.x),
-            y: Int32(info.textureRotated ? info.offset.x : -info.offset.y)
+            x: Int32(info.offset.x),
+            y: Int32(-info.offset.y)
         )
                 
         let destination = Vector2i(
             x:0,
-            y:info.textureRotated ? 0 : expandedImage.getSize().y - image.getSize().y
+            y:expandedImage.getSize().y - image.getSize().y
         ) + offset
         
         expandedImage.blitRect(
@@ -143,10 +148,6 @@ class TexturePacker {
             srcRect: Rect2i(position: .zero, size: image.getSize()),
             dst: destination //Texture packer places the image at bottom left, and then applies the offset
         )
-                    
-        if info.textureRotated {
-            expandedImage.rotate90(direction: .counterclockwise)
-        }
         
         return ImageTexture.createFromImage(expandedImage)
     }
