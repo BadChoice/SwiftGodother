@@ -8,7 +8,8 @@ class Crypto : Actor {
     
     override init() {
         super.init()
-        tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"Crypto.plist")
+        //tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"crypto.plist")
+        tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"crypto.json")
         tp.load()
         loadAnimations()
     }
