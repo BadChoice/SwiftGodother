@@ -9,7 +9,8 @@ class MainScene : Node2D {
     var inventoryUI:InventoryUI!
     var verbWheel:VerbWheel!
     var cursor:Cursor!
-    var pressedAt:Date? = nil
+    
+    var inputHandler = InputHandler()
     
     //MARK: - Setup
     override func _ready() {
@@ -58,6 +59,7 @@ class MainScene : Node2D {
         verbWheel   = VerbWheel()
         cursor      = Cursor()
         Game.shared.talkEngine = TalkEngine()
+        inputHandler.scene = self
     }
     
     public func onViewPortChanged(){
@@ -65,54 +67,18 @@ class MainScene : Node2D {
     }
 
     //MARK: - Touch
-    override func _input(event: InputEvent) {
-                
-        if let mouseMove = event as? InputEventMouseMotion {
-            onMouseMoved(at: getLocalMousePosition())
-            return
-        }
-        
-        if let keyInput = event as? InputEventKey, keyInput.keycode == .period, keyInput.isReleased() { //Period
-            Game.shared.talkEngine.skip()
-            return
-        }
-        
-        if Game.shared.touchLocked {
-            return
-        }
-        
-        if let mouseEvent = event as? InputEventMouseButton, event.isPressed(), mouseEvent.buttonIndex == .right {
-            inventoryUI.toggle()
-            return
-        }
-        
-        if let mouseEvent = event as? InputEventMouseButton, event.isPressed(){
-            pressedAt = Date()
-        }
-        
-        if let mouseEvent = event as? InputEventMouseButton, event.isReleased(){
-            if pressedAt == nil {  //It meands long press has been handled
-                verbWheel.onTouched(at: getLocalMousePosition(), shouldHide: false)
-                return
-            }
-            pressedAt = nil
-            return onTouched(at: getLocalMousePosition())
-        }
+    override func _input(event: InputEvent) {                
+        inputHandler._input(event: event)
     }
     
     override func _process(delta: Double) {
         onViewPortChanged()
         Game.shared.actor?._process(delta: delta)
+        inputHandler._process(delta:delta)
         
-        if Game.shared.touchLocked { return }
-        if pressedAt != nil && -pressedAt!.timeIntervalSinceNow > Constants.longPressMinTime {
-            pressedAt = nil
-            onLongPress(at: getLocalMousePosition())
-            return
-        }
     }
     
-    private func onLongPress(at position:Vector2){
+    func onLongPress(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
                 
         guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position, positionIsLocal: false)?.object : object(at: position) else {
@@ -122,7 +88,7 @@ class MainScene : Node2D {
         scanner.show(text: "", at: position)
     }
     
-    private func onTouched(at position:Vector2){
+    func onTouched(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
         
         let object = object(at: getLocalMousePosition())
@@ -136,8 +102,8 @@ class MainScene : Node2D {
         }
     }
     
-    private func onMouseMoved(at position:Vector2) {
-        cursor.onMouseMoved(at: position)
+    func onMouseMoved(at position:Vector2) {
+        
         guard !Game.shared.touchLocked else { return }
         
         let object = object(at: getLocalMousePosition())

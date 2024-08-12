@@ -36,7 +36,7 @@ struct Constants {
     static var useWordTiming         = false
     static var lineWordLength:Int    { Constants.language == "de" ? 7 : 9 }
     static var yackSpacing:Float     = /*isPhone ? 80 : */60
-    static var fingerOffset:Float    = /*isPhone ? 80 : */40
+    static var fingerOffset:Float    = /*isPhone ? 80 : */80
     static var fontName:String       = "Janda Manatee Solid"
     static var font:String           = "JandaManateeSolid.ttf"
     static var talkBackgroundAlpha:Float  = 0.8
