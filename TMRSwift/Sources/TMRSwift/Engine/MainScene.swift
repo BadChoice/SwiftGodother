@@ -10,7 +10,7 @@ class MainScene : Node2D {
     var verbWheel:VerbWheel!
     var cursor:Cursor!
     
-    var inputHandler = InputHandler()
+    var inputHandler:InputHandler!
     
     //MARK: - Setup
     override func _ready() {
@@ -59,6 +59,8 @@ class MainScene : Node2D {
         verbWheel   = VerbWheel()
         cursor      = Cursor()
         Game.shared.talkEngine = TalkEngine()
+        
+        inputHandler = InputHandler.make()
         inputHandler.scene = self
     }
     

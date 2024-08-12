@@ -9,8 +9,9 @@ class Cursor {
     
     init(){
         
-        //Input.setCustomMouseCursor(image: GD.load(path: "res://assets/ui/cursor.png"))
-        //alpha = isOSX ? 1 : 0
+        if OS.getName() == "iOS" || OS.getName() == "Android" {
+            node.modulate.alpha = 0
+        }
         
         node.zIndex = Constants.cursor_zIndex
         node.addChild(node: arrowNode)
