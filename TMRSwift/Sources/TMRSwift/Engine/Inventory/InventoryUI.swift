@@ -131,7 +131,10 @@ class InventoryUI {
         return true
     }
     
-    func object(at position:Vector2) -> InventoryObject? {
+    func object(at position:Vector2, positionIsLocal:Bool = true) -> InventoryObject? {
+        
+        let localPosition = positionIsLocal ? position : inventoryBag.toLocal(globalPoint: position)
+        
         let object = inventory.objects.first {
             $0.sprite?.getParent() != nil && $0.sprite?.hasPoint(position) ?? false
         }

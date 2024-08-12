@@ -12,7 +12,8 @@ extension ArcadeEntrance {
         let revisor = roomObject(Revisor.self)!
         let arcadeDoor = roomObject(EntranceToArcadeDoor.self)!
         
-        Game.shared.actor.node.position = Vector2(x:400, y:400)
+        Game.shared.actor.node.position = Vector2(x:400, y:800)
+        Game.shared.actor.setAwayScale(walkbox.getAwayScaleForActorAt(point: Game.shared.actor.node.position))
         
         Script ({
             /*BlackCutScene(fadingIn: false, texts: [

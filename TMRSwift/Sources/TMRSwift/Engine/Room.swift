@@ -52,10 +52,11 @@ class Room : NSObject, ProvidesState {
         camera.positionSmoothingSpeed = 1.0
         
         camera.limitSmoothed = true
-        camera.limitBottom = 1024
-        camera.limitTop = -1024
-        camera.limitRight = 2048
-        camera.limitLeft = -2048
+        camera.limitBottom = Int32(background.texture!.getSize().y / 2)
+        //camera.limitBottom = 1024
+        camera.limitTop = -Int32(background.texture!.getSize().y / 2)
+        camera.limitRight = Int32(background.texture!.getSize().x / 2)
+        camera.limitLeft = -Int32(background.texture!.getSize().x / 2)
                 
         
         actor.node.addChild(node: camera)

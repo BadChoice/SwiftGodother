@@ -41,7 +41,7 @@ class MainScene : Node2D {
         
         
         
-        getWindow()?.size = Vector2i(x:4096, y:2048)
+        //getWindow()?.size = Vector2i(x:4096, y:2048)
         
         room.onEnter()
     }
@@ -115,7 +115,7 @@ class MainScene : Node2D {
     private func onLongPress(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
                 
-        guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position)?.object : object(at: position) else {
+        guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position, positionIsLocal: false)?.object : object(at: position) else {
             return
         }
         verbWheel.show(at: position, for:object)

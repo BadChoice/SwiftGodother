@@ -10,7 +10,9 @@ struct ScreenScanner {
         label.horizontalAlignment = .center
         label.labelSettings = Label.settings()
         label.text = ""
-        label.zIndex = Constants.scanner_zIndex    
+        label.zIndex = Constants.scanner_zIndex
+        label.growVertical = .both
+        label.growHorizontal = .both
     }
     
     func onMouseMoved(at position:Vector2, object:Object?) -> Bool {
@@ -25,8 +27,13 @@ struct ScreenScanner {
     func show(text:String, at position:Vector2){
         label.modulate.alpha = 1
         label.text = text
-        label.setPosition(position - (label.getSize() * 0.5) - Vector2(x: 0, y: 60) * Game.shared.scale)
+        label.setPosition(
+            Game.shared.safePosition(
+                position - Vector2(x: 0, y: Constants.fingerOffset) * Game.shared.scale,
+                size: label.getSize()) - label.getSize() * 0.5
+            )
     }
+    
     
     /*func stop(){
         label.modulate.alpha = 0

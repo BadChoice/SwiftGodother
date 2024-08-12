@@ -49,7 +49,11 @@ class VerbWheel {
     func show(at position:Vector2, for object:Object){
         verbs.forEach { $0.scale = .one }
         node.show()
-        node.position = position
+        
+        node.position = Game.shared.safePosition(
+            position,
+            size:Vector2(x:450, y:250) * Game.shared.scale
+        )
         
         self.object = object
         
