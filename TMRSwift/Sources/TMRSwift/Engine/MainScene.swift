@@ -17,11 +17,10 @@ class MainScene : Node2D {
                 
         initialize()
         
-        room = ArcadeEntrance()
+        //room = ArcadeEntrance()
+        room = Arcade()
         addChild(node: room.node)
-        Game.shared.room = room
         room._ready()
-        Game.shared.actor = room.actor
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)
@@ -144,6 +143,11 @@ class MainScene : Node2D {
     }
     
     private func walk(to object:Object){
+        if let door = object as? ChangesRoom {
+            door.goThrough()
+            return
+        }
+        
         Script([
             Walk(to: object),
             Face(object.facing)

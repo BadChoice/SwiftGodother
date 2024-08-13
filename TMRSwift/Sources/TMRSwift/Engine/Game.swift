@@ -4,12 +4,13 @@ class Game  {
     static let shared:Game = Game()
     
     var scene:MainScene!
-    var room:Room!
-    var actor:Actor!
+    var room:Room! { scene.room }
+    var actor:Actor! { room.actor }
     var talkEngine:TalkEngine!
     var currentYack:Yack?
     
     var state = GameState()
+    var goingToDoor:ChangesRoom?
     
     var scale:Double = 1.0
     
@@ -17,6 +18,14 @@ class Game  {
     
     func objectAtRoom<T:Object>(ofType:T.Type) -> T?{
         room.objects.first { $0 is T } as? T
+    }
+    
+    func enter(room:Room.Type, actorPosition:Vector2, facing:Facing, fadeTime:Double = 0.4, color:Color = .black, stayTime:Double = 0){
+        
+        RoomChanger(fadeTime:fadeTime, color:color, stayTime:stayTime)
+            .change(to: room, actorPosition: actorPosition, facing:facing)
+        //Hotsposts.isBeingDisplayed = false
+        goingToDoor = nil
     }
     
     func safePosition(_ position:Vector2, size:Vector2) -> Vector2 {

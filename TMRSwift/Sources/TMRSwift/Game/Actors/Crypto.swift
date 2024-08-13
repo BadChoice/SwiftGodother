@@ -50,7 +50,7 @@ class Crypto : Actor {
         frames.addAnimation(anim: "pickup-really-up")
         frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.5)
         frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.5)
-        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/reall-up"), duration: 0.5)
+        frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/really-up"), duration: 0.5)
         frames.setAnimationLoop(anim: "pickup-really-up", loop: false)
                 
         //pickup/pickup-back-low.png

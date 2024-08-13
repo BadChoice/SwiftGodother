@@ -25,6 +25,10 @@ class Room : NSObject, ProvidesState {
     @objc dynamic func onEnter(){ }
     @objc dynamic func onExit(){ }
     
+    override required init(){
+        super.init()
+    }
+    
     //MARK: - Load
     func _ready() {
         loadDetails()

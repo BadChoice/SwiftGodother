@@ -89,11 +89,12 @@ class Object : NSObject, ProvidesState {
         guard shouldBeAddedToRoom() else { return }
         guard let node = getNode() else { return }
         
-        node.zIndex = zIndex
+        (node as? Node2D)?.zIndex = zIndex
+        (node as? Control)?.zIndex = zIndex
         room.node.addChild(node: node)
     }
     
-    func getNode() -> Node2D? {
+    func getNode() -> Node? {
         nil
     }
     
@@ -124,9 +125,9 @@ class Object : NSObject, ProvidesState {
     }
     
     @objc dynamic func onUse()    {
-        /*if let door = self as? ChangesRoom {
+        if let door = self as? ChangesRoom {
             return door.goThrough()
-        }*/
+        }
         
         ScriptSay(random: [
             "I don't think it is a good idea",

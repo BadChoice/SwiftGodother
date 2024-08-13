@@ -7,6 +7,9 @@ extension Node {
     
     func removeAllActions(){
         actions()?.forEach { $0.stop() }
+        getChildren().forEach {
+            $0.removeAllActions()
+        }
     }
     
     func actions() -> [GDAction]? {
