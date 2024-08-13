@@ -82,6 +82,7 @@ class MainScene : Node2D {
     
     func onLongPress(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
+        guard Game.shared.currentYack == nil else { return }
                 
         guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position, positionIsLocal: false)?.object : object(at: position) else {
             return
@@ -92,6 +93,10 @@ class MainScene : Node2D {
     
     func onTouched(at position:Vector2){
         guard !Game.shared.touchLocked else { return }
+        
+        if let yack = Game.shared.currentYack {
+            return yack.onTouchedAt(point: position)
+        }
         
         let object = object(at: getLocalMousePosition())
         if verbWheel.onTouched(at: position)  { return }
@@ -107,6 +112,10 @@ class MainScene : Node2D {
     func onMouseMoved(at position:Vector2) {
         
         guard !Game.shared.touchLocked else { return }
+        
+        if let yack = Game.shared.currentYack {
+            return yack.onTouchMoved(position)
+        }
         
         let object = object(at: getLocalMousePosition())
                             

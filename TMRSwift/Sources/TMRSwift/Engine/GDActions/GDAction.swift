@@ -53,7 +53,7 @@ class GDAction {
         GDActionWait(duration: duration)
     }
     
-    static func shake(amplitude:Vector2, shakeDuration:Double = 0.05, duration:Double) -> GDActionShake {
+    static func shake(amplitude:Vector2, shakeDuration:Double = 0.02, duration:Double) -> GDActionShake {
         GDActionShake(amplitude: amplitude, shakeDuration: shakeDuration, duration: duration)
     }
 }

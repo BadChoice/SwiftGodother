@@ -5,7 +5,7 @@ class Yack : CompletableAction, ProvidesState {
 
     var scene:MainScene!
     var currentOptions:[Option]?
-    var background:ColorRect!
+    var background = ColorRect()
     var definition:[String:(()->Section)]!
     var finished:(()->Void)?
     
@@ -104,22 +104,21 @@ class Yack : CompletableAction, ProvidesState {
     //================================================
     func show(options:[Option]?){
         guard let options = options else { return done() }
-                
-        let x:Float = 0//scene.size.width  / 2 - 60
-        var y:Float = 0//scene.size.height / 2 - 50
+        
+        let x:Float = scene.room.camera.getScreenCenterPosition().x - (scene.room.camera.getViewportRect().size.x / 2)
+        var y:Float = scene.room.camera.getScreenCenterPosition().y - (scene.room.camera.getViewportRect().size.y / 2)
         
         Game.shared.touchLocked = false
         
         let visibleOptions = options.reversed().filter { shouldShow($0) }
         
-        //addBackground(visibleOptions.count)
+        addBackground(visibleOptions.count)
         
         currentOptionLabels = visibleOptions.map {
             let label = labelWith(text: $0.text)
-            label.position = Vector2(x:-x, y:-y)
-            y -= Float(Constants.yackSpacing)
+            label.setPosition(Vector2(x:x, y:-y) + Vector2(x:60, y:-80) * Game.shared.scale)
+            y += Float(Constants.yackSpacing) * Float(Game.shared.scale)
             $0.node = label
-            label.labelSettings?.fontColor = Constants.guyTalkColor
             scene.addChild(node: label)
             return label
         }
@@ -133,38 +132,43 @@ class Yack : CompletableAction, ProvidesState {
     func labelWith(text:String) -> Label {
         let theLabel = Label()
         theLabel.labelSettings = Label.settings()
-        //theLabel.horizontalAlignment = .center
-        //label.horitzonalAlignment = .left
-        theLabel.text = text
+        theLabel.text = "● " + __(text)
+        theLabel.modulate.alpha     = 0.8
+        theLabel.labelSettings?.fontColor = Constants.guyTalkColor
+        theLabel.zIndex = Constants.talk_zIndex
+        
         return theLabel
-        /*let label       = SKStrokedLabelNode(fontNamed: Constants.fontName)
-        label.fontSize  = CGFloat(Constants.fontSize)
-        label.alpha     = 0.8
-        label.text = "● " + __(text)
-        label.horizontalAlignmentMode = .left
-        label.zPosition = 1000
-        label.fontColor = Constants.guyTalkColor.uiColor
-        label.addStroke(color: .black)
-        return label*/
     }
     
-    /*fileprivate func addBackground(_ optionsCount: Int) {
-        background = SKShapeNode(
+    fileprivate func addBackground(_ optionsCount: Int) {
+        
+        background.setSize(Vector2(
+            x: scene.room.camera.getViewportRect().size.x - (60 * Float(Game.shared.scale)),
+            y: (((Float(optionsCount) + 1.5) * Constants.yackSpacing) - 40) * Float(Game.shared.scale)
+        ))
+        
+        background.setPosition(Vector2(
+            x: scene.room.camera.getScreenCenterPosition().x - (scene.room.camera.getViewportRect().size.x / 2) ,
+            y: scene.room.camera.getScreenCenterPosition().y + (scene.room.camera.getViewportRect().size.y / 2) - background.getSize().y
+        ))
+        
+        background.color            = .black
+        background.modulate.alpha   = Constants.talkBackgroundAlpha
+        background.zIndex           = Constants.talk_zIndex - 1
+        
+        /*background = SKShapeNode(
             rect: CGRect(
                 origin: CGPoint(x: -scene.size.width / 2, y: -scene.size.height/2),
                 size: CGSize(width: scene.size.width, height: CGFloat((Double(optionsCount) + 1.5) * Double(Constants.yackSpacing)))
             ).insetBy(dx: 16, dy: 16),
             cornerRadius: 14
-        )
-        background.zPosition = 999
-        background.fillColor = .black
-        background.alpha = Constants.talkBackgroundAlpha
-        background.strokeColor = .black
-        scene.addChild(background)
-    }*/
+        )*/
+
+        scene.addChild(node: background)
+    }
     
     func onTouchMoved(_ point:Vector2){
-        currentOptionLabels?.forEach { $0.modulate.alpha = 0.8 }
+        currentOptionLabels?.forEach { $0.modulate.alpha = 0.7 }
         let label = currentOptionLabels?.first { $0.hasPoint(point) }
         if label != nil {
             label?.modulate.alpha = 1

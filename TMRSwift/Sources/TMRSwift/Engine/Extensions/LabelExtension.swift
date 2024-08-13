@@ -3,8 +3,7 @@ import SwiftGodot
 extension Label {
     
     var position:Vector2 {
-        set { setPosition(position) }
-        get { getPosition() }
+        getPosition()
     }
     
     static func settings() -> LabelSettings {

@@ -195,7 +195,7 @@ class TalkEngine {
     
     private func setupLabel() -> Label{
         let label = Label()
-        label.horizontalAlignment = .center
+        //label.horizontalAlignment = .center
         label.labelSettings = Label.settings()
         label.zIndex = Constants.talk_zIndex
         return label

@@ -20,7 +20,7 @@ extension ArcadeEntrance {
                 "DISK 1",
                 "The Arcade Palace"
             ])*/
-            Face(.back)
+            /*Face(.back)
             Say("Holy Turing, finally: the Arcade Palace!")
             Face(.left)
             Say("It took me six long months to find the place...", armsExpression:.shy)
@@ -48,7 +48,7 @@ extension ArcadeEntrance {
             Say("Um, are you talking to me?", expression: .surprise, armsExpression:.bored)
             Say(actor: revisor, "Who else?")
             Say(actor: revisor, "Where do you think you're going, pipsqueak? And where are your parents? You're too young to go in there!", expression: .angry)
-            Walk(to: revisor)
+            Walk(to: revisor)*/
             Talk(yack: RevisorYack(revisor))
             SetTrue(&Self.entered)
         }) {

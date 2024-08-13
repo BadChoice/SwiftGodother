@@ -17,7 +17,7 @@ class GDActionShake : GDAction {
     
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
-        startPosition = (node as? Node2D)?.position ?? .zero
+        startPosition = (node as? Node2D)?.position ?? (node as? Control)?.getPosition() ?? .zero
         
         let numberOfShakes  = duration / shakeDuration
         
