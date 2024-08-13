@@ -1,33 +1,21 @@
 import SwiftGodot
 
-class GDActionMoveTo : GDAction {
+class GDActionMoveTo : GDActionTween {
     
-    let duration:Double
     let to:Vector2
+    
         
     init(to position:Vector2, duration:Double) {
         self.to = position
-        self.duration = duration
+        super.init(duration: duration)
     }
     
-    override func run(_ node:Node, completion:(()->Void)? = nil){        
-        guard node.getParent() != nil else {
-            completion?()
-            return
-        }
-        
-        let tween = node.createTween()
-                        
+    override func setupTween(_ tween:Tween?){
         tween?.tweenProperty(
             object: node,
             property: "position",
             finalVal: Variant(to),
             duration: duration
         )?.setEase(Tween.EaseType.inOut)
-                        
-        tween?.finished.connect {
-            completion?()
-        }
-    }
-    
+    }    
 }

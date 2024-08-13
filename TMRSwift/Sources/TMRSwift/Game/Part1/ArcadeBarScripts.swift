@@ -496,7 +496,7 @@ extension BowlingScreen : Animable {
     
     func animate(_ animation: String?) {
         if animation == nil {
-            //node?.removeAllActions()
+            node?.removeAllActions()
             node?.set(texture: "bowling-screen")
             return
         }

@@ -17,6 +17,7 @@ class GDActionShake : GDAction {
     
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
+        addToList(node: node)
         startPosition = (node as? Node2D)?.position ?? (node as? Control)?.getPosition() ?? .zero
         
         let numberOfShakes  = duration / shakeDuration
@@ -30,7 +31,9 @@ class GDActionShake : GDAction {
         }
         actionsArray.append(.move(to:startPosition, duration: shakeDuration))
         
-        node.run(.sequence(actionsArray), completion: completion)
-        
+        node.run(.sequence(actionsArray)) { [self] in
+            removeFromList()
+            completion?()
+        }
     }
 }

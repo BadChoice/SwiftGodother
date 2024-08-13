@@ -1,8 +1,39 @@
 import SwiftGodot
 
 class GDAction {
+    
+    static var activeActions:[UInt:[GDAction]] = [:]
+    static var idCounter:UInt = 0
+    
+    let id:UInt
+    weak var node:Node!
+    
+    init(){
+        id = GDAction.idCounter + 1
+        GDAction.idCounter += 1
+    }
+    
     func run(_ node:Node, completion:(()->Void)?){
         completion?()
+    }
+    
+    func stop(){
+        removeFromList()
+    }
+    
+    func addToList(node:Node){
+        self.node = node
+        let nodeId = node.getInstanceId()
+        if GDAction.activeActions[nodeId] == nil {
+            GDAction.activeActions[nodeId] = []
+        }
+        GDAction.activeActions[nodeId]?.append(self)
+    }
+    
+    func removeFromList(){
+        let nodeId = node.getInstanceId()
+        guard let index = (GDAction.activeActions[nodeId]?.firstIndex { $0.id == id }) else { return }
+        GDAction.activeActions[nodeId]?.remove(at: index)
     }
        
     //move by delta:Vector duration

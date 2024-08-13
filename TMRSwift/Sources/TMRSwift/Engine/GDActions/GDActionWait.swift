@@ -15,10 +15,12 @@ class GDActionWait : GDAction {
             return
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+        addToList(node: node)
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [self] in
             guard node.getParent() != nil else {
                 return
             }
+            removeFromList()
             completion?()
         }
     }

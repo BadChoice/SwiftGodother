@@ -16,9 +16,12 @@ class GDActionGroup : GDAction {
             return
         }
         
+        addToList(node: node)
+        
         self.completion = completion
         actions.forEach { action in
             action.run(node) { [self] in
+                removeFromList()
                 onActionCompleted()
             }
         }
@@ -31,4 +34,11 @@ class GDActionGroup : GDAction {
             completion = nil
         }
     }
+    
+    override func stop() {
+        super.stop()
+        actions.forEach { $0.stop() }
+        actions = []
+    }
+
 }

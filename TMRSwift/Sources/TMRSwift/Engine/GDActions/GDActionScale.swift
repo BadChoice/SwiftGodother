@@ -1,41 +1,22 @@
 import SwiftGodot
 
-class GDActionScale : GDAction {
+class GDActionScale : GDActionTween {
     
-    let duration:Double
     let finalScale:Float
     
-    var timingMode:Tween.EaseType = .inOut
         
     init(to scale:Float, duration:Double) {
         self.finalScale = scale
-        self.duration = duration
+        super.init(duration: duration)
     }
     
-    func withTimingMode(_ mode:Tween.EaseType) -> Self {
-        self.timingMode = mode
-        return self
-    }
     
-    override func run(_ node:Node, completion:(()->Void)? = nil){
-        guard node.getParent() != nil else {
-            completion?()
-            return
-        }
-        
-        let tween = node.createTween()
-                
+    override func setupTween(_ tween:Tween?){
         tween?.tweenProperty(
             object: node,
             property: "scale",
             finalVal: Variant(Vector2(x:finalScale, y:finalScale)),
             duration: duration
         )?.setEase(timingMode)
-                
-        
-        tween?.finished.connect {
-            completion?()
-        }
-    }
-    
+    }    
 }

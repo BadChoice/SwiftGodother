@@ -4,6 +4,7 @@ class GDActionSequence : GDAction {
     
     var actions : [GDAction]
     var completion:(()->Void)?
+    var current:GDAction?
     
     init(_ actions:[GDAction]){
         self.actions = actions.reversed()
@@ -26,8 +27,17 @@ class GDActionSequence : GDAction {
             return
         }
         
+        addToList(node: node)
+        current = action
         action.run(node) { [self] in
+            removeFromList()
             runNext(node)
         }
+    }
+    
+    override func stop() {
+        super.stop()
+        current?.stop()
+        actions = []
     }
 }
