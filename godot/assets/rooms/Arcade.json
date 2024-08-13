@@ -1,0 +1,419 @@
+{
+  "backZScale" : -0.40000000000000002,
+  "background" : "arcade-bg",
+  "lights" : [
+    {
+      "zPos" : 50,
+      "facing" : "front",
+      "objectClass" : "ArcadeLight0",
+      "position" : "214.35 180.19",
+      "light" : {
+        "radius" : 80,
+        "blinkType" : "standard",
+        "color" : "#ACA237"
+      },
+      "name" : "ArcadeLight0"
+    },
+    {
+      "facing" : "front",
+      "zPos" : 50,
+      "objectClass" : "ArcadeLight1",
+      "name" : "ArcadeLight1",
+      "position" : "314.10 212.98",
+      "light" : {
+        "radius" : 51.35906982421875,
+        "color" : "#BBAE3C",
+        "blinkType" : "standard"
+      }
+    },
+    {
+      "name" : "ArcadeLight2",
+      "light" : {
+        "radius" : 68.56500244140625,
+        "blinkType" : "standard",
+        "color" : "#88AF41"
+      },
+      "zPos" : 50,
+      "objectClass" : "ArcadeLight2",
+      "facing" : "front",
+      "position" : "656.72 256.79"
+    },
+    {
+      "zPos" : 50,
+      "facing" : "front",
+      "light" : {
+        "radius" : 80,
+        "blinkType" : "standard",
+        "color" : "#CDC15D"
+      },
+      "name" : "ArcadeLight3",
+      "position" : "714.03 350.64",
+      "objectClass" : "ArcadeLight3"
+    },
+    {
+      "light" : {
+        "radius" : 35.550643920898438,
+        "blinkType" : "standard",
+        "color" : "#CEAA4F"
+      },
+      "facing" : "front",
+      "objectClass" : "ArcadeLight4",
+      "zPos" : 50,
+      "name" : "ArcadeLight4",
+      "position" : "927.96 218.80"
+    },
+    {
+      "facing" : "front",
+      "position" : "1056.55 236.74",
+      "light" : {
+        "color" : "#D1AA4F",
+        "radius" : 38.479080200195312,
+        "blinkType" : "standard"
+      },
+      "zPos" : 50,
+      "objectClass" : "ArcadeLight5",
+      "name" : "ArcadeLight5"
+    }
+  ],
+  "music" : "8bits-retro",
+  "actor" : "Transparent",
+  "actorZPos" : 2,
+  "name" : "Arcade",
+  "ambienceSound" : "amb_arcades",
+  "atlasName" : "Part1",
+  "objects" : [
+    {
+      "zPos" : 0,
+      "subImages" : [
+
+      ],
+      "facing" : "back",
+      "name" : "Toy hammer",
+      "image" : "hammer",
+      "reach" : "normal",
+      "position" : "698.38 423.06",
+      "objectClass" : "SmashHammer",
+      "verbOverrides" : {
+
+      },
+      "hotspot" : "698.62 605.55"
+    },
+    {
+      "verbOverrides" : {
+        "use" : "Punch"
+      },
+      "hotspot" : "980.63 702.46",
+      "facing" : "right",
+      "objectClass" : "PunchBag",
+      "reach" : "reallyUp",
+      "subImages" : [
+
+      ],
+      "name" : "Punch bag",
+      "zPos" : 0,
+      "position" : "1194.75 432.25",
+      "image" : "punch-bag"
+    },
+    {
+      "hotspot" : "959.71 701.45",
+      "position" : "1003.77 616.56",
+      "zPos" : 0,
+      "image" : "trap-door",
+      "facing" : "right",
+      "name" : "Trap door",
+      "verbOverrides" : {
+        "use" : "Open"
+      },
+      "objectClass" : "TrapDoor",
+      "reach" : "low",
+      "subImages" : [
+
+      ]
+    },
+    {
+      "hotspot" : "281.85 893.38",
+      "objectClass" : "HiddenCoffeeCup",
+      "zPos" : 0,
+      "name" : "Something",
+      "image" : "hidden-glass",
+      "reach" : "low",
+      "verbOverrides" : {
+
+      },
+      "subImages" : [
+
+      ],
+      "facing" : "back",
+      "position" : "226.02 787.03"
+    },
+    {
+      "position" : "329.63 672.41",
+      "zPos" : 0,
+      "hotspot" : "369.51 917.18",
+      "image" : "toy-arrow",
+      "verbOverrides" : {
+
+      },
+      "name" : "Toy arrow",
+      "objectClass" : "ToyArrow",
+      "reach" : "normal",
+      "facing" : "back",
+      "subImages" : [
+
+      ]
+    },
+    {
+      "reach" : "reallyUp",
+      "name" : "Dragon tooth",
+      "hotspot" : "559.41 649.57",
+      "objectClass" : "DragonTooth",
+      "zPos" : 0,
+      "subImages" : [
+
+      ],
+      "verbOverrides" : {
+
+      },
+      "position" : "362.98 274.11",
+      "image" : "tooth",
+      "facing" : "left"
+    },
+    {
+      "subImages" : [
+
+      ],
+      "facing" : "front",
+      "name" : "figther00",
+      "hotspot" : "200.00 824.00",
+      "position" : "-29.55 426.05",
+      "objectClass" : "Figther00",
+      "zPos" : 0,
+      "image" : "figther00",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      }
+    },
+    {
+      "hotspot" : "200.00 824.00",
+      "zPos" : 0,
+      "subImages" : [
+
+      ],
+      "verbOverrides" : {
+
+      },
+      "image" : "smash00",
+      "reach" : "normal",
+      "objectClass" : "Smash00",
+      "position" : "706.57 352.78",
+      "name" : "smash00",
+      "facing" : "front"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "reach" : "normal",
+      "zPos" : 0,
+      "objectClass" : "Tinyshooter00",
+      "image" : "tinyshooter00",
+      "name" : "Tiny Hero Shooter Arcade Machine",
+      "subImages" : [
+
+      ],
+      "facing" : "front",
+      "hotspot" : "200.00 824.00",
+      "position" : "-305.61 415.74"
+    },
+    {
+      "hotspot" : "192.47 894.62",
+      "objectClass" : "ArcadeTickets",
+      "facing" : "back",
+      "zPos" : 0,
+      "reach" : "normal",
+      "position" : "124.99 675.99",
+      "image" : "ArcadeTickets",
+      "subImages" : [
+
+      ],
+      "name" : "ArcadeTickets",
+      "verbOverrides" : {
+
+      }
+    },
+    {
+      "image" : "max-body",
+      "reach" : "normal",
+      "facing" : "left",
+      "hotspot" : "286.17 900.41",
+      "name" : "Max",
+      "objectClass" : "MaxKid",
+      "position" : "-126.62 526.98",
+      "verbOverrides" : {
+        "talk" : "Talk"
+      },
+      "subImages" : [
+
+      ],
+      "zPos" : 0
+    },
+    {
+      "reach" : "normal",
+      "hotspot" : "1132.37 570.09",
+      "objectClass" : "ArcadePlant",
+      "zPos" : 0,
+      "size" : "102.91 119.49",
+      "facing" : "back",
+      "position" : "1095.37 428.81",
+      "verbOverrides" : {
+
+      },
+      "name" : "Plant"
+    },
+    {
+      "position" : "10.04 -111.84",
+      "hotspot" : "200.00 824.00",
+      "verbOverrides" : {
+
+      },
+      "zPos" : 0,
+      "size" : "100.00 100.00",
+      "objectClass" : "Sand",
+      "facing" : "front",
+      "reach" : "normal",
+      "name" : "Sand"
+    },
+    {
+      "name" : "Coin Input",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "TinyHeroArcade",
+      "position" : "88.16 641.65",
+      "zPos" : 0,
+      "size" : "90.33 104.01",
+      "hotspot" : "276.53 888.80",
+      "facing" : "left"
+    },
+    {
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "name" : "Tickets",
+      "objectClass" : "EarnedTickets",
+      "position" : "127.58 -110.68",
+      "facing" : "front",
+      "zPos" : 0,
+      "hotspot" : "200.00 824.00",
+      "size" : "100.00 100.00"
+    },
+    {
+      "position" : "454.14 307.45",
+      "reach" : "normal",
+      "zPos" : 0,
+      "size" : "38.10 95.55",
+      "hotspot" : "543.06 596.02",
+      "objectClass" : "NoLightersSign",
+      "name" : "No lighters sign",
+      "verbOverrides" : {
+
+      },
+      "facing" : "back"
+    },
+    {
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "ChangeMachine",
+      "zPos" : 0,
+      "position" : "509.18 313.65",
+      "facing" : "left",
+      "hotspot" : "656.99 602.10",
+      "name" : "Change machine",
+      "size" : "100.00 100.00"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "zPos" : 0,
+      "facing" : "right",
+      "objectClass" : "PunchMachine",
+      "name" : "Punching machine",
+      "polygon" : "1199.18 401.02 1172.60 337.59 1398.36 313.06 1401.25 630.30 1347.40 752.45 1279.61 628.37 1321.42 588.29 1305.33 387.68",
+      "reach" : "up",
+      "hotspot" : "1149.14 604.98"
+    }
+  ],
+  "frontZScale" : 1.8,
+  "doors" : [
+    {
+      "reach" : "normal",
+      "hotspot" : "979.34 559.21",
+      "verbOverrides" : {
+
+      },
+      "position" : "928.35 263.14",
+      "size" : "155.19 245.55",
+      "zPos" : 0,
+      "door" : {
+        "nextRoomFacing" : "front",
+        "nextRoomEntryPoint" : "805.73 794.74",
+        "changeRoomSound" : "goto_entrance_from_arcades.mp3",
+        "nextRoom" : "ArcadeEntrance",
+        "nextRoomArrowDirection" : "up"
+      },
+      "name" : "ArcadeToEntranceDoor",
+      "facing" : "back",
+      "objectClass" : "ArcadeToEntranceDoor"
+    },
+    {
+      "objectClass" : "ArcadeToBarDoor",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "size" : "72.80 253.42",
+      "hotspot" : "520.07 599.03",
+      "door" : {
+        "nextRoomFacing" : "front",
+        "nextRoomEntryPoint" : "19.04 647.23",
+        "nextRoomArrowDirection" : "left",
+        "changeRoomSound" : "goto_bar_from_arcades.mp3",
+        "nextRoom" : "ArcadeBar"
+      },
+      "reach" : "normal",
+      "position" : "384.80 322.97",
+      "facing" : "left",
+      "name" : "ArcadeToBarDoor"
+    },
+    {
+      "name" : "ArcadeToBasementDoor",
+      "facing" : "right",
+      "reach" : "normal",
+      "position" : "1017.93 624.16",
+      "door" : {
+        "nextRoomFacing" : "right",
+        "changeRoomSound" : "goto_hideout_from_arcades.mp3",
+        "nextRoomEntryPoint" : "370.18 632.18",
+        "nextRoom" : "SupremeHackerBasement",
+        "nextRoomArrowDirection" : "down"
+      },
+      "zPos" : 0,
+      "hotspot" : "963.99 697.25",
+      "size" : "250.76 153.39",
+      "objectClass" : "ArcadeToBasementDoor",
+      "verbOverrides" : {
+
+      }
+    }
+  ],
+  "foreground" : "arcade-fg",
+  "walkBoxes" : [
+    "609.72 580.66 802.28 600.05 880.27 548.90 1069.73 540.36 1220.96 559.80 1185.93 607.53 1298.94 916.11 774.55 938.84 559.45 994.55 13.81 971.82 217.25 853.59 411.06 912.44 652.41 769.35 589.47 685.33 464.91 614.36 532.87 574.90"
+  ]
+}

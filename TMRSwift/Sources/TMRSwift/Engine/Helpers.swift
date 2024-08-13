@@ -26,6 +26,12 @@ func ScriptSay(random:[String]){
     }
 }
 
+func ScriptWalkToAndSay(_ object:Object, _ text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil){
+    Script{
+        WalkToAndSay(object, text, expression: expression, armsExpression:armsExpression)
+    }
+}
+
 func roomObject<T:Object>(_ ofType:T.Type) -> T?{
     Game.shared.objectAtRoom(ofType: ofType)
 }

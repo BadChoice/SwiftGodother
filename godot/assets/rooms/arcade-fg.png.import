@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfoi6evyfu5kd"
-path="res://.godot/imported/Part3.2@2x.png-5264daa0690df5bee560c254a2bf9f04.ctex"
+uid="uid://blii18aul1ms"
+path="res://.godot/imported/arcade-fg.png-f40c9bb8b8f99eddab306840760f51b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rooms/Part3.atlasc/Part3.2@2x.png"
-dest_files=["res://.godot/imported/Part3.2@2x.png-5264daa0690df5bee560c254a2bf9f04.ctex"]
+source_file="res://assets/rooms/arcade-fg.png"
+dest_files=["res://.godot/imported/arcade-fg.png-f40c9bb8b8f99eddab306840760f51b1.ctex"]
 
 [params]
 

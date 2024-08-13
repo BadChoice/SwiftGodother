@@ -1,0 +1,163 @@
+{
+  "actor" : "Transparent",
+  "backZScale" : -0.80000000000000004,
+  "name" : "SupremeHackerBasement",
+  "lights" : [
+    {
+      "objectClass" : "SupremeHackerBasementLight0",
+      "zPos" : 50,
+      "facing" : "front",
+      "light" : {
+        "blinkType" : "standard",
+        "radius" : 111.6334228515625,
+        "color" : "#B5E498"
+      },
+      "name" : "SupremeHackerBasementLight0",
+      "position" : "809.05 352.23"
+    }
+  ],
+  "music" : "supremeHacker",
+  "foreground" : "baement-fg",
+  "walkBoxes" : [
+    "383.48 620.08 444.64 633.75 460.98 689.56 479.00 782.96 832.29 899.21 371.83 999.38 215.64 828.54 245.97 776.20 394.31 722.01 349.02 641.59"
+  ],
+  "actorZPos" : 2,
+  "background" : "basement-bg",
+  "ambienceSound" : "amb_hideout",
+  "objects" : [
+    {
+      "facing" : "back",
+      "verbOverrides" : {
+
+      },
+      "image" : "BasementCoffeeCup",
+      "reach" : "normal",
+      "zPos" : 0,
+      "objectClass" : "BasementCoffeeCup",
+      "name" : "Coffee cup",
+      "subImages" : [
+
+      ],
+      "hotspot" : "657.47 876.01",
+      "position" : "647.85 642.85"
+    },
+    {
+      "reach" : "normal",
+      "position" : "853.34 482.17",
+      "verbOverrides" : {
+
+      },
+      "hotspot" : "525.94 829.62",
+      "image" : "SupremeHacker",
+      "facing" : "right",
+      "name" : "Supreme Hacker",
+      "zPos" : 0,
+      "subImages" : [
+
+      ],
+      "objectClass" : "SupremeHacker"
+    },
+    {
+      "size" : "112.66 118.43",
+      "name" : "Polystyrene balls box",
+      "reach" : "normal",
+      "hotspot" : "460.54 726.67",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "WhiteBallsBox",
+      "facing" : "right",
+      "zPos" : 0,
+      "position" : "531.84 669.47"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "name" : "VR device",
+      "objectClass" : "Oculus",
+      "reach" : "normal",
+      "facing" : "right",
+      "position" : "676.04 582.82",
+      "size" : "98.29 60.52",
+      "zPos" : 0,
+      "hotspot" : "462.85 779.08"
+    },
+    {
+      "objectClass" : "PillBag",
+      "zPos" : 0,
+      "name" : "Pill bag",
+      "position" : "32.68 -115.13",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "hotspot" : "200.00 824.00",
+      "size" : "100.00 100.00",
+      "facing" : "front"
+    },
+    {
+      "verbOverrides" : {
+
+      },
+      "facing" : "front",
+      "size" : "101.88 332.08",
+      "zPos" : 0,
+      "hotspot" : "386.53 678.93",
+      "position" : "177.67 316.84",
+      "name" : "Lab tank",
+      "reach" : "normal",
+      "objectClass" : "Tank1"
+    },
+    {
+      "zPos" : 0,
+      "hotspot" : "200.00 824.00",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "Tank2",
+      "facing" : "front",
+      "position" : "470.29 356.75",
+      "name" : "Lab tank",
+      "size" : "153.88 227.39"
+    },
+    {
+      "facing" : "right",
+      "hotspot" : "468.92 818.23",
+      "objectClass" : "SupremeHackerScreen",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "size" : "103.37 142.33",
+      "reach" : "up",
+      "position" : "690.50 411.22",
+      "name" : "Screen"
+    }
+  ],
+  "frontZScale" : 1.8999999999999999,
+  "atlasName" : "Part1",
+  "doors" : [
+    {
+      "facing" : "back",
+      "reach" : "normal",
+      "objectClass" : "BasementToArcadeDoor",
+      "name" : "BasementToArcadeDoor",
+      "hotspot" : "370.18 632.18",
+      "position" : "292.77 264.62",
+      "zPos" : 0,
+      "size" : "149.07 347.99",
+      "verbOverrides" : {
+
+      },
+      "door" : {
+        "nextRoomEntryPoint" : "963.99 697.25",
+        "nextRoomArrowDirection" : "up",
+        "nextRoomFacing" : "left",
+        "nextRoom" : "Arcade",
+        "changeRoomSound" : "goto_arcades_from_hideout.mp3"
+      }
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "frontZScale" : 1.5,
+  "name" : "ArcadeBar",
+  "actor" : "Transparent",
+  "objects" : [
+    {
+      "position" : "312.05 317.37",
+      "name" : "Bowling machine",
+      "reach" : "normal",
+      "polygon" : "423.36 767.06 316.94 590.55 300.10 284.23 518.03 304.77 499.83 557.83 664.70 692.94 671.97 757.90",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "facing" : "back",
+      "image" : "bowling-screen",
+      "subImages" : [
+
+      ],
+      "objectClass" : "BowlingScreen",
+      "hotspot" : "682.11 839.96"
+    },
+    {
+      "reach" : "normal",
+      "objectClass" : "BarTable",
+      "position" : "904.36 687.04",
+      "hotspot" : "1194.19 781.90",
+      "verbOverrides" : {
+
+      },
+      "facing" : "front",
+      "name" : "BarTable",
+      "zPos" : 0,
+      "subImages" : [
+
+      ],
+      "image" : "table"
+    },
+    {
+      "subImages" : [
+
+      ],
+      "zPos" : 0,
+      "facing" : "right",
+      "name" : "Toothpicks",
+      "hotspot" : "1018.12 848.77",
+      "objectClass" : "Toothpicks",
+      "position" : "1122.37 719.95",
+      "reach" : "normal",
+      "image" : "toothpicks",
+      "verbOverrides" : {
+        "talk" : "Lick"
+      }
+    },
+    {
+      "position" : "778.79 369.69",
+      "subImages" : [
+
+      ],
+      "image" : "barman\/barman",
+      "name" : "Barman",
+      "verbOverrides" : {
+
+      },
+      "zPos" : 0,
+      "hotspot" : "1030.18 712.16",
+      "objectClass" : "Barman",
+      "reach" : "normal",
+      "facing" : "left"
+    },
+    {
+      "objectClass" : "Pirate",
+      "name" : "Pirate",
+      "verbOverrides" : {
+
+      },
+      "subImages" : [
+
+      ],
+      "reach" : "normal",
+      "facing" : "right",
+      "position" : "1220.98 656.45",
+      "hotspot" : "1076.11 763.45",
+      "image" : "pirate\/pirate",
+      "zPos" : 25
+    },
+    {
+      "zPos" : 0,
+      "reach" : "low",
+      "hotspot" : "523.34 847.12",
+      "verbOverrides" : {
+
+      },
+      "facing" : "back",
+      "name" : "BowlingTickets",
+      "subImages" : [
+
+      ],
+      "objectClass" : "BowlingTickets",
+      "image" : "BowlingTickets",
+      "position" : "446.05 717.44"
+    },
+    {
+      "reach" : "normal",
+      "hotspot" : "1451.09 641.42",
+      "zPos" : 0,
+      "size" : "47.47 67.77",
+      "verbOverrides" : {
+        "use" : "Push"
+      },
+      "facing" : "back",
+      "name" : "Arcade coins button",
+      "objectClass" : "ArcadeMachineButton",
+      "position" : "1433.56 488.47"
+    },
+    {
+      "position" : "4.86 -111.03",
+      "size" : "100.00 100.00",
+      "verbOverrides" : {
+        "talk" : "Bite"
+      },
+      "facing" : "front",
+      "hotspot" : "200.00 824.00",
+      "objectClass" : "Coin",
+      "name" : "Coin",
+      "zPos" : 0,
+      "reach" : "normal"
+    },
+    {
+      "facing" : "back",
+      "verbOverrides" : {
+
+      },
+      "size" : "100.00 100.00",
+      "hotspot" : "1019.87 704.96",
+      "name" : "Promo",
+      "reach" : "normal",
+      "zPos" : 0,
+      "objectClass" : "ReuseCoffeeCupsPromo",
+      "position" : "959.79 393.87"
+    },
+    {
+      "name" : "Best TPV system ever",
+      "reach" : "normal",
+      "hotspot" : "739.90 721.32",
+      "size" : "142.19 78.52",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "RevoIpad",
+      "zPos" : 0,
+      "facing" : "back",
+      "position" : "676.77 383.96"
+    },
+    {
+      "name" : "Play alone sign",
+      "size" : "100.00 100.00",
+      "zPos" : 0,
+      "reach" : "normal",
+      "hotspot" : "219.91 676.61",
+      "verbOverrides" : {
+
+      },
+      "position" : "160.75 284.76",
+      "objectClass" : "PlayAloneSign",
+      "facing" : "back"
+    },
+    {
+      "hotspot" : "1399.95 630.59",
+      "reach" : "normal",
+      "objectClass" : "OutOfOrderSign",
+      "position" : "1324.07 459.70",
+      "size" : "100.00 100.00",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "name" : "Out of order sign",
+      "facing" : "back"
+    },
+    {
+      "reach" : "normal",
+      "objectClass" : "CoffeeCup",
+      "name" : "Coffee cup",
+      "zPos" : 0,
+      "verbOverrides" : {
+
+      },
+      "facing" : "front",
+      "size" : "100.00 100.00",
+      "position" : "123.49 -108.55",
+      "hotspot" : "200.00 824.00"
+    },
+    {
+      "zPos" : 0,
+      "name" : "Ice",
+      "size" : "100.00 100.00",
+      "facing" : "front",
+      "reach" : "normal",
+      "verbOverrides" : {
+
+      },
+      "objectClass" : "Ice",
+      "hotspot" : "200.00 824.00",
+      "position" : "246.44 -106.40"
+    },
+    {
+      "facing" : "front",
+      "hotspot" : "200.00 824.00",
+      "name" : "Cocktail",
+      "zPos" : 0,
+      "objectClass" : "Cocktail",
+      "reach" : "normal",
+      "size" : "100.00 100.00",
+      "verbOverrides" : {
+
+      },
+      "position" : "367.79 -106.80"
+    }
+  ],
+  "backZScale" : 0.59999999999999998,
+  "actorZPos" : 2,
+  "background" : "arcade-bar-bg",
+  "atlasName" : "Part1",
+  "ambienceSound" : "amb_bar",
+  "lights" : [
+    {
+      "position" : "382.89 156.73",
+      "objectClass" : "ArcadeBarLight0",
+      "facing" : "front",
+      "name" : "ArcadeBarLight0",
+      "zPos" : 50,
+      "light" : {
+        "radius" : 54.25958251953125,
+        "color" : "#B0B6BB",
+        "blinkType" : "standard"
+      }
+    },
+    {
+      "objectClass" : "ArcadeBarLight1",
+      "zPos" : 50,
+      "light" : {
+        "color" : "#FDFDC9",
+        "blinkType" : "standard",
+        "radius" : 98.07073974609375
+      },
+      "position" : "688.15 256.76",
+      "name" : "ArcadeBarLight1",
+      "facing" : "front"
+    },
+    {
+      "facing" : "front",
+      "zPos" : 50,
+      "position" : "938.35 239.28",
+      "light" : {
+        "blinkType" : "standard",
+        "radius" : 86.9847412109375,
+        "color" : "#FDFDC9"
+      },
+      "objectClass" : "ArcadeBarLight2",
+      "name" : "ArcadeBarLight2"
+    },
+    {
+      "objectClass" : "ArcadeBarLight3",
+      "position" : "302.33 308.97",
+      "name" : "ArcadeBarLight3",
+      "zPos" : 50,
+      "light" : {
+        "radius" : 198.45086669921875,
+        "color" : "#C3C8C9",
+        "blinkType" : "standard"
+      },
+      "facing" : "front"
+    },
+    {
+      "zPos" : 50,
+      "objectClass" : "ArcadeBarLight4",
+      "name" : "ArcadeBarLight4",
+      "light" : {
+        "color" : "#E5C15F",
+        "blinkType" : "standard",
+        "radius" : 63.2861328125
+      },
+      "position" : "564.87 261.16",
+      "facing" : "front"
+    },
+    {
+      "objectClass" : "ArcadeBarLight5",
+      "zPos" : 50,
+      "name" : "ArcadeBarLight5",
+      "light" : {
+        "color" : "#E8C25E",
+        "blinkType" : "standard",
+        "radius" : 50.2630615234375
+      },
+      "position" : "889.24 223.39",
+      "facing" : "front"
+    },
+    {
+      "position" : "752.74 211.49",
+      "objectClass" : "ArcadeBarLight6",
+      "name" : "ArcadeBarLight6",
+      "zPos" : 50,
+      "light" : {
+        "color" : "#E7C05D",
+        "radius" : 54.057373046875,
+        "blinkType" : "standard"
+      },
+      "facing" : "front"
+    },
+    {
+      "facing" : "front",
+      "zPos" : 50,
+      "name" : "ArcadeBarLight7",
+      "objectClass" : "ArcadeBarLight7",
+      "position" : "1032.51 304.68",
+      "light" : {
+        "radius" : 55.8843994140625,
+        "blinkType" : "standard",
+        "color" : "#E7C05C"
+      }
+    }
+  ],
+  "foreground" : "arcade-bar-fg",
+  "music" : "8bits-retro",
+  "walkBoxes" : [
+    "277.74 655.49 398.34 838.24 784.86 813.36 766.62 731.80 1192.46 676.05 1168.39 645.59 1520.64 621.60 1695.24 715.99 1607.03 875.32 209.48 952.81 -124.00 882.79 -142.31 605.38 129.52 606.06 182.88 661.78"
+  ],
+  "doors" : [
+    {
+      "door" : {
+        "changeRoomSound" : "goto_arcades_from_bar.mp3",
+        "nextRoom" : "Arcade",
+        "nextRoomEntryPoint" : "520.07 599.03",
+        "nextRoomArrowDirection" : "up",
+        "nextRoomFacing" : "right"
+      },
+      "objectClass" : "BarToArcadeDoor",
+      "hotspot" : "19.04 647.23",
+      "facing" : "back",
+      "position" : "-105.29 213.82",
+      "verbOverrides" : {
+
+      },
+      "size" : "202.21 367.20",
+      "name" : "BarToArcadeDoor",
+      "reach" : "normal",
+      "zPos" : 0
+    }
+  ]
+}

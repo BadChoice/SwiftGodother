@@ -1,8 +1,10 @@
+import Foundation
 import SwiftGodot
 
 class SpriteObject : Object {
     var node:Sprite2D?
     
+    @objc dynamic var image:String  { details.image! }
     
     required init(_ details: ObjectDetails? = nil) {
         super.init(details)
@@ -13,7 +15,7 @@ class SpriteObject : Object {
     }
     
     override func getNode() -> Node2D? {
-        guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: details.image!) else {
+        guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: image) else {
             return nil
         }
         node = sprite

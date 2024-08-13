@@ -31,4 +31,8 @@ extension Sprite2D {
         (transform * getRect())
     }
     
+    func set(texture name:String) {
+        texture = Game.shared.room.atlas.textureNamed(name: name)
+    }
+    
 }

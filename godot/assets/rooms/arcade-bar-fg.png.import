@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0vsxdackwdl7"
-path="res://.godot/imported/Part3.1.png-cb41fe7eaf1fa3ee4cacf6aacc39a2b5.ctex"
+uid="uid://blpg321f7uukh"
+path="res://.godot/imported/arcade-bar-fg.png-25eb77d67516c0c9afc10134378c46bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rooms/Part3.atlasc/Part3.1.png"
-dest_files=["res://.godot/imported/Part3.1.png-cb41fe7eaf1fa3ee4cacf6aacc39a2b5.ctex"]
+source_file="res://assets/rooms/arcade-bar-fg.png"
+dest_files=["res://.godot/imported/arcade-bar-fg.png-25eb77d67516c0c9afc10134378c46bd.ctex"]
 
 [params]
 

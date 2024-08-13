@@ -22,7 +22,7 @@ struct Walk : CompletableAction {
         self.facing = facing ?? object.facing
     }
     
-    /*init(to point:Point, facing:Actor.Direction? = nil){
+    /*init(to point:Point, facing:Direction? = nil){
         self.actor = Game.shared.room.actor
         self.room   = Game.shared.room
         self.point  = point.fromSketch

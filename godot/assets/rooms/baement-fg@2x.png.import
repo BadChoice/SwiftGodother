@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8dldtw5i7ahh"
-path="res://.godot/imported/junkShop_bg.jpg-25912382e7a8c595e54e3a59ec3914df.ctex"
+uid="uid://vx7ytehnsmha"
+path="res://.godot/imported/baement-fg@2x.png-c98b710f0763bda7df7deb9837ba1dbe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rooms/junkShop_bg.jpg"
-dest_files=["res://.godot/imported/junkShop_bg.jpg-25912382e7a8c595e54e3a59ec3914df.ctex"]
+source_file="res://assets/rooms/baement-fg@2x.png"
+dest_files=["res://.godot/imported/baement-fg@2x.png-c98b710f0763bda7df7deb9837ba1dbe.ctex"]
 
 [params]
 
