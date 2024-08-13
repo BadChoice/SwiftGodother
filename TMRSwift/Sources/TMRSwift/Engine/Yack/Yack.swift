@@ -17,9 +17,9 @@ class Yack : CompletableAction, ProvidesState {
         case once, noSpeak
     }
     
-    func onTouchedAt(point:Vector2){
+    func onTouched(at position:Vector2) {
         let selectedOption = currentOptions?.first { option in
-            option.node?.hasPoint(point) ?? false
+            option.node?.hasPoint(position) ?? false
         }
         
         guard let option = selectedOption else { return }
@@ -48,7 +48,7 @@ class Yack : CompletableAction, ProvidesState {
         guard (number - 1) < currentOptionLabels?.count ?? 0 else { return }
         if let label = currentOptionLabels?.reversed()[number - 1] {
             if label.getParent() == nil { return }
-            onTouchedAt(point: label.position)
+            onTouched(at: label.position)
         }
     }
     
@@ -167,9 +167,9 @@ class Yack : CompletableAction, ProvidesState {
         scene.addChild(node: background)
     }
     
-    func onTouchMoved(_ point:Vector2){
+    func onMouseMoved(at position:Vector2){
         currentOptionLabels?.forEach { $0.modulate.alpha = 0.7 }
-        let label = currentOptionLabels?.first { $0.hasPoint(point) }
+        let label = currentOptionLabels?.first { $0.hasPoint(position) }
         if label != nil {
             label?.modulate.alpha = 1
             label?.shake()

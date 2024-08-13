@@ -95,7 +95,7 @@ class MainScene : Node2D {
         guard !Game.shared.touchLocked else { return }
         
         if let yack = Game.shared.currentYack {
-            return yack.onTouchedAt(point: position)
+            return yack.onTouched(at: position)
         }
         
         let object = object(at: getLocalMousePosition())
@@ -114,7 +114,7 @@ class MainScene : Node2D {
         guard !Game.shared.touchLocked else { return }
         
         if let yack = Game.shared.currentYack {
-            return yack.onTouchMoved(position)
+            return yack.onMouseMoved(at: position)
         }
         
         let object = object(at: getLocalMousePosition())
