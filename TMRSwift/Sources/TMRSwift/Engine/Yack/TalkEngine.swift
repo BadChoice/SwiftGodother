@@ -116,26 +116,10 @@ class TalkEngine {
     
     func getTextPosition(_ scene:MainScene, labelWidth:Float, labelHeight:Float) -> Vector2 {
         let talkPoint = talkable.talkPosition
-        //var scenePoint = Game.shared.room.node.convert(talkPoint, to: scene)
-        //var scenePoint = talkPoint - (Vector2(x: labelWidth, y: labelHeight) / 2)
-        var labelSize = Vector2(x:labelWidth, y: labelHeight)
-        var margin = Vector2(x:60, y:60) * Float(Game.shared.scale)
-        let scenePoint = Game.shared.safePosition(talkPoint, size: labelSize) - labelSize / 2 + margin
-                
-        /*let leftOutOfScreen = (scenePoint.x - labelWidth / 2) + (scene.size.width / 2)
-        if leftOutOfScreen < 10 {
-            scenePoint.x -= (leftOutOfScreen - 20)
-        }
         
-        let rightOutOfScreen = (scenePoint.x + labelWidth / 2) - (scene.size.width / 2)
-        if rightOutOfScreen > 10 {
-            scenePoint.x -= (rightOutOfScreen + 20)
-        }
-        
-        let topOutOfScreen = (scenePoint.y + labelHeight) - (scene.size.height / 2)
-        if topOutOfScreen > -50 {
-            scenePoint.y -= topOutOfScreen + 50
-        }*/
+        var margin     = Vector2(x:200, y:200) * Game.shared.scale
+        var labelSize  = Vector2(x:labelWidth, y: labelHeight)
+        let scenePoint = Game.shared.safePosition(talkPoint, size: labelSize + margin) - labelSize / 2
         
         return scenePoint
     }
