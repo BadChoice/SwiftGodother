@@ -1,6 +1,12 @@
 import SwiftGodot
 
 extension Label {
+    
+    var position:Vector2 {
+        set { setPosition(position) }
+        get { getPosition() }
+    }
+    
     static func settings() -> LabelSettings {
         let settings = LabelSettings()
         
@@ -16,5 +22,9 @@ extension Label {
             settings.shadowOffset = Vector2(value: 5 * Float(Game.shared.scale))
         }
         return settings
+    }
+    
+    func hasPoint(_ point:Vector2) -> Bool {
+        getRect().hasPoint(point)
     }
 }

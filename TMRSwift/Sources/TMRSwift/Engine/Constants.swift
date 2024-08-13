@@ -40,7 +40,7 @@ struct Constants {
     static var fontName:String       = "Janda Manatee Solid"
     static var font:String           = "JandaManateeSolid.ttf"
     static var talkBackgroundAlpha:Float  = 0.8
-    //static var guyTalkColor:Color  = "#EDEB67"
+    static var guyTalkColor:Color   = "#EDEB67"
 
 }
 

@@ -7,6 +7,7 @@ class Game  {
     var room:Room!
     var actor:Actor!
     var talkEngine:TalkEngine!
+    var currentYack:Yack?
     
     var state = GameState()
     
