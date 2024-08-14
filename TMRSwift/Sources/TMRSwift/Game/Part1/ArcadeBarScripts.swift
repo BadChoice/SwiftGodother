@@ -9,12 +9,6 @@ extension ArcadeBar {
     }
 }
 
-/*extension BarTable {
-    override func isTouched(point: CGPoint) -> Bool { false }
-    override var zIndex: Float { 20 }
-    override var showItsHotspotHint:Bool { false }
-}
-*/
 extension Toothpicks {
     override var zIndex: Int32 { 21 }
     

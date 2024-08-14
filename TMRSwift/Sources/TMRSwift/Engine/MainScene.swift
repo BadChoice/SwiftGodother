@@ -17,8 +17,9 @@ class MainScene : Node2D {
                 
         initialize()
         
-        //room = ArcadeEntrance()
-        room = Arcade()
+        Debug.setDebugGameState()
+        
+        room = (Debug.roomType ?? ArcadeEntrance.self).init()
         addChild(node: room.node)
         room._ready()
         

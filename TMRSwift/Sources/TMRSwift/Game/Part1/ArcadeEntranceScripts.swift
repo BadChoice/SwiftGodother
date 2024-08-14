@@ -554,11 +554,9 @@ extension Rabbit {
 }
 
 extension TicketsCounterDisplay : Animable {
-    //override func isTouched(point: Vector2) -> Bool { false }
-    override var showItsHotspotHint:Bool { false }
     
     override var image: String {
-        return "tickets-counter-plain.png"
+        "tickets-counter-plain.png"
     }
     
     func animate(_ animation: String?) {

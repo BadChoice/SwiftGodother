@@ -7,8 +7,7 @@ protocol Inventoriable : Object {
 
 extension Inventoriable {
     var inInventory: Bool {
-        false
-        //inventory.contains(self)
+        inventory.contains(self)
     }
 }
 

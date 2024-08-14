@@ -39,7 +39,7 @@ class Combine : CompletableAction {
         }
         Game.shared.scene.inventoryUI.hide()
         Script ({
-            //Animate(Crypto.combine)
+            Animate(Crypto.combine)
             ReloadInventory(main)
             if let losable = losable {
                 Lose(losable, notChanginState: true)

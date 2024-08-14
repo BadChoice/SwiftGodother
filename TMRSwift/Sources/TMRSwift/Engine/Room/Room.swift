@@ -40,6 +40,7 @@ class Room : NSObject, ProvidesState {
         setupCamera()
         addObjects()
         addWalkPath()
+        putActor(at: Vector2(x:0, y:400) * Game.shared.scale, facing: .right)
         
         //addTest()
     }
@@ -51,11 +52,12 @@ class Room : NSObject, ProvidesState {
         
     
     private func loadAtlas(){
-        atlas = Cache.shared.cache(key: "room-texture-\(details.atlasName)") {
+        let atlas:TexturePacker = Cache.shared.cache(key: "atlas-\(details.atlasName)") {
             let atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
             atlas.load()
             return atlas
         }
+        self.atlas = atlas
     }
     
     

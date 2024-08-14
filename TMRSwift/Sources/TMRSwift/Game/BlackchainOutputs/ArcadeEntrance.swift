@@ -7,7 +7,7 @@ class ArcadeEntrance : Room {
     static var entered:Bool
 }
 
-class VanFront : SpriteObject  {
+class VanFront : DecorationObject  {
     override var json: String { "ArcadeEntrance" }
 
 
@@ -87,7 +87,7 @@ class TicketsBox : SpriteObject  {
 
 }
 
-class TicketsCounterDisplay : SpriteObject  {
+class TicketsCounterDisplay : DecorationObject  {
     override var json: String { "ArcadeEntrance" }
 
 

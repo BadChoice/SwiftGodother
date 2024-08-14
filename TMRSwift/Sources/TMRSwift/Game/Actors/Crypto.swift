@@ -20,19 +20,10 @@ class Crypto : Actor {
     func loadAnimations(){
         frames = SpriteFrames()
         
-        frames.addAnimation(anim: "walk")
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/01"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/02"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/03"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/04"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/05"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/06"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/07"), duration: 0.50)
-        frames.addFrame(anim: "walk", texture: tp.textureNamed(name: "walk/08"), duration: 0.50)
-        
-        frames.addAnimation(anim: "idle")
-        frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/00"), duration: 2.50)
-        frames.addFrame(anim: "idle", texture: tp.textureNamed(name: "idle/01"), duration: 2.50)
+        frames.createAnimation(name: "walk",    prefix: "walk/",    frames: 1...8, atlas:tp, timePerFrame:0.5, looped:true)
+        frames.createAnimation(name: "combine", prefix: "combine/", frames: 0...17, atlas: tp, timePerFrame: 0.5, looped: false)
+    
+        frames.createAnimation(name: "idle", prefix: "idle/", frames: 0...1, atlas: tp, timePerFrame: 2.50, looped: true)
         
         frames.addAnimation(anim: "no_face_profile")
         frames.addFrame(anim: "no_face_profile", texture: tp.textureNamed(name: "no-face"))
@@ -43,8 +34,8 @@ class Crypto : Actor {
         frames.setAnimationLoop(anim: "pickup", loop: false)
         
         frames.addAnimation(anim: "pickup-up")
-        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.5)
-        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.5)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.4)
+        frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.4)
         frames.setAnimationLoop(anim: "pickup-up", loop: false)
         
         frames.addAnimation(anim: "pickup-low")
@@ -57,6 +48,7 @@ class Crypto : Actor {
         frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/really-up"), duration: 0.5)
         frames.setAnimationLoop(anim: "pickup-really-up", loop: false)
                 
+        
         //pickup/pickup-back-low.png
         //pickup/pickup-back-up.png
         //pickup/low
@@ -78,22 +70,11 @@ class Crypto : Actor {
         //talk/face-back-talk
         //talk/face-back
         //talk/face-look-phone.png
-                
-        //combine/00.png -- 12
-        
+                        
         face.texture = tp.textureNamed(name: "talk/face")
         face.position = Vector2(x:-6, y:-236) * Game.shared.scale
         node.addChild(node: face)
         face.hide()
-                
-                
-        frames.getAnimationNames().forEach {
-            for i in 0...frames.getFrameCount(anim: StringName($0)) {
-                if let frameTexture = frames.getFrameTexture(anim: StringName($0), idx: i) {
-                    //GD.print($0, frameTexture.getSize(), frameTexture.getRegion())
-                }
-            }
-        }
         
         node.spriteFrames = frames
         
@@ -102,7 +83,9 @@ class Crypto : Actor {
     }
     
 
+    //---------------------------------------------------
     //MARK: - Animations
+    //---------------------------------------------------
     override func animate(_ animation: String?) {
         clearAnimations()
         
@@ -111,7 +94,8 @@ class Crypto : Actor {
         }
         
         switch animation {
-        case "talk" : animateTalk()
+        case "talk"                      : animateTalk()
+        case Self.combine.name           : animateCombine()
         default: node.play(name: "idle")
         }
     }
@@ -130,15 +114,29 @@ class Crypto : Actor {
         node.play(name: StringName(animation))
     }
     
+    private func animateCombine(){
+        if [.front, .back].contains(facing) { face(.right) }
+        //face.hide()
+        node.play(name: "combine")
+    }
+    
+    //---------------------------------------------------
     //MARK: - Facing
+    //---------------------------------------------------
     override func face(_ facing: Facing) {
         self.facing = facing
+        
                 
         if walk?.walkingTo != nil {
             node.play(name: "walk")
         } else {
             node.play(name: "idle")
         }
+        
+        if facing == .left && node.scale.x < 0 { return }
+        if facing == .right && node.scale.x > 0 { return }
+        
+        node.scale.x *= -1
     }
     
     private func getFacingScale() -> Vector2 {
@@ -155,5 +153,12 @@ class Crypto : Actor {
     override func stopWalk() {
         super.stopWalk()
         node.play(name: "idle")
+    }
+        
+    //---------------------------------------------------
+    //MARK: - Animations
+    //---------------------------------------------------
+    static var combine:  Animation {
+        .init(name: "combine", durationMs: 18 * 100, sound:"combine_items")
     }
 }

@@ -14,7 +14,7 @@ class BowlingScreen : SpriteObject  {
 
 }
 
-class BarTable : SpriteObject  {
+class BarTable : DecorationObject  {
     override var json: String { "ArcadeBar" }
 
 
