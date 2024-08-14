@@ -44,6 +44,18 @@ class Room : NSObject, ProvidesState {
         //addTest()
     }
     
+    func putActor(at position:Vector2?, facing:Facing){
+        camera.positionSmoothingEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
+            self?.camera.positionSmoothingEnabled = true
+        }
+        if let position {
+            actor.node.position = position
+            actor.setAwayScale(walkbox.getAwayScaleForActorAt(point: position))
+        }
+        actor.face(facing)
+    }
+    
     
     private func addActor(){
         actor = Crypto()
@@ -57,12 +69,10 @@ class Room : NSObject, ProvidesState {
         
         camera.limitSmoothed = true
         camera.limitBottom = Int32(background.texture!.getSize().y / 2)
-        //camera.limitBottom = 1024
         camera.limitTop = -Int32(background.texture!.getSize().y / 2)
         camera.limitRight = Int32(background.texture!.getSize().x / 2)
         camera.limitLeft = -Int32(background.texture!.getSize().x / 2)
                 
-        
         actor.node.addChild(node: camera)
     }
     

@@ -23,7 +23,10 @@ struct RoomChanger {
         Game.shared.scene.addChild(node: Game.shared.room.node)
         Game.shared.room.node.modulate.alpha = 0
         Game.shared.room._ready()
-                        
+        Game.shared.room.camera.enabled = false
+                      
+        GD.print("Change room")
+        
         let blackNode = fullScreenBlack(previousRoom?.camera)
         
         guard previousRoom != nil else {
@@ -37,6 +40,10 @@ struct RoomChanger {
             .fadeIn(withDuration: fadeTime),
             .wait(forDuration: stayTime)
         ])){
+
+            previousRoom?.camera.enabled = false
+            Game.shared.room.camera.enabled = true
+            Game.shared.room.putActor(at: actorPosition, facing: facing)
             removeRoom(room: previousRoom, roomsShareMusic:roomsShareMusic)
             startRoom(room: Game.shared.room, roomsShareMusic:roomsShareMusic)
             blackNode.run(.fadeOut(withDuration: fadeTime))
@@ -44,19 +51,12 @@ struct RoomChanger {
     }
     
     func fullScreenBlack(_ camera:Camera2D?) -> ColorRect {
-        /*let black = SKShapeNode(rect: CGRect(x:0 - scene.size.width/2, y:0 - scene.size.height/2, width:scene.size.width, height:scene.size.height))
-        black.fillColor = curtainColor
-        black.lineWidth = 0
-        black.alpha = 0
-        black.zPosition = 6000
-        return black*/
         let rect = ColorRect()
         
-        GD.print("Change room")
-        
         if let camera {
-            rect.setSize(camera.getViewportRect().size)
-            rect.setPosition(camera.getViewportRect().size * -0.5)
+            GD.print(camera.getViewportRect(), camera.getScreenCenterPosition())
+            rect.setSize(camera.getViewportRect().size * 2)
+            rect.setPosition(camera.getViewportRect().size * -1 + camera.getScreenCenterPosition())
         }
         rect.color = curtainColor
         rect.zIndex = Constants.cursor_zIndex
