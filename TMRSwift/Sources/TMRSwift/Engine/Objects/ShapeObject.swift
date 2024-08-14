@@ -18,7 +18,6 @@ class ShapeObject: Object {
     
     
     override func getNode() -> Node {
-        
         node.setPosition(position)
         return node
     }
