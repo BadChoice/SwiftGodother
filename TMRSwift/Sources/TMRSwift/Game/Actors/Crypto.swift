@@ -1,15 +1,19 @@
 import SwiftGodot
 
 class Crypto : Actor {
- 
-    var tp:TexturePacker!
+     
+    lazy var tp:TexturePacker = {
+        Cache.shared.cache(key: "TPCrypto") {
+            let tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"crypto.plist")
+            tp.load()
+            return tp
+        }
+    }()
     
     var face = Sprite2D()
     
     override init() {
         super.init()
-        tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"crypto.plist")
-        tp.load()
         loadAnimations()
     }
     

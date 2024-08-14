@@ -52,9 +52,11 @@ struct RoomChanger {
         return black*/
         let rect = ColorRect()
         
+        GD.print("Change room")
+        
         if let camera {
             rect.setSize(camera.getViewportRect().size)
-            rect.setPosition(camera.getScreenCenterPosition())
+            rect.setPosition(camera.getViewportRect().size * -0.5)
         }
         rect.color = curtainColor
         rect.zIndex = Constants.cursor_zIndex

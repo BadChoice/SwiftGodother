@@ -91,8 +91,11 @@ class Room : NSObject, ProvidesState {
     }
     
     private func loadAtlas(){
-        atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
-        atlas.load()
+        atlas = Cache.shared.cache(key: "room-texture-\(details.atlasName)") {
+            let atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
+            atlas.load()
+            return atlas
+        }
     }
     
     private func addObjects() {
