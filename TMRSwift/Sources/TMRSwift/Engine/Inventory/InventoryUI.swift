@@ -188,6 +188,7 @@ class InventoryUI {
 
     
     func reposition(room:Room){
+        guard room.camera.enabled else { return }
         inventoryBag.position = room.camera.getScreenCenterPosition()
         toggleNode.position = Vector2(
             x:room.camera.getScreenCenterPosition().x - (room.camera.getViewportRect().size.x / 2),
