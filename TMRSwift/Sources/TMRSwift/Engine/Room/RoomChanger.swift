@@ -67,7 +67,7 @@ struct RoomChanger {
     
     func removeRoom(room:Room?, roomsShareMusic:Bool = false){
         guard let room = room else { return }
-        //room.stopMusic(onlyFx: roomsShareMusic)
+        room.stopMusic(onlyFx: roomsShareMusic)
         room.onExit()
         room.node.removeAllChildren()
         room.node.removeAllActions()
@@ -77,7 +77,7 @@ struct RoomChanger {
     func startRoom(room:Room, roomsShareMusic:Bool = false){
         Game.shared.touchLocked = false
         room.node.modulate.alpha = 1
-        //room.playMusic(onlyFx: roomsShareMusic)
+        room.playMusic(onlyFx: roomsShareMusic)
         room.onEnter()
     }
     

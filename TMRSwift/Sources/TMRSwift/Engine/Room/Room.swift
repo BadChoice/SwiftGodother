@@ -44,6 +44,21 @@ class Room : NSObject, ProvidesState {
         //addTest()
     }
     
+    private func loadDetails(){
+        let json = String("\(self)".split(separator: ".").last!.split(separator: ":").first!)
+        details = RoomDetails.loadCached(path: "res://assets/rooms/" + json + ".json")
+    }
+        
+    
+    private func loadAtlas(){
+        atlas = Cache.shared.cache(key: "room-texture-\(details.atlasName)") {
+            let atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
+            atlas.load()
+            return atlas
+        }
+    }
+    
+    
     func putActor(at position:Vector2?, facing:Facing){
         camera.positionSmoothingEnabled = false
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
@@ -100,28 +115,15 @@ class Room : NSObject, ProvidesState {
         }
     }
     
-    private func loadAtlas(){
-        atlas = Cache.shared.cache(key: "room-texture-\(details.atlasName)") {
-            let atlas = TexturePacker(path: "res://assets/rooms/" + details.atlasName + ".atlasc", filename: details.atlasName + ".plist")
-            atlas.load()
-            return atlas
-        }
-    }
-    
+
     private func addObjects() {
-                                
         objects = details.setup()
-        
         objects.forEach {
             $0.addToRoom(self)
         }
     }
     
-    private func loadDetails(){
-        let json = String("\(self)".split(separator: ".").last!.split(separator: ":").first!)
-        details = RoomDetails.loadCached(path: "res://assets/rooms/" + json + ".json")
-    }
-        
+
     private func addWalkPath(){        
         walkbox = Walkbox(
             points: details.walkBoxes.first!,
@@ -134,10 +136,45 @@ class Room : NSObject, ProvidesState {
         }
     }
     
+
+    
+    //MARK: - Music
+    
+    //MARK:- Music
+    func playMusic(onlyFx:Bool = false){
+        /*guard Constants.music else { return }
+        if !onlyFx {
+            if let sound = Sound.looped(music){
+                musicNode = sound
+                node?.parent?.addChild(sound.changeVolume(Constants.musicVolume))
+            }
+        }
+        
+        if let ambienceSound, ambienceSound.count > 0, let ambience = Sound.looped(ambienceSound, withExtension: "wav"){
+            ambienceNode = ambience
+            node?.parent?.addChild(ambience.changeVolume(Constants.ambienceVolume))
+        }*/
+    }
+    
+    func resumeMusicAndAmbience(){
+        //musicNode?.run(.changeVolume(to: Constants.musicVolume, duration: 1))
+        //ambienceNode?.run(.changeVolume(to: Constants.ambienceVolume, duration: 1))
+    }
+    
+    
+    func stopMusic(onlyFx:Bool = false){
+        /*if !onlyFx {
+            node?.parent?.removeAllSounds(fadeoutTime: 0.4)
+        }
+        ambienceNode?.removeFromParent()
+        node?.children.forEach { $0.removeAllSounds() }*/
+    }
+    
+    
+    //MARK: - Helpers
     public func addChild(node:Node){
         self.node.addChild(node: node)
     }
-    
     
     /*private func addTest(){
         let tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"Crypto.plist")
@@ -176,5 +213,7 @@ class Room : NSObject, ProvidesState {
         pickupLowRect.modulate.alpha = 0.2
         addChild(node: pickupLowRect)
     }*/
+    
+    
     
 }

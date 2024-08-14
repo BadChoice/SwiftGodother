@@ -24,7 +24,7 @@ class Game  {
         
         RoomChanger(fadeTime:fadeTime, color:color, stayTime:stayTime)
             .change(to: room, actorPosition: actorPosition, facing:facing)
-        //Hotsposts.isBeingDisplayed = false
+        //Hotspots.isBeingDisplayed = false
         goingToDoor = nil
     }
     
