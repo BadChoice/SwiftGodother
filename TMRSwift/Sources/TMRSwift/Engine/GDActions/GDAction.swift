@@ -31,7 +31,7 @@ class GDAction {
     }
     
     func removeFromList(){
-        let nodeId = node.getInstanceId()
+        guard let nodeId = node?.getInstanceId() else { return }
         guard let index = (GDAction.activeActions[nodeId]?.firstIndex { $0.id == id }) else { return }
         GDAction.activeActions[nodeId]?.remove(at: index)
     }

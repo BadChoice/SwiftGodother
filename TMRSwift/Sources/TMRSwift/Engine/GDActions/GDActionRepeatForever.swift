@@ -25,7 +25,7 @@ class GDActionRepeatForever : GDAction {
         if shouldFinish { return }
         currentSequence = GDActionSequence([action])
         currentSequence?.run(node) { [self] in
-            runSequence(node)
+            //runSequence(node)
         }
     }
     
