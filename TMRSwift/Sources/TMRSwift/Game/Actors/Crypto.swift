@@ -25,22 +25,14 @@ class Crypto : Actor {
     
         frames.createAnimation(name: "idle", prefix: "idle/", frames: 0...1, atlas: tp, timePerFrame: 2.50, looped: true)
         
-        frames.addAnimation(anim: "no_face_profile")
-        frames.addFrame(anim: "no_face_profile", texture: tp.textureNamed(name: "no-face"))
-        frames.setAnimationLoop(anim: "no_face_profile", loop: false)
-        
-        frames.addAnimation(anim: "pickup")
-        frames.addFrame(anim: "pickup", texture: tp.textureNamed(name: "pickup/normal"))
-        frames.setAnimationLoop(anim: "pickup", loop: false)
+        frames.createSingleFrameAnimation(name:"no_face_profile", textureName: "no-face", atlas:tp)
+        frames.createSingleFrameAnimation(name:"pickup",          textureName: "pickup/normal", atlas:tp)
+        frames.createSingleFrameAnimation(name:"pickup-low",      textureName: "pickup/low", atlas:tp)
         
         frames.addAnimation(anim: "pickup-up")
         frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.4)
         frames.addFrame(anim: "pickup-up", texture: tp.textureNamed(name: "pickup/up"), duration: 0.4)
         frames.setAnimationLoop(anim: "pickup-up", loop: false)
-        
-        frames.addAnimation(anim: "pickup-low")
-        frames.addFrame(anim: "pickup-low", texture: tp.textureNamed(name: "pickup/low"))
-        frames.setAnimationLoop(anim: "pickup-low", loop: false)
         
         frames.addAnimation(anim: "pickup-really-up")
         frames.addFrame(anim: "pickup-really-up", texture: tp.textureNamed(name: "pickup/normal"), duration: 0.5)
@@ -49,24 +41,21 @@ class Crypto : Actor {
         frames.setAnimationLoop(anim: "pickup-really-up", loop: false)
                 
         
-        //pickup/pickup-back-low.png
-        //pickup/pickup-back-up.png
-        //pickup/low
-        //pickup/pickup-back
+        frames.createSingleFrameAnimation(name:"front",              textureName: "front-no-face",          atlas:tp)
+        frames.createSingleFrameAnimation(name:"back",               textureName: "back-no-face",           atlas:tp)
+        frames.createSingleFrameAnimation(name:"pickup-back-pickup", textureName: "pickup/pickup-back",     atlas:tp)
+        frames.createSingleFrameAnimation(name:"pickup-back-up",     textureName: "pickup/pickup-back-up",  atlas:tp)
+        frames.createSingleFrameAnimation(name:"pickup-back-low",    textureName: "pickup/pickup-back-low", atlas:tp)
         
         //puzzles/hand-lightgun-dark.png
         
         //no-right-hand.png
         //no-face
-        //front-no-face
-        //back-no-face
         
         //puzzles/hand-spiral-01 - 03
-        
-        
+                
         //talk/face-front
-        //talk/face
-        //talk/face-jaw-open
+
         //talk/face-back-talk
         //talk/face-back
         //talk/face-look-phone.png
@@ -96,21 +85,39 @@ class Crypto : Actor {
         switch animation {
         case "talk"                      : animateTalk()
         case Self.combine.name           : animateCombine()
-        default: node.play(name: "idle")
+        default: animateIdle()
         }
     }
     
     private func clearAnimations() {
+        face.removeAllActions()
         face.hide()
     }
 
+    private func animateIdle(){
+        if facing == .back  { return face(.back) }
+        if facing == .front { return face(.front) }
+        
+        node.play(name: "idle")
+    }
+    
     private func animateTalk(){
+        if facing == .back  { return  }
+        if facing == .front { return  }
+        
         node.play(name: "no_face_profile")
-        node.pause()
+        face.animateForever([
+            tp.textureNamed(name: "talk/face")!,
+            tp.textureNamed(name: "talk/face")!,
+            tp.textureNamed(name: "talk/face-jaw-open")!
+        ], timePerFrame: 0.2)
         face.show()
     }
     
     private func animatePickup(_ animation:String){
+        if facing == .back {
+            return node.play(name: StringName("pickup-back-\(animation)"))
+        }
         node.play(name: StringName(animation))
     }
     
@@ -125,15 +132,18 @@ class Crypto : Actor {
     //---------------------------------------------------
     override func face(_ facing: Facing) {
         self.facing = facing
-        
-                
+                        
         if walk?.walkingTo != nil {
             node.play(name: "walk")
+            return
         } else {
             node.play(name: "idle")
         }
         
-        if facing == .left && node.scale.x < 0 { return }
+        if facing == .front { node.play(name: "front") }
+        if facing == .back  { node.play(name: "back")  }
+        
+        if facing == .left && node.scale.x < 0  { return }
         if facing == .right && node.scale.x > 0 { return }
         
         node.scale.x *= -1

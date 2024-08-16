@@ -87,5 +87,9 @@ class GDAction {
     static func shake(amplitude:Vector2, shakeDuration:Double = 0.02, duration:Double) -> GDActionShake {
         GDActionShake(amplitude: amplitude, shakeDuration: shakeDuration, duration: duration)
     }
+    
+    static func animateForever(_ textures:[Texture2D], timePerFrame:Double) -> GDActionAnimateForever {
+        GDActionAnimateForever(textures, timePerFrame: timePerFrame)
+    }
 }
 

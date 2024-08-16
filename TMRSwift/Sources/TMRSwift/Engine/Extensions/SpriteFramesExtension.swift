@@ -11,4 +11,10 @@ extension SpriteFrames {
         
         setAnimationLoop(anim: StringName(name), loop: looped)
     }
+    
+    func createSingleFrameAnimation(name:String, textureName:String, atlas:TexturePacker) {
+        addAnimation(anim: StringName(name))
+        addFrame(anim: StringName(name), texture: atlas.textureNamed(name: textureName))
+        setAnimationLoop(anim: StringName(name), loop: false)
+    }
 }

@@ -11,7 +11,8 @@ class SpriteObject : Object {
     }
     
     override func isTouched(at: Vector2) -> Bool {
-        node?.rectInParent().hasPoint(at) ?? false
+        if node?.getParent() == nil { return false }
+        return node?.rectInParent().hasPoint(at) ?? false
     }
     
     override func getNode() -> Node? {
