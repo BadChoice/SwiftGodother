@@ -26,7 +26,7 @@ class Object : NSObject, ProvidesState {
             let json = "res://assets/rooms/" + json + ".json"
             self.details = RoomDetails.loadCached(path: json).detailsFor(self)
             if details == nil {
-                GD.printErr("No details found for \(self)")
+                GD.printErr("[Object] No details found for \(self)")
                 //abort()
             }
         }

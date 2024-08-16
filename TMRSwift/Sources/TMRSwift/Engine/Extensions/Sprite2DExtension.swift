@@ -14,7 +14,7 @@ extension Sprite2D {
             finalPath = finalPath.appendBeforeExtension("@2x")
         }
         
-        GD.print("Loading with path \(finalPath)", Game.shared.scale)
+        GD.print("[Sprite2D] Loading with path \(finalPath)", Game.shared.scale)
         
         if let texture:Texture2D = GD.load(path: finalPath) {
             self.init(texture: texture)

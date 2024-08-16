@@ -62,10 +62,10 @@ struct RoomDetails : Codable {
         do {
             let details = try JSONDecoder().decode(RoomDetails.self, from: json.data(using: .utf8)!)
             //GD.print(details)
-            GD.print("Room json loaded: \(details.objects.count)")
+            GD.print("[Room details] json loaded: \(details.objects.count)")
             return details
         }catch{
-            GD.printErr("Loading room json: \(error)")
+            GD.printErr("[Room details] Loading room json: \(error)")
             return nil
         }
     }

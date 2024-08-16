@@ -3,7 +3,6 @@ import SwiftGodot
 class GDActionRepeatForever : GDAction {
     
     let action:GDAction
-    var currentSequence:GDActionSequence?
     var shouldFinish:Bool = false
     
     init(_ action:GDAction){
@@ -18,21 +17,20 @@ class GDActionRepeatForever : GDAction {
         }
         
         addToList(node: node)
-        runSequence(node)
+        runSequence()
     }
     
-    private func runSequence(_ node:Node){
+    private func runSequence(){
         if shouldFinish { return }
-        currentSequence = GDActionSequence([action])
-        currentSequence?.run(node) { [self] in
-            //runSequence(node)
+        action.run(node) { [self] in
+            runSequence()
         }
     }
     
     override func stop(){
         super.stop()
         shouldFinish = true
-        currentSequence?.stop()
+        action.stop()
     }
     
 }

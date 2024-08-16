@@ -25,7 +25,7 @@ struct RoomChanger {
         Game.shared.room._ready()
         Game.shared.room.camera.enabled = false
                       
-        GD.print("Change room")
+        GD.print("[Room changer] Change room")
         
         let blackNode = fullScreenBlack(previousRoom?.camera)
         
@@ -54,7 +54,7 @@ struct RoomChanger {
         let rect = ColorRect()
         
         if let camera {
-            GD.print(camera.getViewportRect(), camera.getScreenCenterPosition())
+            //GD.print(camera.getViewportRect(), camera.getScreenCenterPosition())
             rect.setSize(camera.getViewportRect().size * 2)
             rect.setPosition(camera.getViewportRect().size * -1 + camera.getScreenCenterPosition())
         }

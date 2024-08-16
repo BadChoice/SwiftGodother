@@ -2,42 +2,43 @@ import SwiftGodot
 
 class GDActionSequence : GDAction {
     
-    var actions : [GDAction]
+    let actions : [GDAction]
     var completion:(()->Void)?
-    var current:GDAction?
+    var currentIndex = 0
     
     init(_ actions:[GDAction]){
-        self.actions = actions.reversed()
+        self.actions = actions
     }
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
         self.completion = completion
+        addToList(node: node)
         runNext(node)
     }
     
     func runNext(_ node:Node){
         guard node.getParent() != nil else {
             completion?()
+            removeFromList()
             return
         }
         
-        guard let action = actions.popLast() else {
+        if currentIndex == actions.count {
+            currentIndex = 0
+            removeFromList()
             completion?()
-            completion = nil
             return
         }
         
         addToList(node: node)
-        current = action
-        action.run(node) { [self] in
-            removeFromList()
+        actions[currentIndex].run(node) { [self] in
+            currentIndex += 1
             runNext(node)
         }
     }
     
     override func stop() {
         super.stop()
-        current?.stop()
-        actions = []
+        actions[currentIndex].stop()
     }
 }

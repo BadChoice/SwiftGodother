@@ -106,6 +106,7 @@ class Crypto : Actor {
         if facing == .front { return  }
         
         node.play(name: "no_face_profile")
+        
         face.animateForever([
             tp.textureNamed(name: "talk/face")!,
             tp.textureNamed(name: "talk/face")!,

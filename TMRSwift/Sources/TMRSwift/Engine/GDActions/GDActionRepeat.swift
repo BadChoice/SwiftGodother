@@ -5,7 +5,6 @@ class GDActionRepeat : GDAction {
     let action:GDAction
     var count:Int
     
-    var currentSequence:GDActionSequence?
     var shouldFinish:Bool = false
     
     init(_ action:GDAction, count:Int){
@@ -21,22 +20,21 @@ class GDActionRepeat : GDAction {
         }
         
         addToList(node: node)
-        runSequence(node)
+        runSequence()
     }
     
-    private func runSequence(_ node:Node){
+    private func runSequence(){
         count -= 1
         if count == 0 || shouldFinish { return }
-        currentSequence = GDActionSequence([action])
-        currentSequence?.run(node) { [self] in
-            runSequence(node)
+        action.run(node) { [self] in
+            runSequence()
         }
     }
     
     override func stop(){
         super.stop()
         shouldFinish = true
-        currentSequence?.stop()
+        action.stop()
     }
     
 }

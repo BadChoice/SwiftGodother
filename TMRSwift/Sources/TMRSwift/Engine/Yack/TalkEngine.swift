@@ -48,8 +48,8 @@ class TalkEngine {
         
         if label != nil {
             //TODO: remove actions
-            //label.removeAllActions()
-            //label.removeFromParent()
+            label.removeAllActions()
+            label.removeFromParent()
         }
         
         self.then = then
@@ -78,9 +78,12 @@ class TalkEngine {
         //playVoice(text)
     }
 
-    fileprivate func showText(_ text: String) {
+    fileprivate func showText(_ text: String) {        
         background.show()
         label.show()
+        
+        background.modulate.alpha = 0.4
+        label.modulate.alpha = 0.4
         
         background.run(.sequence([
             .fadeAlpha(to: Constants.talkBackgroundAlpha, duration: 0.1),
@@ -90,7 +93,7 @@ class TalkEngine {
         label.run(.sequence([
             .fadeIn(withDuration: 0.1),
             .wait(forDuration: textDuration(text)),
-            .fadeOut(withDuration: 0.1),
+    //      .fadeOut(withDuration: 0.1),
         ]), completion:{ [unowned self] in
             onPhraseEnded()
         })
