@@ -4,6 +4,8 @@ class GDActionRepeat : GDAction {
     
     let action:GDAction
     var count:Int
+    var completion:(()->Void)?
+    var done:Int = 0
     
     var shouldFinish:Bool = false
     
@@ -13,19 +15,27 @@ class GDActionRepeat : GDAction {
     }
     
     override func run(_ node:Node, completion:(()->Void)? = nil){
-        
         guard node.getParent() != nil else {
             completion?()
             return
         }
         
+        self.completion = completion
         addToList(node: node)
         runSequence()
     }
     
     private func runSequence(){
-        count -= 1
-        if count == 0 || shouldFinish { return }
+        done += 1
+        
+        if done == count {
+            done = 0
+            completion?()
+            completion = nil
+            return
+        }
+        
+        if shouldFinish { return }
         action.run(node) { [self] in
             runSequence()
         }

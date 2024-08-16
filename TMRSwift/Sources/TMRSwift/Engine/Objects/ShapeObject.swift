@@ -16,6 +16,9 @@ class ShapeObject: Object {
         node.setSize(size * Game.shared.scale)
     }
     
+    override func centerPoint() -> Vector2 {
+        position + (size * Game.shared.scale / 2)
+    }
     
     override func getNode() -> Node {
         node.setPosition(position)

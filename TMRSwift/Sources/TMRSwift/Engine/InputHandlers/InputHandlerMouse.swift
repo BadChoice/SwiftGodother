@@ -12,6 +12,10 @@ class InputHandlerMouse : InputHandler {
             return onPeriodPressed()
         }
         
+        if let keyInput = event as? InputEventKey, keyInput.keycode == .space, keyInput.isReleased() {
+            return onSpacePressed()
+        }
+        
         if Game.shared.touchLocked {
             return
         }
@@ -45,6 +49,10 @@ class InputHandlerMouse : InputHandler {
     //MARK: -
     private func onPeriodPressed(){
         Game.shared.talkEngine.skip()
+    }
+    
+    private func onSpacePressed(){
+        scene.hotspots.show()
     }
     
     private func onRightClick(){

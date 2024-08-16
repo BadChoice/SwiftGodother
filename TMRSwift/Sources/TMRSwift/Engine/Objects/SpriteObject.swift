@@ -10,6 +10,10 @@ class SpriteObject : Object {
         super.init(details)
     }
     
+    override func centerPoint() -> Vector2 {
+        position + ((node?.getRect().size ?? .zero) / 2)
+    }
+    
     override func isTouched(at: Vector2) -> Bool {
         if node?.getParent() == nil { return false }
         return node?.rectInParent().hasPoint(at) ?? false

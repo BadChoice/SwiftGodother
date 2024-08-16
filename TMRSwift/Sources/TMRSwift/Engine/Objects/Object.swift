@@ -9,11 +9,16 @@ class Object : NSObject, ProvidesState {
     @objc dynamic var zIndex:Int32 { Int32(details.zPos) }
     
     var position:Vector2 {
-        SketchApp.shared.point(Vector2(stringLiteral: details.position!))
+        guard let detailsPosition = details.position else { return .zero}
+        return SketchApp.shared.point(Vector2(stringLiteral: detailsPosition))
     }
     
     var hotspot:Vector2 {
         SketchApp.shared.point(Vector2(stringLiteral: details.hotspot!))
+    }
+    
+    func centerPoint() -> Vector2 {
+        position
     }
     
     var facing:Facing { details.facing }
