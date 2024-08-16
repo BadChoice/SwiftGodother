@@ -119,4 +119,13 @@ struct Polygon {
     public func contains(point:Vector2) -> Bool {
         Geometry2D.isPointInPolygon(point:point, polygon:polygon)
     }
+    
+    func calculateCentroid() -> Vector2 {
+        var centroid = Vector2(x:0, y:0)
+        for vertex in points {
+            centroid += vertex
+        }
+        return centroid / points.count
+    }
+            
 }

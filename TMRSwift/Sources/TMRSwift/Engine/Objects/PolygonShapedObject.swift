@@ -8,6 +8,8 @@ class PolygonShapedObject : Object {
     
     override func centerPoint() -> Vector2 {
         polygon.points.first ?? .zero
+        
+        return polygon.calculateCentroid()
     }
     
     override func getNode() -> Node2D? {
