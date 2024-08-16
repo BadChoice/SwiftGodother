@@ -111,6 +111,14 @@ class Crypto : Actor {
             tp.textureNamed(name: "talk/face")!,
             tp.textureNamed(name: "talk/face-jaw-open")!
         ], timePerFrame: 0.2)
+        
+        face.run(.repeatForever(.sequence([
+            .rotate(toAngle: 0, duration: 0),
+            .wait(forDuration: 0.2),
+            .rotate(toAngle: 0.08, duration: 0),
+            .wait(forDuration: 0.4)
+        ])))
+        
         face.show()
     }
     

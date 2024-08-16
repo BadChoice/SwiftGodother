@@ -36,6 +36,9 @@ class GDAction {
         GDAction.activeActions[nodeId]?.remove(at: index)
     }
        
+    //---------------------------------------------------------------
+    // ACTIONS
+    //---------------------------------------------------------------
     //move by delta:Vector duration
     //move by deltaX deltaY duration
     
@@ -46,6 +49,9 @@ class GDAction {
     //moveTo y duration
     //rotate by angle radians duration
     //rotate toAngle radians duration
+    static func rotate(toAngle radians:Double, duration:Double) -> GDActionRotate {
+        GDActionRotate(to: radians, duration: duration)
+    }
     //rotate toAngle radians duration shortestUnitArc:bool
     //scale by scale duration
     //scaleX by xScale, y yScale duration
@@ -64,12 +70,19 @@ class GDAction {
     static func group(_ actions:[GDAction]) -> GDActionGroup {
         GDActionGroup(actions)
     }
-    //repeat count: Int
-    //repeatForever
+
+    static func repeatCount(_ action:GDAction, count:Int) -> GDActionRepeat {
+        GDActionRepeat(action, count:count)
+    }
+    
+    static func repeatForever(_ action:GDAction) -> GDActionRepeatForever {
+        GDActionRepeatForever(action)
+    }
 
     static func fadeIn(withDuration duration:Double) -> GDActionFadeIn {
         GDActionFadeIn(withDuration: duration)
     }
+    
     static func fadeOut(withDuration duration:Double) -> GDActionFadeOut {
         GDActionFadeOut(withDuration: duration)
     }
