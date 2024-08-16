@@ -20,30 +20,20 @@ class LightObject : Object {
         super.init(details)
                             
         node.color = color
-        node.modulate.alpha = Constants.debug ? 0.3 : 0.0
+        node.modulate.alpha = Constants.debug ? 0.1 : 0.05
         node.radius = Double(radius)
         
         // ---> This shader blurs everything behind! not what i want
-        let blurShader = Shader()
-        blurShader.code = """
-        shader_type canvas_item;
+        //let blurShader = BlurShader()
+        //let material = ShaderMaterial()
+        //material.setShaderParameter(param:"blur_amount", value: Variant(1))
         
-        uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-        uniform float blur_amount : hint_range(0, 5);
-
-        void fragment() {
-            COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
-        }
-        """
-        
+        /*let blurShader = BlurShader2()
         let material = ShaderMaterial()
-        material.setShaderParameter(param:"blur_amount", value: Variant(1))
+        material.setShaderParameter(param:"lod", value: Variant(1))
         
         material.shader = blurShader
-        node.material = material
-        
-        
-        
+        node.material = material*/
     }
     
     override func getNode() -> Node {

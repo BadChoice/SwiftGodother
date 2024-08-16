@@ -53,11 +53,7 @@ class Crypto : Actor {
         //no-face
         
         //puzzles/hand-spiral-01 - 03
-                
-        //talk/face-front
 
-        //talk/face-back-talk
-        //talk/face-back
         //talk/face-look-phone.png
                         
         face.texture = tp.textureNamed(name: "talk/face")
@@ -102,8 +98,25 @@ class Crypto : Actor {
     }
     
     private func animateTalk(){
-        if facing == .back  { return  }
-        if facing == .front { return  }
+        if facing == .back  {
+            face.show()
+            face.animateForever([
+                tp.textureNamed(name: "talk/face-back")!,
+                tp.textureNamed(name: "talk/face-back")!,
+                tp.textureNamed(name: "talk/face-back-talk")!,
+            ], timePerFrame: 0.2)
+            return
+        }
+        if facing == .front {
+            face.show()
+            face.run(.repeatForever(.sequence([
+                .wait(forDuration: 0.8),
+                .moveBy(x: 0, y: 1, duration: 0),
+                .wait(forDuration: 0.2),
+                .moveBy(x: 0, y: -1, duration: 0)
+            ])))
+            return
+        }
         
         node.play(name: "no_face_profile")
         
@@ -125,6 +138,7 @@ class Crypto : Actor {
     
     private func animatePickup(_ animation:String){
         if facing == .back {
+            face.show()
             return node.play(name: StringName("pickup-back-\(animation)"))
         }
         node.play(name: StringName(animation))
@@ -132,7 +146,7 @@ class Crypto : Actor {
     
     private func animateCombine(){
         if [.front, .back].contains(facing) { face(.right) }
-        //face.hide()
+        face.hide()
         node.play(name: "combine")
     }
     
@@ -144,18 +158,30 @@ class Crypto : Actor {
                         
         if walk?.walkingTo != nil {
             node.play(name: "walk")
+            face.hide()
             return
         } else {
             node.play(name: "idle")
         }
         
-        if facing == .front { node.play(name: "front") }
-        if facing == .back  { node.play(name: "back")  }
+        if [.left, .right].contains(facing) {
+            face.hide()
+            if facing == .left && node.scale.x < 0  { return }
+            if facing == .right && node.scale.x > 0 { return }
+            
+            node.scale.x *= -1
+        }
         
-        if facing == .left && node.scale.x < 0  { return }
-        if facing == .right && node.scale.x > 0 { return }
+        face.show()
+        if facing == .front {
+            node.play(name: "front")
+            face.texture = tp.textureNamed(name: "talk/face-front")
+        }
+        if facing == .back  {
+            node.play(name: "back")
+            face.texture = tp.textureNamed(name: "talk/face-back")
+        }
         
-        node.scale.x *= -1
     }
     
     private func getFacingScale() -> Vector2 {

@@ -41,6 +41,9 @@ class GDAction {
     //---------------------------------------------------------------
     //move by delta:Vector duration
     //move by deltaX deltaY duration
+    static func moveBy(x:Float = 0, y:Float = 0, duration:Double) -> GDActionMoveBy {
+        GDActionMoveBy(by: Vector2(x:x, y:y), duration: duration)
+    }
     
     static func move(to position:Vector2, duration:Double) -> GDActionMoveTo {
         GDActionMoveTo(to: position, duration: duration)
