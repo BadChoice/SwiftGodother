@@ -94,7 +94,7 @@ class GDAction {
 
     static func fadeAlpha(to alpha:Float, duration duration:Double) -> GDActionAlpha {
         GDActionAlpha(to: alpha, duration: duration)
-    }
+    }   
     
     static func wait(forDuration duration:Double) -> GDActionWait {
         GDActionWait(duration: duration)
