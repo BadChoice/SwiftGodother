@@ -26,25 +26,13 @@ class LightObject : Object {
         if let texture:Texture2D = GD.load(path: "res://assets/lights/light_texture.png") {
             node.texture = texture
         }
-        //node.energy = 1
-        //node.blendMode = .add
-        //node.color = color
-        //node.radius = Double(radius)
+
         
-        node.scale = Vector2(x:0.4, y:0.4)
+        let scale = (radius * Float(Game.shared.scale)) / node.getRect().size.x
+        
+        node.scale = Vector2(value: scale)
         node.modulate = color
         
-        // ---> This shader blurs everything behind! not what i want
-        //let blurShader = BlurShader()
-        //let material = ShaderMaterial()
-        //material.setShaderParameter(param:"blur_amount", value: Variant(1))
-        
-        /*let blurShader = BlurShader2()
-        let material = ShaderMaterial()
-        material.setShaderParameter(param:"lod", value: Variant(1))
-        
-        material.shader = blurShader
-        node.material = material*/
     }
     
     override func addToRoom(_ room: Room) {

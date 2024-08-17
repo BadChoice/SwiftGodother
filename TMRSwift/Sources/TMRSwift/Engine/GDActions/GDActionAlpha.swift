@@ -10,10 +10,14 @@ class GDActionAlpha : GDActionTween {
     }
     
     override func setupTween(_ tween:Tween?){
+        
+        var color = (node as? Sprite2D)?.modulate ?? Color(r:1, g:1, b:1, a:1)
+        color.alpha = finalAlpha
+        
         tween?.tweenProperty(
             object: node,
             property: "modulate",
-            finalVal: Variant(Color(r:1, g:1, b:1, a:finalAlpha)),
+            finalVal: Variant(color),
             duration: duration
         )?.setEase(timingMode)
     }
