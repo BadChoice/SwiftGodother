@@ -107,9 +107,9 @@ class MainScene : Node2D {
         }
         
         let object = object(at: getLocalMousePosition())
+        if menu.onTouched(at: position)      { return }
         if verbWheel.onTouched(at: position) { return }
         if hotspots.onTouched(at: position)  { return }
-        if menu.onTouched(at: position)      { return }
         if inventoryUI.onTouched(at: position, roomObject:object) { return }
         
         if let object {
