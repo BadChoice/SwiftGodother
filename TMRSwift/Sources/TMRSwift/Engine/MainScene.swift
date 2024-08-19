@@ -10,6 +10,7 @@ class MainScene : Node2D {
     var hotspots:Hotspots!
     var verbWheel:VerbWheel!
     var cursor:Cursor!
+    var menu:Menu!
     
     var inputHandler:InputHandler!
     
@@ -29,6 +30,7 @@ class MainScene : Node2D {
         addChild(node: inventoryUI.node)
         addChild(node: cursor.node)
         addChild(node: hotspots.node)
+        addChild(node: menu.node)
         
         inventoryUI.hide()
                 
@@ -61,6 +63,7 @@ class MainScene : Node2D {
         verbWheel    = VerbWheel()
         cursor       = Cursor()
         hotspots     = Hotspots()
+        menu         = Menu()
         Game.shared.talkEngine = TalkEngine()
         
         inputHandler = InputHandler.make()
@@ -70,6 +73,7 @@ class MainScene : Node2D {
     public func onViewPortChanged(){
         inventoryUI.reposition(room: room)
         hotspots.reposition(room: room)
+        menu.reposition(room: room)
     }
 
     //MARK: - Touch
@@ -103,8 +107,9 @@ class MainScene : Node2D {
         }
         
         let object = object(at: getLocalMousePosition())
-        if verbWheel.onTouched(at: position)  { return }
-        if hotspots.onTouched(at: position) { return }
+        if verbWheel.onTouched(at: position) { return }
+        if hotspots.onTouched(at: position)  { return }
+        if menu.onTouched(at: position)      { return }
         if inventoryUI.onTouched(at: position, roomObject:object) { return }
         
         if let object {

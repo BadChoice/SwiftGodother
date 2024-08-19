@@ -85,6 +85,6 @@ class Hotspots {
         node.position = Vector2(
             x:room.camera.getScreenCenterPosition().x + (room.camera.getViewportRect().size.x / 2),
             y:room.camera.getScreenCenterPosition().y + (room.camera.getViewportRect().size.y / 2)
-        ) + Vector2(x: -120, y: -90) * Game.shared.scale
+        ) + Vector2(x: -80, y: -90) * Game.shared.scale
     }
 }
