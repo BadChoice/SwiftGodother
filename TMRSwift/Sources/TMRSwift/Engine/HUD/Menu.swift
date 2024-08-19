@@ -25,7 +25,7 @@ class Menu {
             //HowToPlayOption(),
             //SaveGameOption(),
             ChangeLanguageOption(),
-            //TextSpeedOption(),
+            TextSpeedOption(),
             //MusicOption(),
             //HardModeOption(),
             //LoadGameOption(),
@@ -49,7 +49,6 @@ class Menu {
         Sound.play(once: "tutorial_appear")
         isShowing = true
         
-        background.setSize(Vector2(x:500, y:500))
         background.zIndex = Constants.menu_zIndex + 1
         background.color = .black
         
@@ -62,7 +61,7 @@ class Menu {
             .fadeAlpha(to: 0.8, duration: 0.2)
         )
         
-        let x = icon.position.x - (10 * Float(Game.shared.scale))
+        let x = icon.position.x + (15 * Float(Game.shared.scale))
         var y = icon.position.y + (55 * Float(Game.shared.scale))
         
         options.forEach {

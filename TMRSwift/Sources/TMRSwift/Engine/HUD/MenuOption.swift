@@ -9,6 +9,7 @@ class MenuOption {
         self.text = text
         label.labelSettings = Label.settings()
         label.horizontalAlignment = .right
+        label.growHorizontal = .begin
         label.text = text
     }
     
