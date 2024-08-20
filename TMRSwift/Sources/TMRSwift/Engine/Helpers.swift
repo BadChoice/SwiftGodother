@@ -6,7 +6,7 @@ var inventory: Inventory {
 
 /** Tihs will handle the translations*/
 func __(_ key:String) -> String {
-    key
+    Game.shared.translations?.translated(key) ?? key
 }
 
 func safeClassName(_ name:String) -> String {

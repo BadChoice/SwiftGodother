@@ -21,7 +21,7 @@ struct ScreenScanner {
     }
     
     func show(object:Object?, at position:Vector2){
-        show(text: object?.name ?? "" , at:position)
+        show(text: __(object?.name ?? "") , at:position)
     }
     
     func show(text:String, at position:Vector2){

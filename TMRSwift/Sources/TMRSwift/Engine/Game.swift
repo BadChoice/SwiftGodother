@@ -11,10 +11,15 @@ class Game  {
     
     var state = GameState()
     var goingToDoor:ChangesRoom?
+    var translations:Translations!
     
     var scale:Double = 1.0
     
     var touchLocked:Bool = false
+    
+    init(){
+        try? translations = Translations.load(path: "res://assets/texts/ca.strings")
+    }
     
     func objectAtRoom<T:Object>(ofType:T.Type) -> T?{
         room.objects.first { $0 is T } as? T

@@ -64,6 +64,7 @@ class MainScene : Node2D {
         cursor       = Cursor()
         hotspots     = Hotspots()
         menu         = Menu()
+        
         Game.shared.talkEngine = TalkEngine()
         
         inputHandler = InputHandler.make()
