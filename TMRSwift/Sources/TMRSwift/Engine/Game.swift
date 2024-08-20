@@ -18,7 +18,7 @@ class Game  {
     var touchLocked:Bool = false
     
     init(){
-        try? translations = Translations.load(path: "res://assets/texts/ca.strings")
+        try? translations = Translations.load(language: Constants.language)
     }
     
     func objectAtRoom<T:Object>(ofType:T.Type) -> T?{

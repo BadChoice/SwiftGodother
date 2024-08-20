@@ -20,6 +20,7 @@ class ChangeLanguageOption : MenuOption {
         let language     = Constants.languages[currentLanguage]
         label.text   = __(language)
         //UserDefaults.standard.setValue(language, forKey: "language")
+        Game.shared.translations = try? Translations.load(language: language)
         Constants.language = language
         return false
     }

@@ -5,6 +5,11 @@ struct Translations {
     
     let texts:[String:String]
     
+    
+    static func load(language: String) throws -> Translations {
+        try Self.load(path: "res://assets/texts/\(language).strings")
+    }
+    
     static func load(path:String) throws -> Translations {
         let file = FileAccess.getFileAsString(path: path)
         let texts = try PropertyListDecoder().decode([String:String].self, from: file.data(using: .utf8)!)
