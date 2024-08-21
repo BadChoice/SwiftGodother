@@ -12,6 +12,12 @@ class Crypto : Actor {
     
     var face = Sprite2D()
     
+    var facePosition:Vector2 {
+        if facing == .front { return Vector2(x: -14, y: -240) }
+        return Vector2(x:-6, y:-236)
+    }
+    
+    
     override init() {
         super.init()
         loadAnimations()
@@ -57,7 +63,7 @@ class Crypto : Actor {
         //talk/face-look-phone.png
                         
         face.texture = tp.textureNamed(name: "talk/face")
-        face.position = Vector2(x:-6, y:-236) * Game.shared.scale
+        face.position = facePosition * Game.shared.scale
         node.addChild(node: face)
         face.hide()
         
@@ -156,6 +162,8 @@ class Crypto : Actor {
     override func face(_ facing: Facing) {
         self.facing = facing
                         
+        face.position  = facePosition * Game.shared.scale
+        
         if walk?.walkingTo != nil {
             node.play(name: "walk")
             face.hide()

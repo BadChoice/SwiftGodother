@@ -92,6 +92,20 @@ class Actor : NSObject, Talks, Animable {
             footsteps.stream = stream
             footsteps.play()
         }
+        
+        /*if let stream:AudioStreamWAV = GD.load(path: "res://assets/sfx/footsteps_concrete.wav") {
+            //stream.loopMode = .forward
+            footsteps.stream = stream
+            footsteps.play()
+        }*/
+        
+        /*if let stream:AudioStreamOggVorbis = GD.load(path: "res://assets/sfx/footsteps_sand.ogg") {
+            stream.loop = true
+            footsteps.stream = stream
+            footsteps.play()
+        }*/
+        
+        
     }
     
 }
