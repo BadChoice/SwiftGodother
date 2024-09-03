@@ -4,8 +4,8 @@ class ChangeLanguageOption : MenuOption {
     var currentLanguage = 0
     
     init(){
-        super.init(text: __(Constants.language))
-        currentLanguage = Constants.languages.firstIndex(of: Constants.language)!
+        super.init(text: __(Settings.language))
+        currentLanguage = Constants.languages.firstIndex(of: Settings.language)!
     }
     
     override func touchedAt(_ point: Vector2) -> Bool {
@@ -21,7 +21,7 @@ class ChangeLanguageOption : MenuOption {
         label.text   = __(language)
         //UserDefaults.standard.setValue(language, forKey: "language")
         Game.shared.translations = try? Translations.load(language: language)
-        Constants.language = language
+        Settings.language = language
         return false
     }
 }

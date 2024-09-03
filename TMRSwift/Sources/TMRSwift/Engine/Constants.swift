@@ -18,7 +18,6 @@ struct Constants {
     static var walkSpeed:Float       = 800
     static var fastWalkFactor:Float  = 2.5
     
-    
     static var longPressMinTime = 0.3
     
     //MARK: - SOUND
@@ -28,14 +27,13 @@ struct Constants {
     
     
     //MARK: - TALK
-    static var language:String       = "en"
     static let languages             = ["en", "es", "de", /*"fr", */"ca"]
     static var fontSize:Int32        = /*isPhone ? 50 : */40
     static var fontOutlineSize:Int32 = /*isPhone ? 50 : */18
     static var wordTime              = 0.4
     static var charTime              = 0.07
     static var useWordTiming         = false
-    static var lineWordLength:Int    { Constants.language == "de" ? 7 : 9 }
+    static var lineWordLength:Int    { Settings.language == "de" ? 7 : 9 }
     static var yackSpacing:Float     = /*isPhone ? 80 : */60
     static var fingerOffset:Float    = /*isPhone ? 80 : */80
     static var fontName:String       = "Janda Manatee Solid"

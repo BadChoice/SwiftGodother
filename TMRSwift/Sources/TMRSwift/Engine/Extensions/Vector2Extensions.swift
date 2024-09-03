@@ -1,6 +1,7 @@
 import SwiftGodot
 
 extension Vector2 {
+    
     init(stringLiteral value: StringLiteralType) {
         let values = value.replacingOccurrences(of: ",", with: "").components(separatedBy: " ")
         let x = Float(Double(values[0].trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0)
@@ -22,6 +23,7 @@ extension Vector2 {
         Vector2(x: self.x + Float(x), y: self.y + Float(y))
     }
 }
+
 
 
 extension Float {
