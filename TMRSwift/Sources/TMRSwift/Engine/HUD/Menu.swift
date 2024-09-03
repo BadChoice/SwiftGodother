@@ -7,7 +7,8 @@ class Menu {
     
     var isShowing:Bool = false
     
-    var options:[MenuOption]!
+    var options:[Option]!
+    var currentOption:Option?
         
     init(){
         
@@ -33,12 +34,12 @@ class Menu {
         ]
     }
     
-    func onTouched(at position:Vector2) -> Bool {
+    func onTouched(at point:Vector2) -> Bool {
         if isShowing {
-            onOptionPressed(at: position)
+            onOptionPressed(at: point)
             return true
         }
-        if icon.hasPoint(position){
+        if icon.hasPoint(point){
             show()
             return true
         }
@@ -52,8 +53,8 @@ class Menu {
         background.zIndex = Constants.menu_zIndex + 1
         background.color = .black
         
-        background.setSize(Game.shared.room.camera.getViewportRect().size * 2)
-        background.setPosition(Game.shared.room.camera.getViewportRect().size * -1 + Game.shared.room.camera.getScreenCenterPosition())
+        background.setSize(Game.shared.room.camera.getViewportRect().size)
+        background.setPosition(Game.shared.room.camera.getViewportRect().size * -0.5 + Game.shared.room.camera.getScreenCenterPosition())
         
         background.modulate.alpha = 0
         node.addChild(node: background)
@@ -61,19 +62,19 @@ class Menu {
             .fadeAlpha(to: 0.8, duration: 0.2)
         )
         
-        let x = icon.position.x + (15 * Float(Game.shared.scale))
-        var y = icon.position.y + (55 * Float(Game.shared.scale))
+        //let x = icon.position.x + (15 * Float(Game.shared.scale))
+        //var y = icon.position.y + (55 * Float(Game.shared.scale))
+        let x:Float = Game.shared.room.camera.getViewportRect().size.x - 60 * Float(Game.shared.scale)
+        var y:Float = 48 * Float(Game.shared.scale)
         
         options.forEach {
             $0.label.text      = __($0.text)
             $0.label.setPosition(Vector2(x:x, y:y))
             
             if $0.label.getParent() == nil {
-                $0.label.zIndex = Constants.menu_zIndex + 2
-                node.addChild(node: $0.label)
+                //$0.label.zIndex = Constants.menu_zIndex + 2
+                background.addChild(node: $0.label)
             }
-            $0.label.modulate.alpha = 0
-            $0.label.run(.fadeIn(withDuration: 0.2))
             y += /*isPhone ? 100 :*/ 85 * Float(Game.shared.scale)
         }
         
@@ -81,6 +82,7 @@ class Menu {
     }
     
     func hide(){
+        currentOption = nil
         Sound.play(once: "tutorial_disappear")
         isShowing = false
         //icon.run(.rotate(byAngle: -180, duration: 0.2))
@@ -89,17 +91,26 @@ class Menu {
         ){ [weak self] in
             self?.background.removeFromParent()
         }
-        options.forEach { option in
+        /*options.forEach { option in
             option.label.run(.fadeOut(withDuration: 0.2))
-        }
+        }*/
     }
     
-    func onOptionPressed(at position: Vector2) {
+    func onOptionPressed(at point: Vector2) {
+        
+        let localPoint = background.getLocalMousePosition()
+        
+        if let current = currentOption {
+            if current.touched(at: localPoint) { hide() }
+            return
+        }
+        
         let touchedOption = options.first {
-            $0.label.hasPoint(position)
+            $0.label.hasPoint(localPoint)
         }
         if let touchedOption {
-            touchedOption.perform()
+            currentOption = touchedOption
+            touchedOption.perform(background)
         } else {
             hide()
         }

@@ -1,13 +1,13 @@
 import Foundation
 import SwiftGodot
 
-class CloseMenuOption: MenuOption {
+class CloseMenuOption: Menu.Option {
     
     init() {
         super.init(text: "X")
     }
     
-    override func perform() -> Bool {
+    override func perform(_ node:Node) -> Bool {
         true
     }
 }

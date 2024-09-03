@@ -89,29 +89,29 @@ class MainScene : Node2D {
         
     }
     
-    func onLongPress(at position:Vector2){
+    func onLongPress(at point:Vector2){
         guard !Game.shared.touchLocked else { return }
         guard Game.shared.currentYack == nil else { return }
                 
-        guard let object = inventoryUI.isOpen ? inventoryUI.object(at:position, positionIsLocal: false)?.object : object(at: position) else {
+        guard let object = inventoryUI.isOpen ? inventoryUI.object(at:point, pointIsLocal: false)?.object : object(at: point) else {
             return
         }
-        verbWheel.show(at: position, for:object)
-        scanner.show(text: "", at: position)
+        verbWheel.show(at: point, for:object)
+        scanner.show(text: "", at: point)
     }
     
-    func onTouched(at position:Vector2){
+    func onTouched(at point:Vector2){
         guard !Game.shared.touchLocked else { return }
         
         if let yack = Game.shared.currentYack {
-            return yack.onTouched(at: position)
+            return yack.onTouched(at: point)
         }
         
         let object = object(at: getLocalMousePosition())
-        if menu.onTouched(at: position)      { return }
-        if verbWheel.onTouched(at: position) { return }
-        if hotspots.onTouched(at: position)  { return }
-        if inventoryUI.onTouched(at: position, roomObject:object) { return }
+        if menu.onTouched(at: point)      { return }
+        if verbWheel.onTouched(at: point) { return }
+        if hotspots.onTouched(at: point)  { return }
+        if inventoryUI.onTouched(at: point, roomObject:object) { return }
         
         if let object {
             walk(to: object)
@@ -120,9 +120,11 @@ class MainScene : Node2D {
         }
     }
     
-    func onMouseMoved(at position:Vector2) {
+    func onMouseMoved(at point:Vector2) {
         
         guard !Game.shared.touchLocked else { return }
+        
+        guard !menu.isShowing else { return }
         
         if let yack = Game.shared.currentYack {
             return yack.onMouseMoved(at: position)
@@ -130,14 +132,14 @@ class MainScene : Node2D {
         
         let object = object(at: getLocalMousePosition())
                             
-        if verbWheel.onMouseMoved(at: position) { return }
-        if inventoryUI.onMouseMoved(at: position, roomObject:object) { return }
+        if verbWheel.onMouseMoved(at: point) { return }
+        if inventoryUI.onMouseMoved(at: point, roomObject:object) { return }
         
         scanner.onMouseMoved(at: getLocalMousePosition(), object: object)
     }
     
-    private func object(at position: Vector2) -> Object? {
-        room.objects.first { $0.isTouched(at: position) }
+    private func object(at point: Vector2) -> Object? {
+        room.objects.first { $0.isTouched(at: point) }
     }
     
     //MARK: - Walk

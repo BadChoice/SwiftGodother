@@ -30,8 +30,8 @@ class Cursor {
         arrowNode.modulate.alpha = 0
     }
     
-    func onMouseMoved(at position:Vector2){
-        node.position = position
+    func onMouseMoved(at point:Vector2){
+        node.position = point
         //Input.mouseMode = node.getViewportRect().hasPoint(node.getViewport()!.getMousePosition()) ? .visible : .hidden
         
         if node.getViewportRect().hasPoint(node.getViewport()!.getMousePosition()) {

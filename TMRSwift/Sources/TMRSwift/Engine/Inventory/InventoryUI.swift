@@ -29,15 +29,15 @@ class InventoryUI {
         inventoryBag.addChild(node: grid.node)
     }
     
-    func onTouched(at position:Vector2, roomObject:Object?) -> Bool {
-        let localPosition = inventoryBag.toLocal(globalPoint: position)
+    func onTouched(at point:Vector2, roomObject:Object?) -> Bool {
+        let localPosition = inventoryBag.toLocal(globalPoint: point)
         if let usingObject {
-            useInventory(at: position, roomObject:roomObject)
+            useInventory(at: point, roomObject:roomObject)
             return true
         }
         
         if isOpen {
-            if !inventoryBag.hasPoint(position){
+            if !inventoryBag.hasPoint(point){
                 hide()
                 return true
             }
@@ -49,7 +49,7 @@ class InventoryUI {
             return true
         }
         
-        if toggleNode.hasPoint(position){
+        if toggleNode.hasPoint(point){
             toggle()
             return true
         }
@@ -86,57 +86,57 @@ class InventoryUI {
         usingObject = nil
     }
     
-    private func useInventory(at position:Vector2, roomObject:Object?){
+    private func useInventory(at point:Vector2, roomObject:Object?){
         defer {
-            Game.shared.scene.scanner.show(text: "", at: position)
+            Game.shared.scene.scanner.show(text: "", at: point)
             deselect()
         }
         
-        guard let useWith = findUseWithObject(at: position, roomObject: roomObject) else {
+        guard let useWith = findUseWithObject(at: point, roomObject: roomObject) else {
             return
         }
         
         usingObject!.object.onUseWith(useWith, reversed: false)
     }
     
-    func onMouseMoved(at position:Vector2, roomObject:Object?) -> Bool {
-        let localPosition = inventoryBag.toLocal(globalPoint: position)
+    func onMouseMoved(at point:Vector2, roomObject:Object?) -> Bool {
+        let localPosition = inventoryBag.toLocal(globalPoint: point)
         guard let objectSprite = usingObjectSprite else {
             if isOpen {
                 let object = object(at: localPosition)
                 object?.sprite.shake()
-                Game.shared.scene.scanner.show(object: object?.object, at: position)
+                Game.shared.scene.scanner.show(object: object?.object, at: point)
                 return true
             }
             return false
         }
         
-        if !(inventoryBag.hasPoint(position)) {
+        if !(inventoryBag.hasPoint(point)) {
             hide()
         }
         
-        objectSprite.position = position
+        objectSprite.position = point
         
-        if let useWith = findUseWithObject(at: position, roomObject: roomObject) {
+        if let useWith = findUseWithObject(at: point, roomObject: roomObject) {
             let text = __("Use {object1} with {object2}")
                 .replacingOccurrences(of: "{object1}", with:__(usingObject!.object.name))
                 .replacingOccurrences(of: "{object2}", with:__(useWith.name))
             bannedIcon.hide()
-            Game.shared.scene.scanner.show(text: text, at: position)
+            Game.shared.scene.scanner.show(text: text, at: point)
         }else{
             bannedIcon.show()
-            Game.shared.scene.scanner.show(text: "", at: position)
+            Game.shared.scene.scanner.show(text: "", at: point)
         }
         
         return true
     }
     
-    func object(at position:Vector2, positionIsLocal:Bool = true) -> InventoryObject? {
+    func object(at point:Vector2, pointIsLocal:Bool = true) -> InventoryObject? {
         
-        let localPosition = positionIsLocal ? position : inventoryBag.toLocal(globalPoint: position)
+        let localPosition = pointIsLocal ? point : inventoryBag.toLocal(globalPoint: point)
         
         let object = inventory.objects.first {
-            $0.sprite?.getParent() != nil && $0.sprite?.hasPoint(position) ?? false
+            $0.sprite?.getParent() != nil && $0.sprite?.hasPoint(point) ?? false
         }
             
         //object?.inventorySprite.simpleShakeOnMouseOver()
@@ -144,8 +144,8 @@ class InventoryUI {
         return object
     }
     
-    private func findUseWithObject(at position:Vector2, roomObject:Object?) -> Object?{
-        guard let useWith = isOpen ? object(at:position)?.object : roomObject else {
+    private func findUseWithObject(at point:Vector2, roomObject:Object?) -> Object?{
+        guard let useWith = isOpen ? object(at:point)?.object : roomObject else {
             return nil
         }
         
@@ -155,7 +155,7 @@ class InventoryUI {
         return useWith
     }
     
-    func onLongPressed(at position:Vector2) -> Bool {
+    func onLongPressed(at point:Vector2) -> Bool {
         return false
     }
     

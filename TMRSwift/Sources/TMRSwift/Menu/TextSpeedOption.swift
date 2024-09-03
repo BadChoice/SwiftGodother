@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-class TextSpeedOption : MenuOption {
+class TextSpeedOption : Menu.Option {
  
     var currentSpeed = "normal"
     var repeatOption = 1
@@ -21,16 +21,9 @@ class TextSpeedOption : MenuOption {
         let index = Array(speeds.keys).firstIndex(of: currentSpeed)
         repeatOption = index ?? 1
         text = __("Text Speed") + ": " + __(currentSpeed).capitalized
-    }
+    }    
     
-    override func touchedAt(_ point: Vector2) -> Bool {
-        if label.hasPoint(point){
-            return perform()
-        }
-        return true
-    }
-    
-    override func perform() -> Bool {
+    override func perform(_ node:Node) -> Bool {
         
         repeatOption = (repeatOption + 1) % speeds.count
 

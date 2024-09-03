@@ -61,14 +61,14 @@ class Room : NSObject, ProvidesState {
     }
     
     
-    func putActor(at position:Vector2?, facing:Facing){
+    func putActor(at point:Vector2?, facing:Facing){
         camera.positionSmoothingEnabled = false
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
             self?.camera.positionSmoothingEnabled = true
         }
-        if let position {
-            actor.node.position = position
-            actor.setAwayScale(walkbox.getAwayScaleForActorAt(point: position))
+        if let point {
+            actor.node.position = point
+            actor.setAwayScale(walkbox.getAwayScaleForActorAt(point: point))
         }
         actor.face(facing)
     }

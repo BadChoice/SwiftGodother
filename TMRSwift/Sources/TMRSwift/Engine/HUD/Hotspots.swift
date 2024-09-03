@@ -12,8 +12,8 @@ class Hotspots {
         node.zIndex = Constants.inventory_zIndex
     }
     
-    func onTouched(at position:Vector2) -> Bool {
-        if node.hasPoint(position){
+    func onTouched(at point:Vector2) -> Bool {
+        if node.hasPoint(point){
             show()
             return true
         }

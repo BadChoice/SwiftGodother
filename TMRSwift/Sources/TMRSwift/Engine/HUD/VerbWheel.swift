@@ -46,12 +46,12 @@ class VerbWheel {
         //node.scale.x == 1
     }
     
-    func show(at position:Vector2, for object:Object){
+    func show(at point:Vector2, for object:Object){
         verbs.forEach { $0.scale = .one }
         node.show()
         
         node.position = Game.shared.safePosition(
-            position,
+            point,
             size:Vector2(x:450, y:250) * Game.shared.scale
         )
         
@@ -72,10 +72,10 @@ class VerbWheel {
         }
     }
     
-    func onTouched(at position:Vector2, shouldHide:Bool = true) -> Bool {
+    func onTouched(at point:Vector2, shouldHide:Bool = true) -> Bool {
         guard isOpen else { return false }
         
-        let localPosition = node.toLocal(globalPoint: position)
+        let localPosition = node.toLocal(globalPoint: point)
         if let verb = verb(at: localPosition) {
             doVerb(verb)
             hide()
@@ -89,10 +89,10 @@ class VerbWheel {
     
 
     
-    func onMouseMoved(at position:Vector2) -> Bool {
+    func onMouseMoved(at point:Vector2) -> Bool {
         guard isOpen else { return false }
         
-        let localPosition = node.toLocal(globalPoint: position)
+        let localPosition = node.toLocal(globalPoint: point)
         verbs.forEach { $0.globalScale = .one }
         
         if let verb = verb(at: localPosition) {
@@ -102,8 +102,8 @@ class VerbWheel {
         return true
     }
     
-    private func verb(at position:Vector2) -> Sprite2D?{
-        (verbs.first { $0.rectInParent().hasPoint(position)})
+    private func verb(at point:Vector2) -> Sprite2D?{
+        (verbs.first { $0.rectInParent().hasPoint(point)})
     }
     
     private func doVerb(_ verb:Sprite2D){

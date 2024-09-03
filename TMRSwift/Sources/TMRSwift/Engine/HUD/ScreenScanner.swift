@@ -15,21 +15,21 @@ struct ScreenScanner {
         label.growHorizontal = .both
     }
     
-    func onMouseMoved(at position:Vector2, object:Object?) -> Bool {
-        show(object: object, at: position)
+    func onMouseMoved(at point:Vector2, object:Object?) -> Bool {
+        show(object: object, at: point)
         return false
     }
     
-    func show(object:Object?, at position:Vector2){
-        show(text: __(object?.name ?? "") , at:position)
+    func show(object:Object?, at point:Vector2){
+        show(text: __(object?.name ?? "") , at:point)
     }
     
-    func show(text:String, at position:Vector2){
+    func show(text:String, at point:Vector2){
         label.modulate.alpha = 1
         label.text = text
         label.setPosition(
             Game.shared.safePosition(
-                position - Vector2(x: 0, y: Constants.fingerOffset) * Game.shared.scale,
+                point - Vector2(x: 0, y: Constants.fingerOffset) * Game.shared.scale,
                 size: label.getSize()) - label.getSize() * 0.5
             )
     }

@@ -1,6 +1,6 @@
 import SwiftGodot
 
-class ChangeLanguageOption : MenuOption {
+class ChangeLanguageOption : Menu.Option {
     var currentLanguage = 0
     
     init(){
@@ -8,14 +8,7 @@ class ChangeLanguageOption : MenuOption {
         currentLanguage = Constants.languages.firstIndex(of: Settings.language)!
     }
     
-    override func touchedAt(_ point: Vector2) -> Bool {
-        if label.hasPoint(point){
-            return perform()
-        }
-        return true
-    }
-    
-    override func perform() -> Bool {
+    override func perform(_ node:Node) -> Bool {
         currentLanguage  = (currentLanguage + 1) % Constants.languages.count
         let language     = Constants.languages[currentLanguage]
         label.text   = __(language)
