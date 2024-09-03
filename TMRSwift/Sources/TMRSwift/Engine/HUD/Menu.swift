@@ -10,14 +10,10 @@ class Menu {
     var options:[Option]!
     var currentOption:Option?
         
-    init(){
-        
+    init(){        
         icon = Sprite2D(path: "res://assets/ui/settings.png")
-        
         node.addChild(node: icon)
         icon.zIndex = Constants.menu_zIndex
-        
-        setupOptions()
     }
     
     func setupOptions(){
@@ -50,6 +46,8 @@ class Menu {
         Sound.play(once: "tutorial_appear")
         isShowing = true
         
+        setupOptions()
+        
         background.zIndex = Constants.menu_zIndex + 1
         background.color = .black
         
@@ -62,9 +60,7 @@ class Menu {
             .fadeAlpha(to: 0.8, duration: 0.2)
         )
         
-        //let x = icon.position.x + (15 * Float(Game.shared.scale))
-        //var y = icon.position.y + (55 * Float(Game.shared.scale))
-        let x:Float = Game.shared.room.camera.getViewportRect().size.x - 60 * Float(Game.shared.scale)
+        let x:Float = Game.shared.room.camera.getViewportRect().size.x - (75 * Float(Game.shared.scale))
         var y:Float = 48 * Float(Game.shared.scale)
         
         options.forEach {
@@ -82,9 +78,10 @@ class Menu {
     }
     
     func hide(){
+        GD.print("[Menu] hide")
+        isShowing = false
         currentOption = nil
         Sound.play(once: "tutorial_disappear")
-        isShowing = false
         //icon.run(.rotate(byAngle: -180, duration: 0.2))
         background.run(
             .fadeAlpha(to: 0, duration: 0.2)
@@ -92,9 +89,6 @@ class Menu {
             self?.background.getChildren().forEach { $0.removeFromParent() }
             self?.background.removeFromParent()
         }
-        /*options.forEach { option in
-            option.label.run(.fadeOut(withDuration: 0.2))
-        }*/
     }
     
     func onOptionPressed(at point: Vector2) {
@@ -102,7 +96,9 @@ class Menu {
         let localPoint = background.getLocalMousePosition()
         
         if let current = currentOption {
-            if current.touched(at: localPoint) { hide() }
+            if current.touched(at: localPoint) {
+                hide()
+            }
             return
         }
         
@@ -111,7 +107,9 @@ class Menu {
         }
         if let touchedOption {
             currentOption = touchedOption
-            touchedOption.perform(background)
+            if touchedOption.perform(background) {
+                hide()
+            }
         } else {
             hide()
         }

@@ -10,4 +10,5 @@ class CloseMenuOption: Menu.Option {
     override func perform(_ node:Node) -> Bool {
         true
     }
+    
 }

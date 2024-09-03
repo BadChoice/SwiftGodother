@@ -24,14 +24,22 @@ class TextSpeedOption : Menu.Option {
     }    
     
     override func perform(_ node:Node) -> Bool {
-        
+        changeSpeed()
+        return false
+    }
+    
+    override func touched(at point:Vector2) -> Bool {
+        changeSpeed()
+        return false
+    }
+
+    private func changeSpeed(){
         repeatOption = (repeatOption + 1) % speeds.count
 
         let key = Array(speeds.keys)[repeatOption]
 
         Constants.charTime = speeds[key]!
         changeText(key)
-        return false
     }
     
     func changeText(_ speed:String){
