@@ -22,4 +22,13 @@ class Inventory {
             type(of:$0.object) == objectClass
         }
     }
+    
+    func load(objects inventoryObjects:[String]){
+        objects.removeAll()
+        inventoryObjects.forEach {
+            let objectType = NSClassFromString(safeClassName($0)) as! Inventoriable.Type
+            let object = objectType.init()
+            pickup(object)
+        }
+    }
 }

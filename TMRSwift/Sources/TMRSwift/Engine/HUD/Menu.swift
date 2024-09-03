@@ -23,12 +23,12 @@ class Menu {
         options = [
             CloseMenuOption(),
             //HowToPlayOption(),
-            //SaveGameOption(),
+            SaveGameOption(),
             ChangeLanguageOption(),
             TextSpeedOption(),
             //MusicOption(),
             //HardModeOption(),
-            //LoadGameOption(),
+            LoadGameOption(),
             //QuitOption(),
         ]
     }

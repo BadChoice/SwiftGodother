@@ -1,3 +1,4 @@
+import Foundation
 import SwiftGodot
 
 class Game  {
@@ -59,6 +60,15 @@ class Game  {
         }*/
         
         return safePosition/* - size * 0.5*/
+    }
+    
+    //MARK: - SAVEGAME
+    func load(saveGame:SaveGame){
+        let room: AnyClass? = NSClassFromString(safeClassName(saveGame.roomType))
+        state = saveGame.state
+        inventory.load(objects:saveGame.inventoryObjects)
+                
+        enter(room: room as! Room.Type, actorPosition: saveGame.actorPosition, facing:.right)
     }
 }
 
