@@ -78,6 +78,7 @@ class Room : NSObject, ProvidesState {
         actor = Crypto()
         actor.node.zIndex = 1
         addChild(node: actor.node)
+        //actor.node.modulate = actor.node.modulate.darkened(amount: 0.5)
     }
     
     private func setupCamera(){
