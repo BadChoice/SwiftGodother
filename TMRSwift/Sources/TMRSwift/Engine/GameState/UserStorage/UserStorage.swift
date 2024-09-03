@@ -17,12 +17,14 @@ class UserStorage {
     }
     
     func getSavedGames() -> [(SaveGame, Int)] {
-        return []
-        /*getKeys().compactMap {
-            let slot = $0.replacingOccurrences(of: STORAGE_KEY + "-", with: "")
-            guard let saveGame = get(slot: Int(slot)!) else { return nil }
-            return (saveGame, Int(slot)!)
-        }*/
+        var result:[(SaveGame, Int)] = []
+        (0...8).enumerated().forEach { (index, value) in
+            if let game = get(slot: index) {
+                result.append((game, index))
+            }
+        }
+        
+        return result
     }
     
     func getLastSavedGame() -> SaveGame?{

@@ -37,18 +37,21 @@ class SaveGameNode {
         
         let label = Label()
         label.labelSettings = Label.settings()
-        
-        //let sectionLabel            = SKLabelNode(fontNamed: Constants.cutSceneFontName)
+
         label.text           = saveGame.date.display
         //sectionLabel.fontSize       = 30
         //sectionLabel.numberOfLines  = 2
         label.zIndex      = 3
-        label.setPosition(Vector2(x:0, y:130) * Game.shared.scale)
-        //label.alignment = .center
+        label.setPosition(Vector2(x:0, y:140) * Game.shared.scale)
+        label.horizontalAlignment = .center
                 
-        /*if let bg = background(saveGame: saveGame){
-            addChild(bg)
-        }*/
+        if let bg = background(saveGame: saveGame){
+            node.addChild(node: bg)
+            bg.position = bg.getRect().size * 0.5
+            bg.zIndex = 1
+        } else {
+            node.modulate.alpha = 0.3
+        }
         
         node.addChild(node: label)
         
@@ -62,17 +65,15 @@ class SaveGameNode {
         
         //square.lineWidth       = 2
         //square.strokeColor     = .white
-        node.modulate.alpha           = 0.3
+        //node.modulate.alpha      = 0.3
     }
     
-    /*func background(saveGame:SaveGame) -> SKNode? {
+    func background(saveGame:SaveGame) -> Sprite2D? {
         guard let roomClass = NSClassFromString(safeClassName(saveGame.roomType)) as? Room.Type else { return nil }
         
-        let node = SKNode()
         let room = roomClass.init()
-
-        node.addChild(SKSpriteNode(texture: SKTexture(imageNamed: room.background + "-thumbnail")))
-        
-        return node
-    }*/
+        room.loadDetails()
+                
+        return Sprite2D(path: "res://assets/ui/SaveGameThumbnails/\(room.details.background)-thumbnail.png")
+    }
 }

@@ -45,7 +45,7 @@ class Room : NSObject, ProvidesState {
         //addTest()
     }
     
-    private func loadDetails(){
+    func loadDetails(){
         let json = String("\(self)".split(separator: ".").last!.split(separator: ":").first!)
         details = RoomDetails.loadCached(path: "res://assets/rooms/" + json + ".json")
     }

@@ -89,6 +89,7 @@ class Menu {
         background.run(
             .fadeAlpha(to: 0, duration: 0.2)
         ){ [weak self] in
+            self?.background.getChildren().forEach { $0.removeFromParent() }
             self?.background.removeFromParent()
         }
         /*options.forEach { option in
