@@ -19,7 +19,9 @@ class SpriteObject : Object {
         return node?.rectInParent().hasPoint(at) ?? false
     }
     
-    override func getNode() -> Node? {
+    override func getNode() -> Node? {        
+        if let node { return node }
+        
         guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: image) else {
             return nil
         }

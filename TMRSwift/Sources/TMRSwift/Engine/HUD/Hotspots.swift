@@ -29,6 +29,7 @@ class Hotspots {
         hintsNode.zIndex = Constants.inventory_zIndex
         hintsNode.modulate.alpha = 0
         
+        
         Game.shared.room.objects.forEach {
             guard $0.showItsHotspotHint, $0.getNode()?.getParent() != nil else { return }
             let s = getHotspotSprite($0)
