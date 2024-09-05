@@ -29,8 +29,11 @@ class TextSpeedOption : Menu.Option {
     }
     
     override func touched(at point:Vector2) -> Bool {
-        changeSpeed()
-        return false
+        if label.hasPoint(point){
+            changeSpeed()
+            return false
+        }
+        return true
     }
 
     private func changeSpeed(){

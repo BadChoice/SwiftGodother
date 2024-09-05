@@ -14,8 +14,11 @@ class ChangeLanguageOption : Menu.Option {
     }
     
     override func touched(at point: Vector2) -> Bool {
-        changeLanguage()
-        return false
+        if label.hasPoint(point){
+            changeLanguage()
+            return false
+        }
+        return true
     }
     
     private func changeLanguage(){
