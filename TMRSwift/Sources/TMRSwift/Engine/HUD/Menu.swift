@@ -23,8 +23,8 @@ class Menu {
             SaveGameOption(),
             ChangeLanguageOption(),
             TextSpeedOption(),
-            //MusicOption(),
-            //HardModeOption(),
+            MusicOption(),
+            HardModeOption(),
             LoadGameOption(),
             //QuitOption(),
         ]

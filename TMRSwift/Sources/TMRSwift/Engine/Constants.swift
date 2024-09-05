@@ -44,8 +44,7 @@ struct Constants {
 }
 
 struct Features {
-    //static var useCanBeUsedWith = (UserDefaults.standard.object(forKey: "hardMode") as AnyObject?)?.boolValue ?? true
-    static var useCanBeUsedWith = true
+    static var useCanBeUsedWith = !Settings.hardMode ?? true
     static var doubleDoorClickChangesRoom = true
     static var showVerbWheelActionNames = false
 }
