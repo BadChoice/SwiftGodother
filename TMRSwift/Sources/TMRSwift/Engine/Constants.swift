@@ -11,6 +11,7 @@ struct Constants {
     static let scanner_zIndex:Int32     = 250
     static let verbwheel_zIndex:Int32   = 251
     static let talk_zIndex:Int32        = 300
+    static let custScene_zIndex:Int32   = 301
     static let menu_zIndex:Int32        = 310
     static let cursor_zIndex:Int32      = 400
     

@@ -119,7 +119,7 @@ extension Balloon {
     }
         
     func useWith(_ barman:Barman){
-        /*guard BarmanYack.knowsAboutCocktailGrownUp else {
+        guard BarmanYack.knowsAboutCocktailGrownUp else {
             Script {
                 Walk(to: barman)
                 Say("Wanna play?")
@@ -135,7 +135,7 @@ extension Balloon {
             Say(actor:barman, "Um... Your mum's a BALLOON??", expression: .suspicious)
             Say("Well... yes..? It worked before...", expression: .sad)
             Say(actor:barman, "I see. I'm very sorry, but your only chance is to get the used cups.")
-        }*/
+        }
     }
     
     override func onLookedAt() {
@@ -345,14 +345,14 @@ extension MainteinanceGirl {
         
         Script {
             Walk(to: self)
-            //Talk(yack: MainteinanceGirlYack(leia: self))
+            Talk(yack: MainteinanceGirlYack(leia: self))
         }
     }
     
     func give(toothpicks:Toothpicks){
-        /*if !MainteinanceGirlYack.knowsWhatSheIsDoing{
+        if !MainteinanceGirlYack.knowsWhatSheIsDoing{
             return ScriptSay("Why would she want it?")
-        }*/
+        }
         Script {
             Walk(to: self)
             Animate("pickup")
@@ -475,7 +475,7 @@ extension Lighter {
         ArcadeTickets.show = true
         Script ({
             Walk(to: tinyHero)
-            /*if !PirateYack.toldAboutLighterTrick {
+            if !PirateYack.toldAboutLighterTrick {
                 Say("Don't really know what could I do with it...")
             } else {
                 Say("Let's see if that lighter trick works here...")
@@ -497,7 +497,7 @@ extension Lighter {
                 
                 ReloadInventory(earnedTickets)
                 Autosave()
-            }*/
+            }
         }){
             ArcadeTickets.show = false
         }

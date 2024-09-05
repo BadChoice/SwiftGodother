@@ -11,6 +11,7 @@ class Crypto : Actor {
     }()
     
     var face = Sprite2D()
+    var extra = Sprite2D()
     
     var facePosition:Vector2 {
         if facing == .front { return Vector2(x: -14, y: -240) }
@@ -32,6 +33,7 @@ class Crypto : Actor {
         frames.createAnimation(name: "idle", prefix: "idle/", frames: 0...1, atlas: tp, timePerFrame: 2.50, looped: true)
         
         frames.createSingleFrameAnimation(name:"no_face_profile", textureName: "no-face", atlas:tp)
+        frames.createSingleFrameAnimation(name:"no_right_hand",   textureName: "no-right-hand", atlas:tp)
         frames.createSingleFrameAnimation(name:"pickup",          textureName: "pickup/normal", atlas:tp)
         frames.createSingleFrameAnimation(name:"pickup-low",      textureName: "pickup/low", atlas:tp)
         
@@ -86,6 +88,8 @@ class Crypto : Actor {
         
         switch animation {
         case "talk"                      : animateTalk()
+        case Self.withBalloon.name       : animateWithBalloon()
+        case Self.handToMouth.name       : animateHandToMouth()
         case Self.combine.name           : animateCombine()
         default: animateIdle()
         }
@@ -94,6 +98,10 @@ class Crypto : Actor {
     private func clearAnimations() {
         face.removeAllActions()
         face.hide()
+        face.rotation = 0
+        
+        extra?.removeAllActions()
+        extra?.removeFromParent()
     }
 
     private func animateIdle(){
@@ -150,10 +158,35 @@ class Crypto : Actor {
         node.play(name: StringName(animation))
     }
     
+    private func animateHandToMouth(){
+        face.show()
+        face.texture   = tp.textureNamed(name: "talk/face")
+        extra.texture  = tp.textureNamed(name: "puzzles/hand-to-mouth")
+        extra.position = Vector2(x:35, y:188) * Game.shared.scale
+        extra.zIndex    = 10
+        //extra.setScale(1)
+        node.play(name: "no_right_hand")
+        node.addChild(node: extra)
+    }
+    
     private func animateCombine(){
         if [.front, .back].contains(facing) { face(.right) }
         face.hide()
         node.play(name: "combine")
+    }
+    
+    //---------------------------------------------------
+    //MARK: - Puzzle animations
+    //---------------------------------------------------
+    private func animateWithBalloon(){
+        face.show()
+        face.texture   = tp.textureNamed(name: "talk/face")
+        extra.texture  = texture("with-balloon")
+        extra.position = Vector2(x:50, y:210) * Game.shared.scale
+        extra.zIndex   = 10
+        //extra.setScale(Vector0.5)
+        node.play(name: "no_right_hand")
+        node.addChild(node: extra)
     }
     
     //---------------------------------------------------
@@ -213,5 +246,13 @@ class Crypto : Actor {
     //---------------------------------------------------
     static var combine:  Animation {
         .init(name: "combine", durationMs: 18 * 100, sound:"combine_items")
+    }
+    
+    static var withBalloon: Animation {
+        .init(name: "with-balloon", durationMs: 2000, sound:"show_balloon")
+    }
+                        
+    static var handToMouth: Animation {
+        .init(name: "hand-to-mouth", durationMs: 1000, sound:nil)
     }
 }

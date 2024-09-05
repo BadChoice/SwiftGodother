@@ -35,6 +35,11 @@ extension Sprite2D {
         texture = Game.shared.room.atlas.textureNamed(name: name)
     }
     
+    func set(texture texture:Texture2D?) {
+        guard let texture else { return }
+        self.texture = texture
+    }
+    
     func animateForever(_ textures:[Texture2D], timePerFrame:Double){
         run(.animateForever(textures, timePerFrame: timePerFrame))
     }

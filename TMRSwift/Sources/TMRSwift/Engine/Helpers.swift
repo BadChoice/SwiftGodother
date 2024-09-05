@@ -1,4 +1,5 @@
 import Foundation
+import SwiftGodot
 
 var inventory: Inventory {
     Game.shared.scene.inventoryUI.inventory
@@ -34,4 +35,8 @@ func ScriptWalkToAndSay(_ object:Object, _ text:String, expression:Expression? =
 
 func roomObject<T:Object>(_ ofType:T.Type) -> T?{
     Game.shared.objectAtRoom(ofType: ofType)
+}
+
+func texture(_ name:String) -> Texture2D? {
+    Game.shared.room.atlas.textureNamed(name: name)
 }

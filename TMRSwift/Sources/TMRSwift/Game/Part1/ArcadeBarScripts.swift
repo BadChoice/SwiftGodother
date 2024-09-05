@@ -426,7 +426,7 @@ extension Barman {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            //Talk(yack: BarmanYack(self))
+            Talk(yack: BarmanYack(self))
         }
     }
     
@@ -441,7 +441,7 @@ extension Pirate {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            //Talk(yack: PirateYack(self))
+            Talk(yack: PirateYack(self))
         }
     }
     
