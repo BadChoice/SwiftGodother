@@ -13,6 +13,9 @@ class PolygonShapedObject : Object {
     }
     
     override func getNode() -> Node2D? {
+        
+        if let node { return node }
+        
         var points = details.polygon?.components(separatedBy: " ").chunked(into: 2).map {
             (Vector2(stringLiteral: "\($0[0]) \($0[1])") - Vector2(x:712, y:512)) * Game.shared.scale
         }
