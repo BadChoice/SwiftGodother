@@ -30,7 +30,6 @@ class GDActionSequence : GDAction {
             return
         }
         
-        addToList(node: node)
         actions[currentIndex].run(node) { [self] in
             currentIndex += 1
             runNext(node)

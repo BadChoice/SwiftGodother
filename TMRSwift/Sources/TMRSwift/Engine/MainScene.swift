@@ -127,7 +127,7 @@ class MainScene : Node2D {
         guard !menu.isShowing else { return }
         
         if let yack = Game.shared.currentYack {
-            return yack.onMouseMoved(at: position)
+            return yack.onMouseMoved(at: point)
         }
         
         let object = object(at: getLocalMousePosition())

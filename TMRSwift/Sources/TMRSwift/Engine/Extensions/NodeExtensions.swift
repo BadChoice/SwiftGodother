@@ -10,7 +10,9 @@ extension Node {
     }
     
     func shake(intensity:Float = 12, duration:Double = 0.2) {
-        if hasActions() { return }
+        if hasActions() {
+            return
+        }
         run(.shake(
             amplitude: Vector2(value:intensity * Float(Game.shared.scale)),
             duration: duration
