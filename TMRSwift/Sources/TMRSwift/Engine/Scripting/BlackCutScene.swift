@@ -42,7 +42,7 @@ class BlackCutScene : CompletableAction {
             black.run(.fadeIn(withDuration: 0.3))
         }
         black.addChild(node: label)
-        showTexts { [unowned self] in.....
+        showTexts { [unowned self] in
             if let script = scriptToDoInBlack {
                 Script(script) {
                     self.finish(then: then)
