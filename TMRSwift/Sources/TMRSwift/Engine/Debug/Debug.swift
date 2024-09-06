@@ -8,9 +8,9 @@ class Debug {
         
         guard Constants.debug else { return }
         
-        //roomType = Arcade.self
+        roomType = Arcade.self
         
-        //inventory.pickup(Balloon())
-        //inventory.pickup(CarOil())
+        inventory.pickup(Balloon())
+        inventory.pickup(CarOil())
     }
 }

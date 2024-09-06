@@ -1,33 +1,55 @@
 import SwiftGodot
 
 class Sound {
-    static func play(once sound:String?, waitForCompletion:Bool = false, volume:Float = Constants.sfxVolume, node:Node2D? = nil, then:((()->Void))? = nil){
-        /*guard let sound = sound else { return }
-        
-        let action = Cache.shared.cache(key: "single-sound-\(sound)") { () -> SKAction in
-            let action             = SKAction.playSoundFileNamed(sound, waitForCompletion: waitForCompletion)
-            let changeVolumeAction = SKAction.changeVolume(to: volume, duration: 0.0)
-            return SKAction.group([action, changeVolumeAction])
+    static func play(once sound:String?, waitForCompletion:Bool = false, volume:Double = Constants.sfxVolume, node:Node? = nil, then:((()->Void))? = nil){
+        guard let sound = sound else { return }
+
+        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/Sfx/" + sound + ".mp3") {
+            let player = AudioStreamPlayer()
+            sound.loop = false
+            player.stream = sound
+            player.volumeDb = GD.linearToDb(lin: volume)
+            
+            (node ?? Game.shared.scene).addChild(node:player)
+            player.finished.connect {
+                then?()
+            }
+            player.play()
         }
-        //let action             = SKAction.playSoundFileNamed(sound, waitForCompletion: waitForCompletion)
-        //let changeVolumeAction = SKAction.changeVolume(to: volume, duration: 0.0)
-        
-        (node ?? Game.shared.scene).run(action) {
-            then?()
-        }*/
     }
         
-    static func looped(_ sound:String?, volume:Float = Constants.sfxVolume, withExtension:String = "mp3") -> Node2D? {
-        /*guard let sound = sound else { return nil }
-        guard let url = Bundle.main.url(forResource:sound, withExtension:withExtension) else { return nil }
-        let soundNode = Cache.shared.cache(key: "sound-\(sound)-\(withExtension)") {
-            return SKAudioNode(url:url)
+    static func looped(_ sound:String?, volume:Double = Constants.sfxVolume, withExtension:String = "mp3") -> AudioStreamPlayer? {
+        guard let sound = sound else { return nil }
+                
+        if withExtension == "wav" {
+            if let sound:AudioStreamWAV = GD.load(path: "res://assets/music/" + sound + ".wav") {
+                let player = AudioStreamPlayer()
+                //sound.loop = true
+                player.stream = sound
+                player.volumeDb = GD.linearToDb(lin: volume)
+                return player
+            }
+            return nil
         }
-        soundNode.run(.changeVolume(to: volume, duration: 0.0))
-        soundNode.removeFromParent()
-        soundNode.autoplayLooped = true
-        return soundNode
-         */
+        
+        if withExtension == "ogg"{
+            if let sound:AudioStreamOggVorbis = GD.load(path: "res://assets/music/" + sound + ".ogg") {
+                let player = AudioStreamPlayer()
+                sound.loop = true
+                player.stream = sound
+                player.volumeDb = GD.linearToDb(lin: volume)
+                return player
+            }
+            return nil
+        }
+        
+        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/music/" + sound + ".mp3") {
+            let player = AudioStreamPlayer()
+            sound.loop = true
+            player.stream = sound
+            player.volumeDb = GD.linearToDb(lin: volume)
+            return player
+        }
         
         return nil
     }

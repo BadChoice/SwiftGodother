@@ -43,11 +43,11 @@ class MainScene : Node2D {
         
         //It sets the base content, so it can scale to 200/1024 before showing black stripes
         getWindow()?.contentScaleSize = Vector2i(x:200, y:1024) * Int(Game.shared.scale)
-        
-        
+                
         
         //getWindow()?.size = Vector2i(x:4096, y:2048)
         
+        room.playMusic(onlyFx: false)
         room.onEnter()
     }
     

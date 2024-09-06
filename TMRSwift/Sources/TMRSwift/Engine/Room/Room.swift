@@ -1,14 +1,15 @@
 import SwiftGodot
 import Foundation
 
-
 class Room : NSObject, ProvidesState {
         
     var node = Node2D()
     var actor:Actor!
     var background:Sprite2D!
     var foreground:Sprite2D!
-    var bgMusic:AudioStreamPlayer!
+    
+    var bgMusicPlayer       = AudioStreamPlayer()
+    var ambienceMusicPlayer = AudioStreamPlayer()
     
     var details:RoomDetails!
     
@@ -35,14 +36,11 @@ class Room : NSObject, ProvidesState {
         loadAtlas()
         
         addBackgroundAndForeground()
-        //addBgMusic()
         addActor()
         setupCamera()
         addObjects()
         addWalkPath()
         putActor(at: Vector2(x:0, y:400) * Game.shared.scale, facing: .right)
-        
-        //addTest()
     }
     
     func loadDetails(){
@@ -72,7 +70,6 @@ class Room : NSObject, ProvidesState {
         }
         actor.face(facing)
     }
-    
     
     private func addActor(){
         actor = Crypto()
@@ -106,18 +103,7 @@ class Room : NSObject, ProvidesState {
             addChild(node: foreground)
         }
     }
-    
-    private func addBgMusic(){
-        guard let musicName = details.music else { return }
-        if let bgMusic:AudioStreamMP3 = GD.load(path: "res://assets/music/" + musicName + ".mp3") {
-            let bgMusicPlayer = AudioStreamPlayer()
-            bgMusic.loop = true
-            bgMusicPlayer.stream = bgMusic
-            addChild(node: bgMusicPlayer)
-            bgMusicPlayer.play()
-        }
-    }
-    
+        
 
     private func addObjects() {
         objects = details.setup()
@@ -141,36 +127,37 @@ class Room : NSObject, ProvidesState {
     
 
     
-    //MARK: - Music
-    
-    //MARK:- Music
+    //MARK: - Music    
     func playMusic(onlyFx:Bool = false){
-        /*guard Constants.music else { return }
+        guard Settings.musicEnabled else { return }
+        
         if !onlyFx {
-            if let sound = Sound.looped(music){
-                musicNode = sound
-                node?.parent?.addChild(sound.changeVolume(Constants.musicVolume))
+            if let sound = Sound.looped(details.music){
+                bgMusicPlayer = sound
+                node.getParent()?.addChild(node: sound)
+                bgMusicPlayer.play()
             }
         }
         
-        if let ambienceSound, ambienceSound.count > 0, let ambience = Sound.looped(ambienceSound, withExtension: "wav"){
-            ambienceNode = ambience
-            node?.parent?.addChild(ambience.changeVolume(Constants.ambienceVolume))
-        }*/
+        if let ambienceSound = details.ambienceSound, ambienceSound.count > 0, let ambience = Sound.looped(ambienceSound, withExtension: "wav"){
+            ambienceMusicPlayer = ambience
+            node.getParent()?.addChild(node: ambience)
+            ambienceMusicPlayer.play()
+        }
     }
     
     func resumeMusicAndAmbience(){
-        //musicNode?.run(.changeVolume(to: Constants.musicVolume, duration: 1))
-        //ambienceNode?.run(.changeVolume(to: Constants.ambienceVolume, duration: 1))
+        bgMusicPlayer.volumeDb = GD.linearToDb(lin: Constants.musicVolume)
+        ambienceMusicPlayer.volumeDb = GD.linearToDb(lin: Constants.ambienceVolume)
     }
-    
-    
+        
     func stopMusic(onlyFx:Bool = false){
-        /*if !onlyFx {
-            node?.parent?.removeAllSounds(fadeoutTime: 0.4)
+        if !onlyFx {
+            node.getParent()?.removeAllSounds(fadeoutTime: 0.4)
         }
-        ambienceNode?.removeFromParent()
-        node?.children.forEach { $0.removeAllSounds() }*/
+        ambienceMusicPlayer.stop()
+        ambienceMusicPlayer.removeFromParent()
+        node.getChildren().forEach { $0.removeAllSounds() }
     }
     
     
@@ -178,45 +165,6 @@ class Room : NSObject, ProvidesState {
     public func addChild(node:Node){
         self.node.addChild(node: node)
     }
-    
-    /*private func addTest(){
-        let tp = TexturePacker(path: "res://assets/actors/crypto/crypto.atlasc", filename:"Crypto.plist")
-        tp.load()
-        tp.debug = true
-        
-        let idle1     = Sprite2D(texture: tp.textureNamed(name: "idle/00")!)
-        let noFace    = Sprite2D(texture: tp.textureNamed(name: "no-face")!)
-        let pickupLow = Sprite2D(texture: tp.textureNamed(name: "pickup/low")!)
-        
-        GD.print(idle1.getRect(), noFace.getRect(), pickupLow.getRect())
-        
-        addChild(node: idle1)
-        addChild(node: noFace)
-        addChild(node: pickupLow)
-        
-        idle1.position = Vector2(x:-600, y:0)
-        pickupLow.position = .zero
-        noFace.position = Vector2(x:600, y:0)
-        
-        let idle1Rect = ColorRect()
-        idle1Rect.setPosition(idle1.position - idle1.getRect().size / 2)
-        idle1Rect.setSize(idle1.getRect().size)
-        idle1Rect.modulate.alpha = 0.2
-        addChild(node: idle1Rect)
-        
-        let noFaceRect = ColorRect()
-        noFaceRect.setPosition(noFace.position - noFace.getRect().size / 2)
-        noFaceRect.setSize(noFace.getRect().size)
-        noFaceRect.modulate.alpha = 0.2
-        addChild(node: noFaceRect)
-        
-        let pickupLowRect = ColorRect()
-        pickupLowRect.setPosition(pickupLow.position - pickupLow.getRect().size / 2)
-        pickupLowRect.setSize(pickupLow.getRect().size)
-        pickupLowRect.modulate.alpha = 0.2
-        addChild(node: pickupLowRect)
-    }*/
-    
     
     
 }

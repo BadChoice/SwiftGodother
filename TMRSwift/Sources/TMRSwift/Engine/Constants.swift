@@ -22,9 +22,9 @@ struct Constants {
     static var longPressMinTime = 0.3
     
     //MARK: - SOUND
-    static var musicVolume:Float     = 0.4
-    static var ambienceVolume:Float  = 0.8
-    static var sfxVolume:Float       = 1.0
+    static var musicVolume:Double     = 0.4
+    static var ambienceVolume:Double  = 0.8
+    static var sfxVolume:Double       = 1.0
     
     
     //MARK: - TALK

@@ -9,6 +9,17 @@ extension Node {
         getChildren().forEach { $0.removeFromParent() }
     }
     
+    func removeAllSounds(fadeoutTime:Double = 0){
+        getChildren().forEach{
+            $0.removeAllSounds()
+        }
+        getChildren().filter {
+            $0 is AudioStreamPlayer
+        }.forEach {
+            $0.removeFromParent()
+        }
+    }
+    
     func shake(intensity:Float = 12, duration:Double = 0.2) {
         if hasActions() {
             return
