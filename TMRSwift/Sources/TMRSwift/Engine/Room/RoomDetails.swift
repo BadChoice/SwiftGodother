@@ -42,6 +42,7 @@ struct RoomDetails : Codable {
     let music:String?
     let ambienceSound:String?
     let atlasName:String
+    let footsteps:Footsteps?
     
     let objects:[ObjectDetails]
     let doors:[ObjectDetails]

@@ -22,7 +22,7 @@ class Cursor {
     func showArrow(_ angle:Double){
         cursorNode.modulate.alpha = 0
         arrowNode.modulate.alpha = 1
-        //arrowNode.zRotation = CGFloat(angle)
+        arrowNode.rotation = angle
     }
     
     func hideArrow() {
@@ -31,15 +31,11 @@ class Cursor {
     }
     
     func onMouseMoved(at point:Vector2){
-        node.position = point
-        //Input.mouseMode = node.getViewportRect().hasPoint(node.getViewport()!.getMousePosition()) ? .visible : .hidden
-        
+        node.position = point        
         if node.getViewportRect().hasPoint(node.getViewport()!.getMousePosition()) {
             Input.mouseMode = .hidden
-            //GD.print("INSIDE")
         }else{
             Input.mouseMode = .visible
-            //GD.print("OUTSIDE")
         }
     }
 }

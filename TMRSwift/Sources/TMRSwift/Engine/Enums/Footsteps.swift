@@ -1,6 +1,6 @@
 import Foundation
 
-enum Footsteps : String {
+enum Footsteps : String, Codable {
     case concrete
     case wood
     case grass
@@ -8,4 +8,9 @@ enum Footsteps : String {
     case water
     case cave
     case map
+    
+    func filename() -> String {
+        //"sfx/footsteps_\(self).mp3"
+        "sfx/footsteps.mp3"
+    }
 }

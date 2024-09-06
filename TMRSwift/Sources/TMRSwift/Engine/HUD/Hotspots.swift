@@ -57,7 +57,7 @@ class Hotspots {
     
     private func getArrow(_ door:ChangesRoom) -> Sprite2D {
         let arrow = Sprite2D(path: "res://assets/ui/arrow.png")
-        //arrow.zRotation = CGFloat(door.nextRoomArrowDirection.angle)
+        arrow.rotation = door.nextRoomArrowDirection.angle
         return arrow
     }
     

@@ -4,7 +4,7 @@ class Sound {
     static func play(once sound:String?, waitForCompletion:Bool = false, volume:Double = Constants.sfxVolume, node:Node? = nil, then:((()->Void))? = nil){
         guard let sound = sound else { return }
 
-        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/Sfx/" + sound + ".mp3") {
+        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/sfx/" + sound + ".mp3") {
             let player = AudioStreamPlayer()
             sound.loop = false
             player.stream = sound

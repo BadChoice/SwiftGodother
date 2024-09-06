@@ -87,7 +87,7 @@ class Actor : NSObject, Talks, Animable {
     //MARK: SFX:
     //---------------------------------------
     public func playFootsteps(){
-        if let stream:AudioStreamMP3 = GD.load(path: "res://assets/sfx/footsteps.mp3") {
+        if let stream:AudioStreamMP3 = GD.load(path: "res://assets/" + (Game.shared.room.details.footsteps ?? .concrete).filename()) {
             stream.loop = true
             footsteps.stream = stream
             footsteps.play()
