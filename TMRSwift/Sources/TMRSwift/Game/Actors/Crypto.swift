@@ -100,8 +100,8 @@ class Crypto : Actor {
         face.hide()
         face.rotation = 0
         
-        extra?.removeAllActions()
-        extra?.removeFromParent()
+        extra.removeAllActions()
+        extra.removeFromParent()
     }
 
     private func animateIdle(){

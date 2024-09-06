@@ -11,8 +11,8 @@ struct Constants {
     static let scanner_zIndex:Int32     = 250
     static let verbwheel_zIndex:Int32   = 251
     static let talk_zIndex:Int32        = 300
-    static let custScene_zIndex:Int32   = 301
     static let menu_zIndex:Int32        = 310
+    static let custScene_zIndex:Int32   = 311
     static let cursor_zIndex:Int32      = 400
     
     //MARK: - WALK
@@ -29,16 +29,18 @@ struct Constants {
     
     //MARK: - TALK
     static let languages             = ["en", "es", "de", /*"fr", */"ca"]
-    static var fontSize:Int32        = /*isPhone ? 50 : */40
-    static var fontOutlineSize:Int32 = /*isPhone ? 50 : */18
+    static var fontSize:Int32        = isPhone ? 50 : 40
+    static var fontOutlineSize:Int32 = isPhone ? 50 : 18
     static var wordTime              = 0.4
     static var charTime              = 0.07
     static var useWordTiming         = false
     static var lineWordLength:Int    { Settings.language == "de" ? 7 : 9 }
-    static var yackSpacing:Float     = /*isPhone ? 80 : */60
-    static var fingerOffset:Float    = /*isPhone ? 80 : */80
-    static var fontName:String       = "Janda Manatee Solid"
+    static var yackSpacing:Float     = isPhone ? 80 : 60
+    static var fingerOffset:Float    = isPhone ? 80 : 80
+    //static var fontName:String       = "Janda Manatee Solid"
     static var font:String           = "JandaManateeSolid.ttf"
+    static var secondaryFont:String  = "UglyQua.ttf"
+    
     static var talkBackgroundAlpha:Float  = 0.8
     static var guyTalkColor:Color   = "#EDEB67"
 

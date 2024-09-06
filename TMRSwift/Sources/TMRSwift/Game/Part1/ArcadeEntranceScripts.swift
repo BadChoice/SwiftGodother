@@ -12,10 +12,10 @@ extension ArcadeEntrance {
         let revisor = roomObject(Revisor.self)!
         let arcadeDoor = roomObject(EntranceToArcadeDoor.self)!
         Script ({
-            /*BlackCutScene(fadingIn: false, texts: [
+            BlackCutScene(fadingIn: false, texts: [
                 "DISK 1",
                 "The Arcade Palace"
-            ])*/
+            ])
             Face(.back)
             Say("Holy Turing, finally: the Arcade Palace!")
             Face(.left)

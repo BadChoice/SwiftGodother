@@ -26,9 +26,11 @@ class BlackCutScene : CompletableAction {
         black.zIndex         = Constants.custScene_zIndex
         black.modulate.alpha = fadingIn ? 0 : 1
         
-        label.labelSettings  = Label.settings()
-        //label.numberOfLines  = 2
-        //label.fontSize      = isPhone ? 110 : 90
+        label.labelSettings  = Label.settings(size: isPhone ? 110 : 90, font:Constants.secondaryFont)
+        label.setPosition(black.getSize() * 0.5)
+        label.horizontalAlignment = .center
+        label.growVertical = .both
+        label.growHorizontal = .both
     }
     
     func run(then: @escaping () -> Void) {
@@ -40,7 +42,7 @@ class BlackCutScene : CompletableAction {
             black.run(.fadeIn(withDuration: 0.3))
         }
         black.addChild(node: label)
-        showTexts { [unowned self] in
+        showTexts { [unowned self] in.....
             if let script = scriptToDoInBlack {
                 Script(script) {
                     self.finish(then: then)

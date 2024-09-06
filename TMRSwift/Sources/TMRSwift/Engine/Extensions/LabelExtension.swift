@@ -6,12 +6,12 @@ extension Label {
         getPosition()
     }
     
-    static func settings() -> LabelSettings {
+    static func settings(size:Int32 = Constants.fontSize, font:String = Constants.font) -> LabelSettings {
         let settings = LabelSettings()
         
-        if let font:Font = GD.load(path: "res://assets/fonts/\(Constants.font)")  {
+        if let font:Font = GD.load(path: "res://assets/fonts/\(font)")  {
             settings.font = font
-            settings.fontSize = Constants.fontSize * Int32(Game.shared.scale)
+            settings.fontSize = size * Int32(Game.shared.scale)
             
             settings.outlineColor = .black
             settings.outlineSize = Constants.fontOutlineSize * Int32(Game.shared.scale)
