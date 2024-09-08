@@ -132,7 +132,7 @@ class Room : NSObject, ProvidesState {
         guard Settings.musicEnabled else { return }
         
         if !onlyFx {
-            if let sound = Sound.looped(details.music){
+            if let sound = Sound.looped(details.music, folder:"music"){
                 bgMusicPlayer = sound
                 node.getParent()?.addChild(node: sound)
                 bgMusicPlayer.play()

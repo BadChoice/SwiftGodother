@@ -18,11 +18,11 @@ class Sound {
         }
     }
         
-    static func looped(_ sound:String?, volume:Double = Constants.sfxVolume, withExtension:String = "mp3") -> AudioStreamPlayer? {
+    static func looped(_ sound:String?, folder:String = "sfx", volume:Double = Constants.sfxVolume, withExtension:String = "mp3") -> AudioStreamPlayer? {
         guard let sound = sound else { return nil }
                 
         if withExtension == "wav" {
-            if let sound:AudioStreamWAV = GD.load(path: "res://assets/music/" + sound + ".wav") {
+            if let sound:AudioStreamWAV = GD.load(path: "res://assets/\(folder)/" + sound + ".wav") {
                 let player = AudioStreamPlayer()
                 //sound.loop = true
                 player.stream = sound
@@ -33,7 +33,7 @@ class Sound {
         }
         
         if withExtension == "ogg"{
-            if let sound:AudioStreamOggVorbis = GD.load(path: "res://assets/music/" + sound + ".ogg") {
+            if let sound:AudioStreamOggVorbis = GD.load(path: "res://assets/\(folder)/" + sound + ".ogg") {
                 let player = AudioStreamPlayer()
                 sound.loop = true
                 player.stream = sound
@@ -43,7 +43,7 @@ class Sound {
             return nil
         }
         
-        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/music/" + sound + ".mp3") {
+        if let sound:AudioStreamMP3 = GD.load(path: "res://assets/\(folder)/" + sound + ".mp3") {
             let player = AudioStreamPlayer()
             sound.loop = true
             player.stream = sound
@@ -53,4 +53,6 @@ class Sound {
         
         return nil
     }
+    
+    private func stream() -> AudioStream
 }
