@@ -127,7 +127,7 @@ class Room : NSObject, ProvidesState {
     
 
     
-    //MARK: - Music    
+    //MARK: - Music
     func playMusic(onlyFx:Bool = false){
         guard Settings.musicEnabled else { return }
         
@@ -139,7 +139,7 @@ class Room : NSObject, ProvidesState {
             }
         }
         
-        if let ambienceSound = details.ambienceSound, ambienceSound.count > 0, let ambience = Sound.looped(ambienceSound, withExtension: "wav"){
+        if let ambienceSound = details.ambienceSound, ambienceSound.count > 0, let ambience = Sound.looped(ambienceSound, withExtension: "ogg"){
             ambienceMusicPlayer = ambience
             node.getParent()?.addChild(node: ambience)
             ambienceMusicPlayer.play()

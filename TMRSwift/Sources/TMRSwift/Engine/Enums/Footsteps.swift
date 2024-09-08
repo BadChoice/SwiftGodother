@@ -10,7 +10,6 @@ enum Footsteps : String, Codable {
     case map
     
     func filename() -> String {
-        //"sfx/footsteps_\(self).mp3"
-        "sfx/footsteps.mp3"
+        "sfx/footsteps_\(self).ogg"
     }
 }
