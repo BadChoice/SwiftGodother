@@ -42,7 +42,7 @@ class TextSpeedOption : Menu.Option {
         let key = Array(speeds.keys)[repeatOption]
 
         Constants.charTime = speeds[key]!
-        changeText(key)
+        changeText(key)        
     }
     
     func changeText(_ speed:String){

@@ -53,6 +53,5 @@ class Sound {
         
         return nil
     }
-    
-    private func stream() -> AudioStream
+        
 }

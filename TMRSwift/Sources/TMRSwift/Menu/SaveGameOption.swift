@@ -51,7 +51,7 @@ class LoadGameOption : Menu.Option {
     lazy var savedGames = { UserStorage.make().getSavedGames() }()
     
     init() {
-        super.init(text: "Load Game")
+        super.init(text: "Load Saved Game")
     }
     
     

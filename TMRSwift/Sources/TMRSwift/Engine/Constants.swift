@@ -2,7 +2,7 @@ import SwiftGodot
 
 struct Constants {
     
-    static var debug:Bool = true
+    static var debug:Bool = false
     
     //MARK: - Room
     static let background_zIndex:Int32  = -1
@@ -34,7 +34,7 @@ struct Constants {
     static var wordTime              = 0.4
     static var charTime              = 0.07
     static var useWordTiming         = false
-    static var lineWordLength:Int    { Settings.language == "de" ? 7 : 9 }
+    static var lineWordLength:Int    { Settings.shared.language == "de" ? 7 : 9 }
     static var yackSpacing:Float     = isPhone ? 80 : 60
     static var fingerOffset:Float    = isPhone ? 80 : 80
     //static var fontName:String       = "Janda Manatee Solid"
@@ -47,7 +47,7 @@ struct Constants {
 }
 
 struct Features {
-    static var useCanBeUsedWith = !Settings.hardMode ?? true
+    static var useCanBeUsedWith = !Settings.shared.hardMode ?? true
     static var doubleDoorClickChangesRoom = true
     static var showVerbWheelActionNames = false
 }

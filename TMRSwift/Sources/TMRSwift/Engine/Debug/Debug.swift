@@ -1,4 +1,5 @@
 import Foundation
+import SwiftGodot
 
 class Debug {
     
@@ -6,7 +7,7 @@ class Debug {
     
     static func setDebugGameState(){
         
-        guard Constants.debug else { return }
+        guard OS.isDebugBuild() else { return }
         
         roomType = Arcade.self
         

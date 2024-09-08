@@ -15,14 +15,14 @@ class HardModeOption : Menu.Option {
     }
     
     override func perform(_ node:Node) -> Bool {
-        Settings.hardMode = !Settings.hardMode
-        label.text   = Self.getText()
-
+        Settings.shared.hardMode = !Settings.shared.hardMode
+        Settings.shared.save()
+        label.text   = Self.getText()        
         return false
     }
     
     static func getText() -> String {
-        __("Hard Mode") + ": " + (Settings.hardMode ? __("On") : __("Off"))
+        __("Hard Mode") + ": " + (Settings.shared.hardMode ? __("On") : __("Off"))
     }
     
 }

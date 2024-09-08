@@ -129,7 +129,7 @@ class Room : NSObject, ProvidesState {
     
     //MARK: - Music
     func playMusic(onlyFx:Bool = false){
-        guard Settings.musicEnabled else { return }
+        guard Settings.shared.musicEnabled else { return }
         
         if !onlyFx {
             if let sound = Sound.looped(details.music, folder:"music"){

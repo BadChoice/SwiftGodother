@@ -42,7 +42,6 @@ class UserStorage {
             print("[SAVEGAME] Can't load saved game: \(error)")
             return nil
         }
-        
     }
     
     /*static func getKeys() -> [String] {
@@ -72,5 +71,20 @@ class UserStorage {
     /*static private func keys(matching:String) -> [String] {
         
     }*/
+    
+    //MARK - Settings wraper
+    func save(settings:Settings){
+        guard let encoded = try? JSONEncoder().encode(settings) else { return }
+        guard let json = String(data: encoded, encoding: .utf8) else { return }
+        let file = FileAccess.open(path: "user://settings.settings", flags: .writeRead)
+        file?.storeString(json)
+        file?.close()
+    }
+    
+    func loadSettings() -> Settings? {
+        let json = FileAccess.getFileAsString(path: "user://settings.settings")
+        guard let data = json.data(using:.utf8) else { return nil }
+        return try? JSONDecoder().decode(Settings.self, from: data)
+    }
     
 }

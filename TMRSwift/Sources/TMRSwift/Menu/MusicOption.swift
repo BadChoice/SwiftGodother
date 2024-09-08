@@ -15,11 +15,11 @@ class MusicOption : Menu.Option{
     }
     
     override func perform(_ node:Node) -> Bool {
-        Settings.musicEnabled = !Settings.musicEnabled
+        Settings.shared.musicEnabled = !Settings.shared.musicEnabled
+        Settings.shared.save()
         label.text   = Self.getText()
-        //UserDefaults.standard.setValue(Constants.music, forKey: "music")
-        
-        if Settings.musicEnabled {
+                
+        if Settings.shared.musicEnabled {
             Game.shared.room.playMusic()
         } else {
             Game.shared.room.stopMusic()
@@ -29,7 +29,7 @@ class MusicOption : Menu.Option{
     }
     
     static func getText() -> String {
-        __("Music") + ": " + (Settings.musicEnabled ? __("On") : __("Off"))
+        __("Music") + ": " + (Settings.shared.musicEnabled ? __("On") : __("Off"))
     }
     
 }
