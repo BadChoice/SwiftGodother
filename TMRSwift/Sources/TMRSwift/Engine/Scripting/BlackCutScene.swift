@@ -18,6 +18,7 @@ class BlackCutScene : CompletableAction {
         self.fadingIn        = fadingIn
         self.sound           = sound
         self.scriptToDoInBlack = scriptToDoInBlack
+        Game.shared.scene.cursor.hideArrow()
         
         black.setSize(Game.shared.room.camera.getViewportRect().size)
         black.setPosition(Game.shared.room.camera.getViewportRect().size * -0.5 + Game.shared.room.camera.getScreenCenterPosition())

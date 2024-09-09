@@ -56,7 +56,7 @@ class Yack : CompletableAction, ProvidesState {
     func run(then:@escaping ()->Void){
         wasTouchLocked = Game.shared.touchLocked
         Game.shared.scene.inventoryUI.toggleNode.run(.fadeOut(withDuration: 0.2))
-        //Game.shared.hotspotShower.run(.fadeOut(withDuration: 0.2))
+        Game.shared.scene.hotspots.node.run(.fadeOut(withDuration: 0.2))
         Game.shared.touchLocked = false
         finished = then
         guard let start = start() else {
@@ -77,7 +77,7 @@ class Yack : CompletableAction, ProvidesState {
     
     func restoreUi(){
         Game.shared.scene.inventoryUI.toggleNode.run(.fadeIn(withDuration: 0.2))
-        //Game.shared.hotspotShower.run(.fadeIn(withDuration: 0.2))
+        Game.shared.scene.hotspots.node.run(.fadeIn(withDuration: 0.2))
     }
     
     //================================================
