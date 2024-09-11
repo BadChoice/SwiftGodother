@@ -85,7 +85,7 @@ class TexturePacker {
         }
     }
     
-    func textureNamed(name:String) -> Texture2D? {
+    func textureNamed(_ name:String) -> Texture2D? {
         guard let textures, let info else { return nil }
         let nameWithoutFilename = name.withoutFilename()
         
@@ -174,7 +174,7 @@ class TexturePacker {
     }
     
     func sprite(name:String) -> Sprite2D? {
-        guard let texture = textureNamed(name: name) else { return nil }
+        guard let texture = textureNamed(name) else { return nil }
         let sprite = Sprite2D(texture: texture)
         let info = imageInfoFor(name: name)!
         

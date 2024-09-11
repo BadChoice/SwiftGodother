@@ -38,7 +38,7 @@ func roomObject<T:Object>(_ ofType:T.Type) -> T?{
 }
 
 func texture(_ name:String) -> Texture2D? {
-    Game.shared.room.atlas.textureNamed(name: name)
+    Game.shared.room.atlas.textureNamed(name)
 }
 
 var isPhone: Bool {

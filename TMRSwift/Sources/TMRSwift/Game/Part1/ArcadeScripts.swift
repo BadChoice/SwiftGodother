@@ -110,7 +110,7 @@ extension PunchBag {
             return ScriptSay("The STRENGTH is GOLD!")
         }
         Script {
-            WalkToAndSay(self, "Everybody wants one of those at home")
+            WalkToAndSay(self, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
         }
     }
 }

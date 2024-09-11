@@ -64,6 +64,25 @@ class Actor : NSObject, Talks, Animable {
     func animate(_ animation: String?) {
         
     }
+    //--------------------------------------
+    //MARK: Expressions
+    //--------------------------------------
+    func setExpression(_ expression:Expression?) {
+        setExpression(eyes: expression)
+        setExpression(mouth: expression)
+    }
+    
+    func setExpression(eyes: Expression?) {
+    
+    }
+    
+    func setExpression(mouth: Expression?) {
+
+    }
+    
+    func setArmsExpression(_ expression:ArmsExpression?) {
+        
+    }
     
     //--------------------------------------
     //MARK: Walk

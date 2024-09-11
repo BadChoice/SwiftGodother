@@ -1,5 +1,8 @@
 import SwiftGodot
 
+typealias Point = Vector2
+typealias Size  = Vector2
+
 extension Vector2 {
     
     init(stringLiteral value: StringLiteralType) {
@@ -14,7 +17,7 @@ extension Vector2 {
     }
     
         
-    func near(_ point:Vector2, treshold:Float = 10) -> Bool {
+    func near(_ point:Point, treshold:Float = 10) -> Bool {
         x.near(point.x, treshold: treshold) &&
         y.near(point.y, treshold: treshold)
     }

@@ -9,7 +9,7 @@ class InventoryObject {
     }
     
     func texture() -> Texture2D? {
-        Game.shared.scene.inventoryUI.atlas.textureNamed(name: object.inventoryImage)
+        Game.shared.scene.inventoryUI.atlas.textureNamed(object.inventoryImage)
     }
     
     func createSprite(){
