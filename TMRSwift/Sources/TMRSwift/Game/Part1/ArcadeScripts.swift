@@ -71,10 +71,15 @@ extension PunchBag {
         guard !Self.isCut else {
             return ScriptSay("I've got everything I could from it.")
         }
-        Script {
-            if !inInventory {
+        if !inInventory {
+            Script {
+                Say("It would be nice if I had BOTH of them in my inventory")
                 WalkToAndPickup(self)
             }
+            return
+        }
+        Script {
+
             Combine(self, losing: nil, settingTrue: &Self.isCut) {
                 Pickup(Sand())
                 Say("Yeah, as I thought - it's a punching bag filled with sand.")
