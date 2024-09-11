@@ -354,10 +354,10 @@ class Crypto : Actor {
         switch expression {
         case .happy:      return tp.textureNamed("expressions/mouth/happy-simple")
         case .happy1:     return tp.textureNamed("expressions/mouth/happy")
-        case .happy2:     return tp.textureNamed("expressions/mouth/happy_2")
+        case .happy2:     return tp.textureNamed("expressions/mouth/happy-2")
         case .angry:      return tp.textureNamed("expressions/mouth/angry")
-        case .angry1:     return tp.textureNamed("expressions/mouth/angry_1")
-        case .angry2:     return tp.textureNamed("expressions/mouth/angry_2")
+        case .angry1:     return tp.textureNamed("expressions/mouth/angry-1")
+        case .angry2:     return tp.textureNamed("expressions/mouth/angry-2")
         case .bored:      return tp.textureNamed("expressions/mouth/sad")
         case .focus:      return tp.textureNamed("expressions/mouth/semi")
         case .sad:        return tp.textureNamed("expressions/mouth/sad")
@@ -365,7 +365,7 @@ class Crypto : Actor {
         case .surprise:   return tp.textureNamed("expressions/mouth/surprise")
         case .ouch:       return tp.textureNamed("expressions/mouth/ouch")
         case .love:       return tp.textureNamed("expressions/mouth/happy")
-        case .star:       return tp.textureNamed("expressions/mouth/happy_2")
+        case .star:       return tp.textureNamed("expressions/mouth/happy-2")
         case .small:      return tp.textureNamed("expressions/mouth/round")
         case .blink:      return nil
         }
@@ -374,7 +374,32 @@ class Crypto : Actor {
     //---------------------------------------------------
     //MARK: - Arm Expressions
     //---------------------------------------------------
+    override func setArmsExpression(_ expression: ArmsExpression?) {
+        guard let expression = expression else { return }
+        guard facing == .right || facing == .left else { return }
         
+        guard let info = armsExpression(for: expression) else { return }
+        
+        node.play(name: "no_right_hand")
+        extra.show()
+        extra.texture = info.0
+        node.addChild(node: extra)
+        extra.position = (info.1 ?? Point(x: 33, y: -180)) * Game.shared.scale
+        extra.zIndex = info.2 ?? -1
+        extra.scale = Vector2(value: 1)
+    }
+    
+    private func armsExpression(for expression: ArmsExpression?) -> (Texture2D, Point?, Int32?)? {
+        switch expression {
+        case .shy:      (tp.textureNamed("expressions/arm/shy")!,     nil, nil)
+        case .explain:  (tp.textureNamed("expressions/arm/explain")!, nil, nil)
+        case .fist:     (tp.textureNamed("expressions/arm/fist")!,    nil, nil)
+        case .think:    (tp.textureNamed("expressions/arm/think")!,   nil, 10)
+        case .bored:    (tp.textureNamed("expressions/arm/bored")!,   nil, nil)
+        default:        nil
+        }
+    }
+    
     //---------------------------------------------------
     //MARK: - Animations
     //---------------------------------------------------
