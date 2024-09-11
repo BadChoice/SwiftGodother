@@ -15,7 +15,10 @@ config/description="Assets pulled from the Package Resolved game by Marquis Kurt
 https://github.com/alicerunsonfedora/package-resolved"
 run/main_scene="res://MainScene.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://assets/ui/splash.png"
+boot_splash/fullsize=false
+config/icon="res://icon.png"
 
 [display]
 
