@@ -1,10 +1,78 @@
 import Foundation
 import SwiftGodot
 
+class ObjectVerbActionsHandler {
+    weak var object:Object!
+    
+    required init(object:Object) {
+        self.object = object
+    }
+    
+    func onLookedAt(){
+        ScriptSay(random:[
+            "Looks interesting...",
+            "Mmmm...",
+            __("It is a") + " " + __(object.name).lowercased()
+            ]
+        )
+    }
+    
+    func onPhoned(){
+        ScriptSay(random: [
+            "No...",
+            "This won't work",
+            "Bad idea...",
+            "I can't hack that with my phone.",
+        ])
+    }
+    
+    func onUse()    {
+        if let door = object as? ChangesRoom {
+            return door.goThrough()
+        }
+        
+        ScriptSay(random: [
+            "I don't think it is a good idea",
+            "This leads to anything",
+            "This won't work",
+            "There needs to be something else"
+        ])
+    }
+    
+    func onMouthed(){
+        ScriptSay(random: [
+            "I don't want to lick this",
+            "Aaarhg no",
+            "I don't want to taste it",
+            "I won't put my lips there",
+            "It won't make any difference",
+            "Don't be ridiculous, I won't talk to THAT!"
+        ])
+    }
+    
+    func onUseWith(_ object:Object, reversed:Bool){
+        if !reversed {
+            return object.onUseWith(self.object, reversed:true)
+        }
+        ScriptSay(random: [
+            "Mmmm... No",
+            "I can't mix those",
+            "I don't think this will work",
+            //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
+            __("I can't use {object1} with {object2}")
+                .replacingOccurrences(of: "{object1}", with:__(self.object.name))
+                .replacingOccurrences(of: "{object2}", with:__(object.name))
+        ])
+        
+    }
+}
+
 class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
+    var verbActionsHandler:ObjectVerbActionsHandler!
+    
     @objc dynamic var name:String { details.name }
     @objc dynamic var zIndex:Int32 { Int32(details.zPos) }
     
@@ -25,6 +93,9 @@ class Object : NSObject, ProvidesState {
     
     required init(_ details:ObjectDetails? = nil){
         super.init()
+        
+        verbActionsHandler = (NSClassFromString(safeClassName("\(Self.self)Handler")) as? ObjectVerbActionsHandler.Type)?.init(object: self) ?? ObjectVerbActionsHandler(object: self)
+         
         if let details {
             self.details = details
         } else {
@@ -112,60 +183,23 @@ class Object : NSObject, ProvidesState {
     // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
-        ScriptSay(random:[
-            "Looks interesting...",
-            "Mmmm...",
-            __("It is a") + " " + __(name).lowercased()
-            ]
-        )
+        verbActionsHandler.onLookedAt()
     }
     
     @objc dynamic func onPhoned() {
-        ScriptSay(random: [
-            "No...",
-            "This won't work",
-            "Bad idea...",
-            "I can't hack that with my phone.",
-        ])
+        verbActionsHandler.onLookedAt()
+
     }
     
     @objc dynamic func onUse()    {
-        if let door = self as? ChangesRoom {
-            return door.goThrough()
-        }
-        
-        ScriptSay(random: [
-            "I don't think it is a good idea",
-            "This leads to anything",
-            "This won't work",
-            "There needs to be something else"
-        ])
+        verbActionsHandler.onUse()
     }
     
     @objc dynamic func onMouthed()    {
-        ScriptSay(random: [
-            "I don't want to lick this",
-            "Aaarhg no",
-            "I don't want to taste it",
-            "I won't put my lips there",
-            "It won't make any difference",
-            "Don't be ridiculous, I won't talk to THAT!"
-        ])
+        verbActionsHandler.onMouthed()
     }
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
-        if !reversed {
-            return object.onUseWith(self, reversed:true)
-        }
-        ScriptSay(random: [
-            "Mmmm... No",
-            "I can't mix those",
-            "I don't think this will work",
-            //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
-            __("I can't use {object1} with {object2}")
-                .replacingOccurrences(of: "{object1}", with:__(self.name))
-                .replacingOccurrences(of: "{object2}", with:__(object.name))
-        ])
-        return
+        verbActionsHandler.onUseWith(object, reversed: reversed)
     }
 }

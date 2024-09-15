@@ -12,8 +12,27 @@ extension Arcade {
 }
 
 extension PunchBag {
+    var inventoryImage: String {
+        if Self.hasGoldenBall { return "PunchBagGoldenBall" }
+        if Self.isCut { return "PunchBagOpen" }
+        return "PunchBag"
+    }
     
-    override func combinesWith() -> [Object.Type] {
+    override var image: String {
+        if Self.hasGoldenBall { return "punch-bag-gold.png" }
+        return "punch-bag.png"
+    }
+    
+    override var name: String {
+        if Self.hasGoldenBall { return "Golden punch bag" }
+        if Self.isCut { return "Empty punch bag" }
+        return "Punch bag"
+    }
+}
+
+class PunchBagHandler : ObjectVerbActionsHandler {
+    
+   /* override func combinesWith() -> [Object.Type] {
         [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
     }
     
@@ -32,17 +51,17 @@ extension PunchBag {
         if Self.hasGoldenBall { return "Golden punch bag" }
         if Self.isCut { return "Empty punch bag" }
         return "Punch bag"
-    }
+    }*/
     
     override func onUse() {
-        if inventory.contains(self) {
+        if inventory.contains(object as! PunchBag) {
             return super.onUse()
         }
         if PunchMachine.hasGoldenPunchBag {
             return ScriptSay("Nah, I don't want the trap door to be closed again!")
         }
         Script {
-            WalkToAndPickup(self, sound:"take_punch_bag")
+            WalkToAndPickup(object as! PunchBag, sound:"take_punch_bag")
             Say("Nobody will miss it")
             Autosave()
         }
@@ -56,7 +75,7 @@ extension PunchBag {
             return useWith(knife: MultiUseKnife())
         }
         if let bowlingBall = object as? BowlingBall {
-            return bowlingBall.useWith(punchBag: self)
+            return bowlingBall.useWith(punchBag: object as! PunchBag)
         }
         if let punchMachine = object as? PunchMachine {
             return useWith(punchMachine: punchMachine)
@@ -68,19 +87,19 @@ extension PunchBag {
         if !inventory.contains(knife) && !ToyArrow.isCutGlass {
             return ScriptSay("That would be a good idea... if I had the knife!")
         }
-        guard !Self.isCut else {
+        guard !PunchBag.isCut else {
             return ScriptSay("I've got everything I could from it.")
         }
-        if !inInventory {
+        if !(object as! PunchBag).inInventory {
             Script {
                 Say("It would be nice if I had BOTH of them in my inventory")
-                WalkToAndPickup(self)
+                WalkToAndPickup(object as! PunchBag)
             }
             return
         }
         Script {
 
-            Combine(self, losing: nil, settingTrue: &Self.isCut) {
+            Combine(object as! PunchBag, losing: nil, settingTrue: &PunchBag.isCut) {
                 Pickup(Sand())
                 Say("Yeah, as I thought - it's a punching bag filled with sand.")
                 Autosave()
@@ -89,15 +108,15 @@ extension PunchBag {
     }
     
     func useWith(punchMachine: PunchMachine){
-        if !Self.hasGoldenBall {
+        if !PunchBag.hasGoldenBall {
             return ScriptSay("Hmm, I think something's still missing...")
         }
         Script {
             Walk(to: punchMachine)
-            Lose(self, settingTrue: &PunchMachine.hasGoldenPunchBag)
+            Lose(object as! PunchBag, settingTrue: &PunchMachine.hasGoldenPunchBag)
             Animate("pickup-up", sound:"hang_golden_ball")
-            AddToRoom(self)
-            Walk(to: self)
+            AddToRoom(object)
+            Walk(to: object)
             Animate(actor: roomObject(TrapDoor.self)!, "open")
             Say("It worked!", expression: .happy2)
             Say("Supreme Hacker, here I come!", expression: .focus)
@@ -105,14 +124,14 @@ extension PunchBag {
         }
     }
     
-    override func onLookedAt() {
+    /*override func onLookedAt() {
         if Self.hasGoldenBall {
             return ScriptSay("The STRENGTH is GOLD!")
         }
         Script {
             WalkToAndSay(self, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
         }
-    }
+    }*/
 }
 
 extension DragonTooth {
