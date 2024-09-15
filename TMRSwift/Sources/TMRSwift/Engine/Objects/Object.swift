@@ -1,73 +1,6 @@
 import Foundation
 import SwiftGodot
 
-class VerbScripts {
-    weak var scriptedObject:Object!
-    
-    required init(object:Object) {
-        self.scriptedObject = object
-    }
-    
-    func onLookedAt(){
-        ScriptSay(random:[
-            "Looks interesting...",
-            "Mmmm...",
-            __("It is a") + " " + __(scriptedObject.name).lowercased()
-            ]
-        )
-    }
-    
-    func onPhoned(){
-        ScriptSay(random: [
-            "No...",
-            "This won't work",
-            "Bad idea...",
-            "I can't hack that with my phone.",
-        ])
-    }
-    
-    func onUse()    {
-        if let door = scriptedObject as? ChangesRoom {
-            return door.goThrough()
-        }
-        
-        ScriptSay(random: [
-            "I don't think it is a good idea",
-            "This leads to anything",
-            "This won't work",
-            "There needs to be something else"
-        ])
-    }
-    
-    func onMouthed(){
-        ScriptSay(random: [
-            "I don't want to lick this",
-            "Aaarhg no",
-            "I don't want to taste it",
-            "I won't put my lips there",
-            "It won't make any difference",
-            "Don't be ridiculous, I won't talk to THAT!"
-        ])
-    }
-    
-    func onUseWith(_ object:Object, reversed:Bool){
-        if !reversed {
-            return object.onUseWith(scriptedObject, reversed:true)
-        }
-        ScriptSay(random: [
-            "Mmmm... No",
-            "I can't mix those",
-            "I don't think this will work",
-            //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
-            __("I can't use {object1} with {object2}")
-                .replacingOccurrences(of: "{object1}", with:__(scriptedObject.name))
-                .replacingOccurrences(of: "{object2}", with:__(object.name))
-        ])
-        
-    }
-}
-
-
 class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
@@ -150,12 +83,12 @@ class Object : NSObject, ProvidesState {
     
     /** The objects which can combine with (no ban icon appears) */
     @objc dynamic func combinesWith() -> [Object.Type] {
-        []
+        verbScripts.combinesWith()
     }
     
     /** If it should show when showing the hotspot hints */
     @objc dynamic var showItsHotspotHint: Bool {
-        true
+        verbScripts.showItsHotspotHint
     }
     
     
@@ -179,7 +112,6 @@ class Object : NSObject, ProvidesState {
         
     }
     
-    
     //=======================================
     // MARK:- VERBS
     //=======================================
@@ -202,5 +134,84 @@ class Object : NSObject, ProvidesState {
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
         verbScripts.onUseWith(object, reversed: reversed)
+    }
+}
+
+class VerbScripts {
+    weak var scriptedObject:Object!
+    
+    required init(object:Object) {
+        self.scriptedObject = object
+    }
+    
+    /** The objects which can combine with (no ban icon appears) */
+    func combinesWith() -> [Object.Type] {
+        []
+    }
+    
+    /** If it should show when showing the hotspot hints */
+    var showItsHotspotHint: Bool {
+        true
+    }
+    
+    
+    //=======================================
+    // MARK:- VERBS
+    //=======================================
+    func onLookedAt(){
+        ScriptSay(random:[
+            "Looks interesting...",
+            "Mmmm...",
+            __("It is a") + " " + __(scriptedObject.name).lowercased()
+            ]
+        )
+    }
+    
+    func onPhoned(){
+        ScriptSay(random: [
+            "No...",
+            "This won't work",
+            "Bad idea...",
+            "I can't hack that with my phone.",
+        ])
+    }
+    
+    func onUse()    {
+        if let door = scriptedObject as? ChangesRoom {
+            return door.goThrough()
+        }
+        
+        ScriptSay(random: [
+            "I don't think it is a good idea",
+            "This leads to anything",
+            "This won't work",
+            "There needs to be something else"
+        ])
+    }
+    
+    func onMouthed(){
+        ScriptSay(random: [
+            "I don't want to lick this",
+            "Aaarhg no",
+            "I don't want to taste it",
+            "I won't put my lips there",
+            "It won't make any difference",
+            "Don't be ridiculous, I won't talk to THAT!"
+        ])
+    }
+    
+    func onUseWith(_ object:Object, reversed:Bool){
+        if !reversed {
+            return object.onUseWith(scriptedObject, reversed:true)
+        }
+        ScriptSay(random: [
+            "Mmmm... No",
+            "I can't mix those",
+            "I don't think this will work",
+            //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
+            __("I can't use {object1} with {object2}")
+                .replacingOccurrences(of: "{object1}", with:__(scriptedObject.name))
+                .replacingOccurrences(of: "{object2}", with:__(object.name))
+        ])
     }
 }
