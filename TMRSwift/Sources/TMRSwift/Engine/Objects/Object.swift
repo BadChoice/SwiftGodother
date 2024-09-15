@@ -1,18 +1,18 @@
 import Foundation
 import SwiftGodot
 
-class ObjectVerbActionsHandler {
-    weak var object:Object!
+class VerbsHandler {
+    weak var handledObject:Object!
     
     required init(object:Object) {
-        self.object = object
+        self.handledObject = object
     }
     
     func onLookedAt(){
         ScriptSay(random:[
             "Looks interesting...",
             "Mmmm...",
-            __("It is a") + " " + __(object.name).lowercased()
+            __("It is a") + " " + __(handledObject.name).lowercased()
             ]
         )
     }
@@ -27,7 +27,7 @@ class ObjectVerbActionsHandler {
     }
     
     func onUse()    {
-        if let door = object as? ChangesRoom {
+        if let door = handledObject as? ChangesRoom {
             return door.goThrough()
         }
         
@@ -52,7 +52,7 @@ class ObjectVerbActionsHandler {
     
     func onUseWith(_ object:Object, reversed:Bool){
         if !reversed {
-            return object.onUseWith(self.object, reversed:true)
+            return object.onUseWith(handledObject, reversed:true)
         }
         ScriptSay(random: [
             "Mmmm... No",
@@ -60,18 +60,19 @@ class ObjectVerbActionsHandler {
             "I don't think this will work",
             //__("I can't use") + " " + __(self.name) + " " + __("with") + " " +  __(object.name),
             __("I can't use {object1} with {object2}")
-                .replacingOccurrences(of: "{object1}", with:__(self.object.name))
+                .replacingOccurrences(of: "{object1}", with:__(handledObject.name))
                 .replacingOccurrences(of: "{object2}", with:__(object.name))
         ])
         
     }
 }
 
+
 class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
-    var verbActionsHandler:ObjectVerbActionsHandler!
+    var verbsHandler:VerbsHandler!
     
     @objc dynamic var name:String { details.name }
     @objc dynamic var zIndex:Int32 { Int32(details.zPos) }
@@ -94,7 +95,7 @@ class Object : NSObject, ProvidesState {
     required init(_ details:ObjectDetails? = nil){
         super.init()
         
-        verbActionsHandler = (NSClassFromString(safeClassName("\(Self.self)Handler")) as? ObjectVerbActionsHandler.Type)?.init(object: self) ?? ObjectVerbActionsHandler(object: self)
+        verbsHandler = (NSClassFromString(safeClassName("\(Self.self)Handler")) as? VerbsHandler.Type)?.init(object: self) ?? VerbsHandler(object: self)
          
         if let details {
             self.details = details
@@ -183,23 +184,23 @@ class Object : NSObject, ProvidesState {
     // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
-        verbActionsHandler.onLookedAt()
+        verbsHandler.onLookedAt()
     }
     
     @objc dynamic func onPhoned() {
-        verbActionsHandler.onLookedAt()
+        verbsHandler.onLookedAt()
 
     }
     
     @objc dynamic func onUse()    {
-        verbActionsHandler.onUse()
+        verbsHandler.onUse()
     }
     
     @objc dynamic func onMouthed()    {
-        verbActionsHandler.onMouthed()
+        verbsHandler.onMouthed()
     }
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
-        verbActionsHandler.onUseWith(object, reversed: reversed)
+        verbsHandler.onUseWith(object, reversed: reversed)
     }
 }

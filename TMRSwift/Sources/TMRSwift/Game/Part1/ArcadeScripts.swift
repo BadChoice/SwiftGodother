@@ -30,7 +30,7 @@ extension PunchBag {
     }
 }
 
-class PunchBagHandler : ObjectVerbActionsHandler {
+class PunchBagHandler : VerbsHandler {
     
    /* override func combinesWith() -> [Object.Type] {
         [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
@@ -54,14 +54,14 @@ class PunchBagHandler : ObjectVerbActionsHandler {
     }*/
     
     override func onUse() {
-        if inventory.contains(object as! PunchBag) {
+        if inventory.contains(handledObject as! PunchBag) {
             return super.onUse()
         }
         if PunchMachine.hasGoldenPunchBag {
             return ScriptSay("Nah, I don't want the trap door to be closed again!")
         }
         Script {
-            WalkToAndPickup(object as! PunchBag, sound:"take_punch_bag")
+            WalkToAndPickup(handledObject as! PunchBag, sound:"take_punch_bag")
             Say("Nobody will miss it")
             Autosave()
         }
@@ -90,16 +90,16 @@ class PunchBagHandler : ObjectVerbActionsHandler {
         guard !PunchBag.isCut else {
             return ScriptSay("I've got everything I could from it.")
         }
-        if !(object as! PunchBag).inInventory {
+        if !(handledObject as! PunchBag).inInventory {
             Script {
                 Say("It would be nice if I had BOTH of them in my inventory")
-                WalkToAndPickup(object as! PunchBag)
+                WalkToAndPickup(handledObject as! PunchBag)
             }
             return
         }
         Script {
 
-            Combine(object as! PunchBag, losing: nil, settingTrue: &PunchBag.isCut) {
+            Combine(handledObject as! PunchBag, losing: nil, settingTrue: &PunchBag.isCut) {
                 Pickup(Sand())
                 Say("Yeah, as I thought - it's a punching bag filled with sand.")
                 Autosave()
@@ -113,10 +113,10 @@ class PunchBagHandler : ObjectVerbActionsHandler {
         }
         Script {
             Walk(to: punchMachine)
-            Lose(object as! PunchBag, settingTrue: &PunchMachine.hasGoldenPunchBag)
+            Lose(handledObject as! PunchBag, settingTrue: &PunchMachine.hasGoldenPunchBag)
             Animate("pickup-up", sound:"hang_golden_ball")
-            AddToRoom(object)
-            Walk(to: object)
+            AddToRoom(handledObject)
+            Walk(to: handledObject)
             Animate(actor: roomObject(TrapDoor.self)!, "open")
             Say("It worked!", expression: .happy2)
             Say("Supreme Hacker, here I come!", expression: .focus)
@@ -124,14 +124,14 @@ class PunchBagHandler : ObjectVerbActionsHandler {
         }
     }
     
-    /*override func onLookedAt() {
-        if Self.hasGoldenBall {
+    override func onLookedAt() {
+        if PunchBag.hasGoldenBall {
             return ScriptSay("The STRENGTH is GOLD!")
         }
         Script {
-            WalkToAndSay(self, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
+            WalkToAndSay(handledObject, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
         }
-    }*/
+    }
 }
 
 extension DragonTooth {
