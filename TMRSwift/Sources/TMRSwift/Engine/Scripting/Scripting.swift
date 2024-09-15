@@ -1,5 +1,4 @@
 import Foundation
-import SpriteKit
 
 protocol CompletableAction {
     func run(then:@escaping ()->Void)

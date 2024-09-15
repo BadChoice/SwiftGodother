@@ -1,5 +1,4 @@
 import Foundation
-import SpriteKit
 
 struct Say : CompletableAction {
     

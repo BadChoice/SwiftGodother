@@ -1,5 +1,4 @@
 import Foundation
-import SpriteKit
 
 protocol Inventoriable : Object {
     var inventoryImage:String { get }
