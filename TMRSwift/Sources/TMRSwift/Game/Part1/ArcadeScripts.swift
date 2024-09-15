@@ -12,16 +12,20 @@ extension Arcade {
 }
 
 extension PunchBag {
-    
-    override func combinesWith() -> [Object.Type] {
-        [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
-    }
-    
     var inventoryImage: String {
         if Self.hasGoldenBall { return "PunchBagGoldenBall" }
         if Self.isCut { return "PunchBagOpen" }
         return "PunchBag"
     }
+}
+
+class PunchBagScripts : PunchBag {
+    
+    override func combinesWith() -> [Object.Type] {
+        [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
+    }
+    
+    
     
     override var image: String {
         if Self.hasGoldenBall { return "punch-bag-gold.png" }
@@ -245,7 +249,7 @@ extension ToyArrow {
         if let balloon = object as? Balloon, Self.isCutGlass {
             return useWith(balloon)
         }
-        if Self.isCutGlass, let punchBag = object as? PunchBag {
+        if Self.isCutGlass, let punchBag = object as? PunchBagScripts {
             return useWith(punchBag: punchBag, reversed:reversed)
         }
         return super.onUseWith(object, reversed:reversed)
@@ -305,7 +309,7 @@ extension ToyArrow {
         }
     }
     
-    func useWith(punchBag:PunchBag, reversed:Bool){
+    func useWith(punchBag:PunchBagScripts, reversed:Bool){
         if Self.isCutGlass {
             return MultiUseKnife().useWith(punchBag: punchBag)
         }

@@ -76,24 +76,28 @@ struct RoomDetails : Codable {
     }
     
     private func setupDoors() -> [Object] {
-        doors.map {
-            let objectType = NSClassFromString(safeClassName($0.objectClass)) as! Object.Type
-            return objectType.init($0)
+        doors.compactMap {
+            instantiateObject(details: $0)
         }
     }
     
     private func setupObjects() -> [Object] {
         objects.compactMap {
-            guard let objectType = NSClassFromString(safeClassName($0.objectClass)) as? Object.Type else { return nil }
-            return objectType.init($0)
+            instantiateObject(details: $0)
         }
     }
     
     private func setupLights() -> [Object] {
         lights?.compactMap {
-            guard let objectType = NSClassFromString(safeClassName($0.objectClass)) as? Object.Type else { return nil }
-            return objectType.init($0)
+            instantiateObject(details: $0)
         } ?? []
+    }
+    
+    private func instantiateObject(details:ObjectDetails) -> Object? {
+        let type = (NSClassFromString(safeClassName("\(details.objectClass)Scripts")) as? Object.Type) ??
+        NSClassFromString(safeClassName(details.objectClass)) as? Object.Type
+        
+        return type?.init(details)
     }
     
     func detailsFor(_ object:Object) -> ObjectDetails?{

@@ -215,7 +215,7 @@ extension MultiUseKnife {
         if let toy = object as? ToyArrow {
             return toy.useWith(knife: self)
         }
-        if let punchBag = object as? PunchBag {
+        if let punchBag = object as? PunchBagScripts {
             return useWith(punchBag: punchBag)
         }
         if let hammer = object as? SmashHammer {
@@ -230,7 +230,7 @@ extension MultiUseKnife {
         return super.onUseWith(self, reversed:reversed)
     }
     
-    func useWith(punchBag:PunchBag){
+    func useWith(punchBag:PunchBagScripts){
         if PunchBag.isCut {
             return ScriptSay("Nah, I think I slashed that thing enough already.")
         }
