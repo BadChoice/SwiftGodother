@@ -30,7 +30,7 @@ extension PunchBag {
     }
 }
 
-class PunchBagHandler : VerbsHandler {
+class PunchBagScripts : VerbScripts {
     
    /* override func combinesWith() -> [Object.Type] {
         [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
@@ -54,14 +54,14 @@ class PunchBagHandler : VerbsHandler {
     }*/
     
     override func onUse() {
-        if inventory.contains(handledObject as! PunchBag) {
+        if inventory.contains(scriptedObject as! PunchBag) {
             return super.onUse()
         }
         if PunchMachine.hasGoldenPunchBag {
             return ScriptSay("Nah, I don't want the trap door to be closed again!")
         }
         Script {
-            WalkToAndPickup(handledObject as! PunchBag, sound:"take_punch_bag")
+            WalkToAndPickup(scriptedObject as! PunchBag, sound:"take_punch_bag")
             Say("Nobody will miss it")
             Autosave()
         }
@@ -90,16 +90,16 @@ class PunchBagHandler : VerbsHandler {
         guard !PunchBag.isCut else {
             return ScriptSay("I've got everything I could from it.")
         }
-        if !(handledObject as! PunchBag).inInventory {
+        if !(scriptedObject as! PunchBag).inInventory {
             Script {
                 Say("It would be nice if I had BOTH of them in my inventory")
-                WalkToAndPickup(handledObject as! PunchBag)
+                WalkToAndPickup(scriptedObject as! PunchBag)
             }
             return
         }
         Script {
 
-            Combine(handledObject as! PunchBag, losing: nil, settingTrue: &PunchBag.isCut) {
+            Combine(scriptedObject as! PunchBag, losing: nil, settingTrue: &PunchBag.isCut) {
                 Pickup(Sand())
                 Say("Yeah, as I thought - it's a punching bag filled with sand.")
                 Autosave()
@@ -113,10 +113,10 @@ class PunchBagHandler : VerbsHandler {
         }
         Script {
             Walk(to: punchMachine)
-            Lose(handledObject as! PunchBag, settingTrue: &PunchMachine.hasGoldenPunchBag)
+            Lose(scriptedObject as! PunchBag, settingTrue: &PunchMachine.hasGoldenPunchBag)
             Animate("pickup-up", sound:"hang_golden_ball")
-            AddToRoom(handledObject)
-            Walk(to: handledObject)
+            AddToRoom(scriptedObject)
+            Walk(to: scriptedObject)
             Animate(actor: roomObject(TrapDoor.self)!, "open")
             Say("It worked!", expression: .happy2)
             Say("Supreme Hacker, here I come!", expression: .focus)
@@ -129,7 +129,7 @@ class PunchBagHandler : VerbsHandler {
             return ScriptSay("The STRENGTH is GOLD!")
         }
         Script {
-            WalkToAndSay(handledObject, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
+            WalkToAndSay(scriptedObject, "Everybody wants one of those at home", expression: .star, armsExpression: .explain)
         }
     }
 }

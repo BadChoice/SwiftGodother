@@ -234,7 +234,7 @@ extension MultiUseKnife {
         if PunchBag.isCut {
             return ScriptSay("Nah, I think I slashed that thing enough already.")
         }
-        return PunchBagHandler(object: punchBag).useWith(knife: self)
+        return PunchBagScripts(object: punchBag).useWith(knife: self)
     }
     
     func useWith(_ balloon:Balloon){
