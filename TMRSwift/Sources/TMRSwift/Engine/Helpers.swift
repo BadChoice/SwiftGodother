@@ -27,6 +27,10 @@ func ScriptSay(random:[String]){
     }
 }
 
+func ScriptWalkToAndSay(_ object:ObjectScripts, _ text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil){
+    ScriptWalkToAndSay(object.scriptedObject, text, expression: expression, armsExpression: armsExpression)
+}
+
 func ScriptWalkToAndSay(_ object:Object, _ text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil){
     Script{
         WalkToAndSay(object, text, expression: expression, armsExpression:armsExpression)

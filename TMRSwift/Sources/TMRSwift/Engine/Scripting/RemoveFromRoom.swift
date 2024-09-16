@@ -10,6 +10,11 @@ struct RemoveFromRoom : CompletableAction {
         self.paralelDelayMs = paralelDelayMs
     }
     
+    init(_ object:ObjectScripts, paralelDelayMs:Int = 0){
+        self.init(object.scriptedObject, paralelDelayMs: paralelDelayMs)
+    }
+    
+    
     func run(then: @escaping () -> Void) {
         
         let deadlineTime = DispatchTime.now() + .milliseconds(paralelDelayMs)

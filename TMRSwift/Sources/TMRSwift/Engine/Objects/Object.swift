@@ -132,7 +132,7 @@ class Object : NSObject, ProvidesState {
     }
 }
 
-class ObjectScripts {
+class ObjectScripts : Animable {
     weak var scriptedObject:Object!
     
     required init(object:Object) {
@@ -247,5 +247,9 @@ class ObjectScripts {
                 .replacingOccurrences(of: "{object1}", with:__(scriptedObject.name))
                 .replacingOccurrences(of: "{object2}", with:__(object.name))
         ])
+    }
+    
+    func animate(_ animation:String?){
+        
     }
 }

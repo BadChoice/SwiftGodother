@@ -62,11 +62,13 @@ extension ArcadeNote {
     }
 }
 
-extension Balloon {
+class BalloonScripts : ObjectScripts {
     
     var voiceType: VoiceType { .none }
     
-    /*override */var inventoryImage: String { Self.painted ? "BalloonFace" : "Balloon" }
+    override var inventoryImage: String {
+        Balloon.painted ? "BalloonFace" : "Balloon"
+    }
     
     override func combinesWith() -> [Object.Type] {
         [CarOil.self, Revisor.self, Barman.self]
@@ -89,7 +91,7 @@ extension Balloon {
     
     override func onUseWith(_ object: Object, reversed:Bool) {
         if let oil = object as? CarOil {
-            return oil.onUseWith(self, reversed:reversed)
+            return oil.onUseWith(self.scriptedObject, reversed:reversed)
         }
         if let revisor = object as? Revisor {
             return useWith(revisor)
@@ -139,7 +141,7 @@ extension Balloon {
     }
     
     override func onLookedAt() {
-        if Self.painted {
+        if Balloon.painted {
             return ScriptSay("A happy balloon")
         }
         return ScriptSay("A lonely balloon")
@@ -212,7 +214,7 @@ extension MultiUseKnife {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let toy = object as? ToyArrow {
+        if let toy = object.scripts as? ToyArrowScripts {
             return toy.useWith(knife: self)
         }
         if let punchBag = object as? PunchBag {

@@ -98,7 +98,7 @@ class PunchBagScripts : ObjectScripts {
             Animate("pickup-up", sound:"hang_golden_ball")
             AddToRoom(scriptedObject)
             Walk(to: scriptedObject)
-            Animate(actor: roomObject(TrapDoor.self)!, "open")
+            Animate(actor: TrapDoor.findAtRoom().scripts, "open")
             Say("It worked!", expression: .happy2)
             Say("Supreme Hacker, here I come!", expression: .focus)
             Autosave()
@@ -202,15 +202,15 @@ class SmashHammerScripts : ObjectScripts {
     }
 }
 
-extension ToyArrow {
+class ToyArrowScripts : ObjectScripts {
     
-    var inventoryImage: String {
-        if Self.isCutGlass { return "ToyArrowWithMultiuseKnife"}
+    override var inventoryImage: String {
+        if ToyArrow.isCutGlass { return "ToyArrowWithMultiuseKnife"}
         return "ToyArrow"
     }
     
     override var name: String {
-        Self.isCutGlass ? "Cutglass" : "Toy arrow"
+        ToyArrow.isCutGlass ? "Cutglass" : "Toy arrow"
     }
     
     override func combinesWith() -> [Object.Type] {
@@ -237,15 +237,15 @@ extension ToyArrow {
         }
         
         if let hammer = object.scripts as? SmashHammerScripts {
-            if Self.isCutGlass {
+            if ToyArrow.isCutGlass {
                 return hammer.onUseWithKnife()
             }
             return ScriptSay("Ummmm...no.")
         }
-        if let balloon = object as? Balloon, Self.isCutGlass {
+        if let balloon = object.scripts as? BalloonScripts, ToyArrow.isCutGlass {
             return useWith(balloon)
         }
-        if Self.isCutGlass, let punchBag = object as? PunchBag {
+        if ToyArrow.isCutGlass, let punchBag = object as? PunchBag {
             return useWith(punchBag: punchBag, reversed:reversed)
         }
         return super.onUseWith(object, reversed:reversed)
@@ -256,20 +256,21 @@ extension ToyArrow {
             return ScriptSay("That would be a good idea... if I had the knife!")
         }
         Script {
-            Combine(self, losing: knife, settingTrue: &Self.isCutGlass) {
+            Combine(self, losing: knife.scripts, settingTrue: &ToyArrow.isCutGlass) {
                 Say("I've built an amazing glass cutter!")
                 Autosave()
             }
         }
     }
     
-    func useWith(_ balloon:Balloon){
-        Script {
+    //TODO: HEEEEEEEY WHATS HAPPENING HERE
+    func useWith(_ balloon:BalloonScripts){
+        /*Script {
             Combine(self, losing: balloon, settingTrue: &Balloon.poped) {
-                Say(actor:balloon, "* POP *")
+                Say(actor: balloon.scriptedObject, "* POP *")
                 Say("Bye bye, balloon!")
             }
-        }
+        }*/
     }
     
     func useWith(ticketsBox:TicketsBox){
@@ -278,7 +279,7 @@ extension ToyArrow {
         }
         RevisorYack.isStealingTickets = true
         Script ({
-            if !Self.isCutGlass {
+            if !ToyArrow.isCutGlass {
                 Say("I think I need something else")
             } else if !RevisorYack.isNotLooking {
                 Say("I can't do anything while he's looking!", expression: .sad)
@@ -306,21 +307,21 @@ extension ToyArrow {
     }
     
     func useWith(punchBag:PunchBag, reversed:Bool){
-        if Self.isCutGlass {
+        if ToyArrow.isCutGlass {
             return MultiUseKnife().useWith(punchBag: punchBag)
         }
         super.onUseWith(punchBag, reversed:reversed)
     }
     
     override func onLookedAt() {
-        if Self.isCutGlass {
+        if ToyArrow.isCutGlass {
             return ScriptSay("A curved toy arrow with a knife attached to it. Brillant!")
         }
         ScriptSay("It has a peculiar curved shape")
     }
 }
 
-extension ArcadePlant {
+class ArcadePlantScripts : ObjectScripts {
     override func combinesWith() -> [Object.Type] {
         [Toothpicks.self, Lighter.self]
     }
@@ -339,14 +340,14 @@ extension ArcadePlant {
     }
 }
 
-extension EarnedTickets {
+class EarnedTicketsScripts : ObjectScripts {
     
-    var inventoryImage: String {
+    override var inventoryImage: String {
         if RevisorYack.gotGoldenBall { return "EarnedTickets" }
-        if Self.gotTicketBoxOnes { return "EarnedTickets4" }
+        if EarnedTickets.gotTicketBoxOnes { return "EarnedTickets4" }
         if RevisorYack.gotMultiuseKnife { return "EarnedTickets" }
-        if Self.gotBowlingOnes && Self.gotTinyShooterOnes { return "EarnedTickets3" }
-        if Self.gotBowlingOnes || Self.gotTinyShooterOnes { return "EarnedTickets2" }
+        if EarnedTickets.gotBowlingOnes && EarnedTickets.gotTinyShooterOnes { return "EarnedTickets3" }
+        if EarnedTickets.gotBowlingOnes || EarnedTickets.gotTinyShooterOnes { return "EarnedTickets2" }
         return "EarnedTickets"
     }
     
@@ -378,12 +379,12 @@ extension EarnedTickets {
             PlaySound("count_tickets_loop")
             PauseScriptWhilePlayerCanDoThings(ms: 10000)
             Walk(to: revisor)
-            Animate(actor:display, Self.howManyDoesCryptoHave(), ms:0)
+            Animate(actor:display, EarnedTicketsScripts.howManyDoesCryptoHave(), ms:0)
             Animate(actor:revisor, "stop-count-tickets", ms:1200, sound:"count_tickets_end")
             Say(actor: revisor, "Got it")
             Animate("pickup")
             Say(actor:revisor, "There are...")
-            Say(actor:revisor, Self.howManyDoesCryptoHave() + " tickets")
+            Say(actor:revisor, EarnedTicketsScripts.howManyDoesCryptoHave() + " tickets")
             Animate(actor:display, nil)
         }) {
             RevisorYack.isNotLooking = false
@@ -396,19 +397,21 @@ extension EarnedTickets {
     
     static func howManyDoesCryptoHave() -> String {
         if RevisorYack.gotGoldenBall { return "05" }
-        if Self.gotTicketBoxOnes { return "plain" }
+        if EarnedTickets.gotTicketBoxOnes { return "plain" }
         if RevisorYack.gotMultiuseKnife { return "05" }
-        if Self.gotBowlingOnes && Self.gotTinyShooterOnes { return "50" }
-        if Self.gotBowlingOnes || Self.gotTinyShooterOnes { return "25" }
+        if EarnedTickets.gotBowlingOnes && EarnedTickets.gotTinyShooterOnes { return "50" }
+        if EarnedTickets.gotBowlingOnes || EarnedTickets.gotTinyShooterOnes { return "25" }
         return "0"
     }
 }
 
 extension TinyHeroArcade {
     var voiceType: VoiceType { .machine }
-    
     var talkPosition: Vector2 { Vector2(x:self.position.x, y: self.position.y + 100 * Float(Game.shared.scale)) }
-    
+}
+
+class TinyHeroArcadeScripts : ObjectScripts {
+
     override func combinesWith() -> [Object.Type] {
         [Lighter.self, Coin.self]
     }
@@ -436,20 +439,20 @@ extension TinyHeroArcade {
     }
 }
 
-extension NoLightersSign {
+class NoLightersSignScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             Walk(to: self)
             Say("It says...")
             Say("... The use of lighters inside the Arcade Palace is strictly forbidden.")
-            SetTrue(&Self.read)
+            SetTrue(&NoLightersSign.read)
             Autosave()
         }
     }
 }
 
 
-extension HiddenCoffeeCup {
+class HiddenCoffeeCupScripts : ObjectScripts {
     override func shouldBeAddedToRoom() -> Bool {
         !CoffeeCup.gotHiddenOne
     }
@@ -458,7 +461,7 @@ extension HiddenCoffeeCup {
         Script {
             Walk(to: self)
             Say("Come on, I won't put my hand down there! There might be bugs...or rats...or both!")
-            SetTrue(&Self.triedSomething)
+            SetTrue(&HiddenCoffeeCup.triedSomething)
             Autosave()
         }
     }
@@ -467,7 +470,7 @@ extension HiddenCoffeeCup {
         Script {
             Walk(to: self)
             Say("Looks like there's something interesting down there, but it's too dark...")
-            SetTrue(&Self.triedSomething)
+            SetTrue(&HiddenCoffeeCup.triedSomething)
             Autosave()
         }
     }
@@ -483,15 +486,6 @@ extension HiddenCoffeeCup {
             RemoveFromRoom(self)
             Autosave()
         }
-    }
-}
-
-extension Sand {
-    var inventoryImage: String {
-        if Sand.isWhiteRabbit { return "SandRabbitWhite" }
-        if Sand.isRabbit { return "SandRabbit" }
-        if Sand.isMud { return "PotteryClay "}
-        return "Sand"
     }
 }
 
@@ -596,7 +590,9 @@ class SandScripts : ObjectScripts {
     }
 }
 
+
 class TrapDoorScripts : ObjectScripts {
+    
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
         let node = (scriptedObject as? TrapDoor)?.node
@@ -605,11 +601,8 @@ class TrapDoorScripts : ObjectScripts {
             node?.scale = Vector2(value: 0.6)
         }
     }
-}
-
-extension TrapDoor : Animable {
     
-    func animate(_ animation: String?) {
+    override func animate(_ animation: String?) {
         if animation == "open" {
             animateOpen()
         }
