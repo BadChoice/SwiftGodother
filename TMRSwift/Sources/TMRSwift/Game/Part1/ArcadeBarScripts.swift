@@ -157,7 +157,7 @@ class ArcadeMachineButtonScripts : ObjectScripts {
     }
 }
 
-extension Coin {
+class CoinScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [TinyHeroArcade.self, BowlingScreen.self]
@@ -244,9 +244,15 @@ extension Coin {
 }
 
 extension CoffeeCup {
+    var inventoryImage: String {
+        "CoffeeCup\(CoffeeCupScripts.howManyDoIHave())"
+    }
+}
+
+class CoffeeCupScripts : ObjectScripts {
     
     var inventoryImage: String {
-        "CoffeeCup\(CoffeeCup.howManyDoIHave())"
+        "CoffeeCup\(CoffeeCupScripts.howManyDoIHave())"
     }
     
     override func combinesWith() -> [Object.Type] {
@@ -255,18 +261,18 @@ extension CoffeeCup {
     
     static func howManyDoIHave() -> Int {
         var count = 0
-        if Self.gotHiddenOne     { count += 1 }
-        if Self.gotBarOne        { count += 1 }
-        if Self.gotEnentranceOne { count += 1 }
-        if Self.gotBasementOne   { count += 1 }
+        if CoffeeCup.gotHiddenOne     { count += 1 }
+        if CoffeeCup.gotBarOne        { count += 1 }
+        if CoffeeCup.gotEnentranceOne { count += 1 }
+        if CoffeeCup.gotBasementOne   { count += 1 }
         return count
     }
     
     static func gotThemAll() -> Bool {
-        Self.gotHiddenOne &&
-        Self.gotBarOne &&
-        Self.gotEnentranceOne &&
-        Self.gotBasementOne
+        CoffeeCup.gotHiddenOne &&
+        CoffeeCup.gotBarOne &&
+        CoffeeCup.gotEnentranceOne &&
+        CoffeeCup.gotBasementOne
     }
     
     static func sayGotThemAll() -> Say {
@@ -356,9 +362,9 @@ class CoffeeCupPicker : CompletableAction {
                 Pickup(coffeeCup)
             }
             ReloadInventory(coffeeCup)
-            if CoffeeCup.gotThemAll() {
+            if CoffeeCupScripts.gotThemAll() {
                 Face(.front)
-                CoffeeCup.sayGotThemAll()
+                CoffeeCupScripts.sayGotThemAll()
             }
         }) {
             then()
@@ -367,6 +373,10 @@ class CoffeeCupPicker : CompletableAction {
 }
 
 extension Cocktail {
+    var inventoryImage: String { Sand.isMud ? "CocktailEmpty" : "Cocktail" }
+}
+
+class CocktailScripts : ObjectScripts {
     var inventoryImage: String { Sand.isMud ? "CocktailEmpty" : "Cocktail" }
     
     override var name: String {

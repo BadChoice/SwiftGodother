@@ -7,6 +7,20 @@ class Lose : CompletableAction {
     /**
      Warning, don't call this on a When action statement as it is change automatically, use the if / else result builder approach
      */
+    convenience init(_ object:ObjectScripts, settingTrue state:inout Bool){
+        self.init(object.scriptedObject as! Inventoriable, settingTrue: &state)
+    }
+    
+    /**
+     Warning, don't call this on a When action statement as it is change automatically, use the if / else result builder approach
+     */
+    convenience init(_ object:ObjectScripts, settingFalse state:inout Bool){
+        self.init(object.scriptedObject as! Inventoriable, settingFalse: &state)
+    }
+    
+    /**
+     Warning, don't call this on a When action statement as it is change automatically, use the if / else result builder approach
+     */
     init(_ object:Inventoriable, settingTrue state:inout Bool){
         self.object = object
         state = true

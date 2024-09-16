@@ -514,7 +514,7 @@ extension Sand {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let cocktail = object as? Cocktail{
+        if let cocktail = object.scripts as? CocktailScripts {
             return cocktail.useWith(self)
         }
         if let whiteBallsBox = object as? WhiteBallsBox {
