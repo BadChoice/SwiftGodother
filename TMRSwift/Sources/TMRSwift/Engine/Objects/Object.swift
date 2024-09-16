@@ -5,10 +5,11 @@ class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
-    var verbScripts:VerbScripts!
+    var objectScripts:ObjectScripts!
     
-    @objc dynamic var name:String { details.name }
-    @objc dynamic var zIndex:Int32 { Int32(details.zPos) }
+    @objc dynamic var name:String { objectScripts.name }
+    @objc dynamic var zIndex:Int32 { objectScripts.zIndex }
+    @objc dynamic var image:String { objectScripts.image }
     
     var position:Vector2 {
         guard let detailsPosition = details.position else { return .zero}
@@ -28,7 +29,7 @@ class Object : NSObject, ProvidesState {
     required init(_ details:ObjectDetails? = nil){
         super.init()
         
-        verbScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? VerbScripts.Type)?.init(object: self) ?? VerbScripts(object: self)
+        objectScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
          
         if let details {
             self.details = details
@@ -68,10 +69,7 @@ class Object : NSObject, ProvidesState {
      @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
      */
     @objc dynamic func shouldBeAddedToRoom() ->Bool {
-        if let inventoriable = self as? Inventoriable {
-            return !inventory.contains(inventoriable)
-        }
-        return true
+        objectScripts.shouldBeAddedToRoom()
     }
     
     /**
@@ -83,12 +81,12 @@ class Object : NSObject, ProvidesState {
     
     /** The objects which can combine with (no ban icon appears) */
     @objc dynamic func combinesWith() -> [Object.Type] {
-        verbScripts.combinesWith()
+        objectScripts.combinesWith()
     }
     
     /** If it should show when showing the hotspot hints */
     @objc dynamic var showItsHotspotHint: Bool {
-        verbScripts.showItsHotspotHint
+        objectScripts.showItsHotspotHint
     }
     
     
@@ -96,12 +94,7 @@ class Object : NSObject, ProvidesState {
     // MARK:- NODE
     //=======================================
     @objc dynamic func addToRoom(_ room:Room){
-        guard shouldBeAddedToRoom() else { return }
-        guard let node = getNode() else { return }
-        
-        (node as? Node2D)?.zIndex = zIndex
-        (node as? Control)?.zIndex = zIndex
-        room.node.addChild(node: node)
+        objectScripts.addToRoom(room)
     }
     
     func getNode() -> Node? {
@@ -116,33 +109,68 @@ class Object : NSObject, ProvidesState {
     // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
-        verbScripts.onLookedAt()
+        objectScripts.onLookedAt()
     }
     
     @objc dynamic func onPhoned() {
-        verbScripts.onLookedAt()
+        objectScripts.onLookedAt()
 
     }
     
     @objc dynamic func onUse()    {
-        verbScripts.onUse()
+        objectScripts.onUse()
     }
     
     @objc dynamic func onMouthed()    {
-        verbScripts.onMouthed()
+        objectScripts.onMouthed()
     }
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
-        verbScripts.onUseWith(object, reversed: reversed)
+        objectScripts.onUseWith(object, reversed: reversed)
     }
 }
 
-class VerbScripts {
+class ObjectScripts {
     weak var scriptedObject:Object!
     
     required init(object:Object) {
         self.scriptedObject = object
     }
+    
+    var name:String     { 
+        scriptedObject.details.name
+    }
+    
+    var zIndex:Int32    {
+        Int32(scriptedObject.details.zPos)
+    }
+    
+    var image:String  {
+        scriptedObject.details.image!
+    }
+    
+    //=======================================
+    // MARK:- VERBS
+    //=======================================
+    /**
+     @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
+     */
+    func shouldBeAddedToRoom() ->Bool {
+        if let inventoriable = scriptedObject as? Inventoriable {
+            return !inventory.contains(inventoriable)
+        }
+        return true
+    }
+    
+    func addToRoom(_ room:Room){
+        guard shouldBeAddedToRoom() else { return }
+        guard let node = scriptedObject.getNode() else { return }
+        
+        (node as? Node2D)?.zIndex = zIndex
+        (node as? Control)?.zIndex = zIndex
+        room.node.addChild(node: node)
+    }
+    
     
     /** The objects which can combine with (no ban icon appears) */
     func combinesWith() -> [Object.Type] {

@@ -5,7 +5,6 @@ class SpriteObject : Object {
     var node:Sprite2D?
     var polygon:Polygon?
     
-    @objc dynamic var image:String  { details.image! }
     
     required init(_ details: ObjectDetails? = nil) {
         super.init(details)

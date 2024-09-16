@@ -17,41 +17,30 @@ extension PunchBag {
         if Self.isCut { return "PunchBagOpen" }
         return "PunchBag"
     }
-    
-    override var image: String {
-        if Self.hasGoldenBall { return "punch-bag-gold.png" }
-        return "punch-bag.png"
-    }
-    
-    override var name: String {
-        if Self.hasGoldenBall { return "Golden punch bag" }
-        if Self.isCut { return "Empty punch bag" }
-        return "Punch bag"
-    }
 }
 
-class PunchBagScripts : VerbScripts {
+class PunchBagScripts : ObjectScripts {
     
-   /* override func combinesWith() -> [Object.Type] {
+    override func combinesWith() -> [Object.Type] {
         [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
     }
-    
+    /*
     var inventoryImage: String {
         if Self.hasGoldenBall { return "PunchBagGoldenBall" }
         if Self.isCut { return "PunchBagOpen" }
         return "PunchBag"
     }
-    
+    */
     override var image: String {
-        if Self.hasGoldenBall { return "punch-bag-gold.png" }
+        if PunchBag.hasGoldenBall { return "punch-bag-gold.png" }
         return "punch-bag.png"
     }
     
     override var name: String {
-        if Self.hasGoldenBall { return "Golden punch bag" }
-        if Self.isCut { return "Empty punch bag" }
+        if PunchBag.hasGoldenBall { return "Golden punch bag" }
+        if PunchBag.isCut { return "Empty punch bag" }
         return "Punch bag"
-    }*/
+    }
     
     override func onUse() {
         if inventory.contains(scriptedObject as! PunchBag) {
