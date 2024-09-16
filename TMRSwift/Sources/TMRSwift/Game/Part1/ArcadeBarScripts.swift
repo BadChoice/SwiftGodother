@@ -10,19 +10,28 @@ class ArcadeBarScripts : RoomScripts {
 }
 
 extension Toothpicks {
+    var inventoryImage: String {
+        if Toothpicks.areMatches { return "Matches" }
+        if Toothpicks.hasFertilizer { return "ToothpicksWithFertilizer" }
+        if Toothpicks.wet { return "ToothpicksWet" }
+        return "Toothpicks"
+    }
+}
+
+class ToothpicksScripts : ObjectScripts {
     override var zIndex: Int32 { 21 }
     
     var inventoryImage: String {
-        if Self.areMatches { return "Matches" }
-        if Self.hasFertilizer { return "ToothpicksWithFertilizer" }
-        if Self.wet { return "ToothpicksWet" }
+        if Toothpicks.areMatches { return "Matches" }
+        if Toothpicks.hasFertilizer { return "ToothpicksWithFertilizer" }
+        if Toothpicks.wet { return "ToothpicksWet" }
         return "Toothpicks"
     }
     
     override var name: String {
-        if Self.areMatches { return "Working matches" }
-        if Self.hasFertilizer { return "Almost working matches" }
-        if Self.wet { return "Wet toothpicks" }
+        if Toothpicks.areMatches { return "Working matches" }
+        if Toothpicks.hasFertilizer { return "Almost working matches" }
+        if Toothpicks.wet { return "Wet toothpicks" }
         return "Toothpicks"
     }
     
@@ -47,7 +56,7 @@ extension Toothpicks {
     }
     
     override func onMouthed() {
-        if Self.hasFertilizer {
+        if Toothpicks.hasFertilizer {
             return ScriptSay("You know fertilizer is usually made from animals excrements, right?")
         }
         Script {
@@ -60,11 +69,11 @@ extension Toothpicks {
     
     override func onUseWith(_ object: Object, reversed:Bool) {
         if let dragonTooth = object.scripts as? DragonToothScripts {
-            return dragonTooth.useWith(self)
+            return dragonTooth.useWith(scriptedObject as! Toothpicks)
         }
         
         if let leia = object as? MainteinanceGirl {
-            return leia.give(toothpicks: self)
+            return leia.give(toothpicks: scriptedObject as! Toothpicks)
         }
         
         if let plant = object as? ArcadePlant {
@@ -83,10 +92,10 @@ extension Toothpicks {
     }
     
     func useWith(_ plant:ArcadePlant){
-        if Self.wet {
+        if Toothpicks.wet {
             Script {
                 Walk(to: plant)
-                SetTrue(&Self.hasFertilizer)
+                SetTrue(&Toothpicks.hasFertilizer)
                 Animate("pickup", sound:"use_toothpicks_with_plant")
                 Say("Yeah! Looks like I made some matches! Now I just need some kind of igniter...")
                 ReloadInventory(self)
@@ -102,7 +111,7 @@ extension Toothpicks {
     
     func useWith(_ balloon:Balloon){
         Script {
-            Combine(self, losing: balloon, settingTrue: &Balloon.poped) {
+            Combine(self, losing: balloon.scripts, settingTrue: &Balloon.poped) {
                 Say(actor:balloon, "* POP *")
                 Say("Bye bye, balloon!")
             }
@@ -110,32 +119,32 @@ extension Toothpicks {
     }
     
     private func useWith(_ dark:HiddenCoffeeCup, reversed:Bool){
-        if Self.areMatches {
+        if Toothpicks.areMatches {
             return ScriptSay("The matches are no match for that darkness")
         }
         super.onUseWith(dark, reversed:reversed)
     }
     
     override func onLookedAt() {
-        if Self.areMatches    { return ScriptSay("Perfectly working matches!") }
-        if Self.hasFertilizer { return ScriptSay("Some matches, without an igniter") }
-        if Self.wet           { return ScriptSay("Sticky wet toothpicks...") }
+        if Toothpicks.areMatches    { return ScriptSay("Perfectly working matches!") }
+        if Toothpicks.hasFertilizer { return ScriptSay("Some matches, without an igniter") }
+        if Toothpicks.wet           { return ScriptSay("Sticky wet toothpicks...") }
         ScriptSay("Toothpicks. To clean some teeth or looks stylish as heck with.")
     }
 }
 
-extension ArcadeMachineButton {
+class ArcadeMachineButtonScripts : ObjectScripts {
     override func onUse() {
         Script {
             Walk(to: self)
             Animate("pickup")
-            if Self.pushed {
+            if ArcadeMachineButton.pushed {
                 Say("Guess my luck's run out – no more coins...")
             } else {
                 Say("I knew it was my lucky day! An arcade coin")
                 Animate("pickup", sound:"take_coin")
                 Pickup(Coin())
-                SetTrue(&Self.pushed)
+                SetTrue(&ArcadeMachineButton.pushed)
                 Autosave()
             }
         }

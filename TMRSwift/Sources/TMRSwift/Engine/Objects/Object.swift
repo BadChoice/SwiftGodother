@@ -7,9 +7,9 @@ class Object : NSObject, ProvidesState {
     var json: String { "" }
     var scripts:ObjectScripts!
     
-    @objc dynamic var name:String { scripts.name }
+    @objc dynamic var name:String  { scripts.name   }
     @objc dynamic var zIndex:Int32 { scripts.zIndex }
-    @objc dynamic var image:String { scripts.image }
+    @objc dynamic var image:String { scripts.image  }
     
     var position:Vector2 {
         guard let detailsPosition = details.position else { return .zero}

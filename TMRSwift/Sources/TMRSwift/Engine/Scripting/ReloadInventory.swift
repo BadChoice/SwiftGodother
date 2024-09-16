@@ -8,6 +8,10 @@ struct ReloadInventory : CompletableAction {
     init(_ object:Inventoriable){
         self.object = object
     }
+    
+    init(_ object:ObjectScripts) {
+        self.init(object.scriptedObject as! Inventoriable)
+    }
         
     func run(then: @escaping () -> Void) {
         let inventoryObject = inventory.objects.first { $0.object.name == object.name }
