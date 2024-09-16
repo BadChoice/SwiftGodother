@@ -179,7 +179,7 @@ extension CarOil {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let pill = object as? PillBag {
+        if let pill = object.scripts as? PillBagScripts {
             return pill.useWith(self)
         }
         
@@ -474,7 +474,7 @@ extension Lighter {
         let earnedTickets = EarnedTickets()
         let arcadeTickets = roomObject(ArcadeTickets.self)!
         
-        ArcadeTickets.show = true
+        ArcadeTicketsScripts.show = true
         Script ({
             Walk(to: tinyHero)
             if !PirateYack.toldAboutLighterTrick {
@@ -501,7 +501,7 @@ extension Lighter {
                 Autosave()
             }
         }){
-            ArcadeTickets.show = false
+            ArcadeTicketsScripts.show = false
         }
     }
     
@@ -510,7 +510,7 @@ extension Lighter {
     }
 }
 
-extension ArcadeEntranceCoffeeCup {
+class ArcadeEntranceCoffeeCupScripts : ObjectScripts {
     
     override func shouldBeAddedToRoom() -> Bool {
         !CoffeeCup.gotEnentranceOne
@@ -527,9 +527,9 @@ extension ArcadeEntranceCoffeeCup {
     }
 }
 
-extension Rabbit {
+class RabbitScripts : ObjectScripts {
     override var image: String {
-        if Self.hasBeenSwapped { return "EntranceRabbitSwapped.png" }
+        if Rabbit.hasBeenSwapped { return "EntranceRabbitSwapped.png" }
         return "EntranceRabbit.png"
     }
     
@@ -538,7 +538,7 @@ extension Rabbit {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let pill = object as? PillBag {
+        if let pill = object.scripts as? PillBagScripts {
             return pill.useWith(self)
         }
         return super.onUseWith(object, reversed:reversed)

@@ -475,7 +475,7 @@ extension ReuseCoffeeCupsPromo {
 
 extension Ice {
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let pill = object as? PillBag {
+        if let pill = object.scripts as? PillBagScripts {
             return pill.useWith(self)
         }
         return super.onUseWith(object, reversed:reversed)

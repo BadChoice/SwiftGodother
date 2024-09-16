@@ -20,8 +20,8 @@ class SupremeHackerBasementScripts : RoomScripts {
         }
     }
 }
-
-extension BasementCoffeeCup {
+*/
+class BasementCoffeeCupScripts : ObjectScripts {
     
     override func shouldBeAddedToRoom() -> Bool {
         !CoffeeCup.gotBasementOne
@@ -37,12 +37,12 @@ extension BasementCoffeeCup {
         }
     }
 }
-*/
-extension PillBag {
-    var inventoryImage: String { Self.isSmashed ? "PillBagSmashed" : "PillBag" }
+
+class PillBagScripts : ObjectScripts {
+    override var inventoryImage: String { PillBag.isSmashed ? "PillBagSmashed" : "PillBag" }
     
     override var name: String {
-        Self.isSmashed ? "Smashed pill bag" : "Pill bag"
+        PillBag.isSmashed ? "Smashed pill bag" : "Pill bag"
     }
     
     override func combinesWith() -> [Object.Type] {
@@ -67,7 +67,7 @@ extension PillBag {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let rabbit = object as? Rabbit {
+        if let rabbit = object.scripts as? RabbitScripts {
             return useWith(rabbit)
         }
         if let ice = object as? Ice {
@@ -82,16 +82,16 @@ extension PillBag {
         if let hacker = object as? SupremeHacker {
             return useWith(hacker)
         }
-        super.onUseWith(self, reversed:reversed)
+        super.onUseWith(self.scriptedObject, reversed:reversed)
     }
     
-    func useWith(_ rabbit:Rabbit){
+    func useWith(_ rabbit:RabbitScripts){
         if !rabbit.inInventory{
             return ScriptSay("I should get my hands on it first")
         }
         Script {
             Combine(self, losing: rabbit, settingTrue: &PillBag.hasRabbit) { }
-            if PillBag.hasAllIngredients() {
+            if PillBagScripts.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
             }
@@ -100,7 +100,7 @@ extension PillBag {
     
     func useWith(_ ice:Ice){
         Script {
-            Combine(self, losing: ice, settingTrue: &PillBag.hasIce) { }
+            Combine(self.scriptedObject as! Inventoriable, losing: ice, settingTrue: &PillBag.hasIce) { }
             if Self.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
@@ -117,8 +117,8 @@ extension PillBag {
                WalkToAndPickup(lube)
             }
             Say("I guess this will count as lubricant")
-            Combine(self, losing: lube, settingTrue: &PillBag.hasLube) { }
-            if PillBag.hasAllIngredients() {
+            Combine(self, losing: lube.scripts, settingTrue: &PillBag.hasLube) { }
+            if PillBagScripts.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
             }
@@ -126,7 +126,7 @@ extension PillBag {
     }
     
     func useWith(_ hammer:SmashHammerScripts){
-        guard PillBag.hasAllIngredients() else {
+        guard PillBagScripts.hasAllIngredients() else {
             return ScriptSay("Hmm. I still need some more ingredients...")
         }
         Script {
@@ -139,7 +139,7 @@ extension PillBag {
     }
     
     func useWith(_ hacker:SupremeHacker){
-        guard PillBag.hasAllIngredients() else {
+        guard PillBagScripts.hasAllIngredients() else {
             return ScriptSay("Hmm. I still need some more ingredients...")
         }
         
@@ -155,7 +155,7 @@ extension PillBag {
 }
 
 
-extension Oculus {
+class OculusScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "A VR headset. Unfortunately, this won't take me to the CyberSphere.")
@@ -171,7 +171,7 @@ extension Oculus {
     }
 }
 
-extension Tank1{
+class Tank1Scripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "Hi there, creepy people, submerged in your spooky glass tanks...")
@@ -180,7 +180,7 @@ extension Tank1{
     }
 }
 
-extension Tank2 {
+class Tank2Scripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "Hi there, creepy people, submerged in your spooky glass tanks...")
@@ -189,7 +189,7 @@ extension Tank2 {
     }
 }
 
-extension SupremeHackerScreen {
+class SupremeHackerScreenScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "Man, he writes absolutely SOLID code!")
@@ -197,7 +197,7 @@ extension SupremeHackerScreen {
     }
     
     override func onPhoned() {
-        let hacker = roomObject(SupremeHacker.self)!
+        let hacker = SupremeHacker.findAtRoom()
         Script {
             Walk(to: self)
             Animate(Crypto.usePhone)

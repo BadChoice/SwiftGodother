@@ -173,7 +173,7 @@ class SmashHammerScripts : ObjectScripts {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let pill = object as? PillBag {
+        if let pill = object.scripts as? PillBagScripts {
             return pill.useWith(self)
         }
         return super.onUseWith(object, reversed:reversed)
@@ -670,7 +670,7 @@ extension Figther00 {
     }
 }*/
 
-extension ArcadeTickets {
+class ArcadeTicketsScripts : ObjectScripts {
     
     static var show:Bool = false
     

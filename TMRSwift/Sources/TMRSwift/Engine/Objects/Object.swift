@@ -155,6 +155,10 @@ class ObjectScripts : Animable {
         safeClassName("\(scriptedObject.self)").components(separatedBy: ".").last!
     }
     
+    var inInventory : Bool {
+        (scriptedObject as? Inventoriable)?.inInventory ?? false
+    }
+    
     //=======================================
     // MARK:- VERBS
     //=======================================
