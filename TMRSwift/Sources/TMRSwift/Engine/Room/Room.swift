@@ -1,7 +1,7 @@
 import SwiftGodot
 import Foundation
 
-class Room : NSObject, ProvidesState {
+class Room : ProvidesState {
         
     var node = Node2D()
     var actor:Actor!
@@ -22,14 +22,14 @@ class Room : NSObject, ProvidesState {
     var roomScripts:RoomScripts!
     
     
-    @objc dynamic var actorType:Actor.Type { Crypto.self }
+    var actorType:Actor.Type { roomScripts.actorType }
     
     //MARK: - Lifecycle
-    @objc dynamic func onEnter(){ roomScripts.onEnter() }
-    @objc dynamic func onExit(){ roomScripts.onExit() }
+    func onEnter(){ roomScripts.onEnter() }
+    func onExit(){ roomScripts.onExit() }
     
-    override required init(){
-        super.init()
+    required init(){
+        
     }
     
     //MARK: - Load
@@ -178,6 +178,7 @@ class RoomScripts {
         scriptedRoom = room
     }
     
+    var actorType:Actor.Type { Crypto.self }
     func onEnter(){ }
     func onExit(){ }
 }

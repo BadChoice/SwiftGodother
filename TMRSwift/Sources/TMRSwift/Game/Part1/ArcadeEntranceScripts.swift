@@ -2,7 +2,7 @@ import Foundation
 import SwiftGodot
 
 //Music: https://www.storyblocks.com/audio/stock/story-time-forest-346759904.html
-extension ArcadeEntrance {
+class ArcadeEntranceScripts : RoomScripts {
     
     override func onEnter() {
         if ArcadeEntrance.entered { return }
@@ -46,7 +46,7 @@ extension ArcadeEntrance {
             Say(actor: revisor, "Where do you think you're going, pipsqueak? And where are your parents? You're too young to go in there!", expression: .angry)
             Walk(to: revisor)
             Talk(yack: RevisorYack(revisor))
-            SetTrue(&Self.entered)
+            SetTrue(&ArcadeEntrance.entered)
         }) {
             //Game.shared.menu.showHowToPlay()
         }

@@ -1,12 +1,12 @@
 import Foundation
 
 //Music: https://www.storyblocks.com/audio/stock/storytelling-orchestral-mystery-trailer-bodgogsyvkhf5g0u1.html
-extension SupremeHackerBasement {
+class SupremeHackerBasementScripts : RoomScripts {
     override func onEnter() {
-        node.run(.scale(to: 1.02, duration:1).withTimingMode(.out))
+        scriptedRoom.node.run(.scale(to: 1.02, duration:1).withTimingMode(.out))
         
-        if !Self.entered {
-            Self.entered = true
+        if !SupremeHackerBasement.entered {
+            SupremeHackerBasement.entered = true
             roomObject(SupremeHacker.self)?.onMouthed()
         }
     }

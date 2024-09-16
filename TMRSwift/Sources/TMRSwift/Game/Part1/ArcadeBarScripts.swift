@@ -1,11 +1,11 @@
 import Foundation
 import SwiftGodot
 
-extension ArcadeBar {
+class ArcadeBarScripts : RoomScripts {
     
     override func onEnter() {
         //node.addChild(Rain.make())
-        node.run(.scale(to: 1.02, duration:1).withTimingMode(.out))
+        scriptedRoom.node.run(.scale(to: 1.02, duration:1).withTimingMode(.out))
     }
 }
 

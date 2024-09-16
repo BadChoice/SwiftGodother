@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-extension Arcade {
+class ArcadeScripts : RoomScripts {
     override func onEnter(){
         if Arcade.entered { return }
         Script {
@@ -595,14 +595,18 @@ extension Sand {
     }
 }
 
-extension TrapDoor : Animable {
+class TrapDoorScripts : ObjectScripts{
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
+        let node = (scriptedObject as? TrapDoor)?.node
         if PunchMachine.hasGoldenPunchBag {
             node?.position = node!.position + Vector2(x: 50, y:80) * Game.shared.scale
             node?.scale = Vector2(value: 0.6)
         }
     }
+}
+
+extension TrapDoor : Animable {
     
     func animate(_ animation: String?) {
         

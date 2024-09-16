@@ -96,7 +96,7 @@ class Object : NSObject, ProvidesState {
     //=======================================
     // MARK:- NODE
     //=======================================
-    @objc dynamic func addToRoom(_ room:Room){
+    func addToRoom(_ room:Room){
         objectScripts.addToRoom(room)
     }
     
