@@ -72,7 +72,7 @@ class ToothpicksScripts : ObjectScripts {
             return dragonTooth.useWith(scriptedObject as! Toothpicks)
         }
         
-        if let leia = object as? MainteinanceGirl {
+        if let leia = object.scripts as? MainteinanceGirlScripts {
             return leia.give(toothpicks: scriptedObject as! Toothpicks)
         }
         

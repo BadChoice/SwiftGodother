@@ -329,7 +329,7 @@ extension Revisor {
     }
 }
 
-extension MainteinanceGirl {
+class MainteinanceGirlScripts : ObjectScripts {
     override func combinesWith() -> [Object.Type] {
         [Toothpicks.self]
     }
@@ -347,7 +347,7 @@ extension MainteinanceGirl {
         
         Script {
             Walk(to: self)
-            Talk(yack: MainteinanceGirlYack(leia: self))
+            Talk(yack: MainteinanceGirlYack(leia: self.scriptedObject as! MainteinanceGirl))
         }
     }
     
@@ -355,20 +355,21 @@ extension MainteinanceGirl {
         if !MainteinanceGirlYack.knowsWhatSheIsDoing{
             return ScriptSay("Why would she want it?")
         }
+        let leia = self.scriptedObject as! MainteinanceGirl
         Script {
             Walk(to: self)
             Animate("pickup")
             if !Toothpicks.areMatches {
-                Say(actor:self, "Why would I want it?")
+                Say(actor:leia, "Why would I want it?")
             } else {
                 Say("I think this can help you")
                 Animate("pickup")
-                Say(actor:self, "Thank you, you saved my day!")
+                Say(actor:leia, "Thank you, you saved my day!")
                 Say("Would you lend me your lighter now?")
-                Say(actor:self, "Sure, here you go. But unfortunately, it doesn't work, so.. what's the use?")
+                Say(actor:leia, "Sure, here you go. But unfortunately, it doesn't work, so.. what's the use?")
                 Animate("pickup")
                 Pickup(Lighter())
-                Lose(toothpicks, settingTrue: &Self.hasMatches)
+                Lose(toothpicks, settingTrue: &MainteinanceGirl.hasMatches)
                 Animate(actor: self, "matches", sound:"maintenance_matches_start")
                 Autosave()
             }
@@ -376,7 +377,7 @@ extension MainteinanceGirl {
     }
 }
 
-extension TicketsBox {
+class TicketsBoxScripts : ObjectScripts {
     override func combinesWith() -> [Object.Type] {
         [ToyArrow.self, MultiUseKnife.self]
     }
@@ -428,7 +429,7 @@ extension EntranceToArcadeDoor {
     }
 }
 
-extension Lighter {
+class LighterScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [ArcadeMachineButton.self, BowlingScreen.self, TinyHeroArcade.self, ArcadePlant.self, ArcadeMachineButton.self, HiddenCoffeeCup.self]
@@ -555,13 +556,13 @@ class RabbitScripts : ObjectScripts {
     }
 }
 
-extension TicketsCounterDisplay : Animable {
+class TicketsCounterDisplayScripts : ObjectScripts{
     
     override var image: String {
         "tickets-counter-plain.png"
     }
     
-    func animate(_ animation: String?) {
+    override func animate(_ animation: String?) {
         /*node?.removeAllActions()
         if animation == nil {
             node?.run(.setTexture(texture("tickets-counter-plain")))
@@ -590,7 +591,7 @@ extension TicketsCounterDisplay : Animable {
 }
 
 
-extension MoreThan18YearsSign {
+class MoreThan18YearsSignScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             Walk(to: self)
@@ -600,7 +601,7 @@ extension MoreThan18YearsSign {
     }
 }
 
-extension WinTickets {
+class WinTicketsScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "Earn tickets at our machines and win spectacular prizes")
@@ -608,7 +609,7 @@ extension WinTickets {
     }
 }
 
-extension Minions {
+class MinionsScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "I hope they don't make more movies, I can't stand that voice anymore")

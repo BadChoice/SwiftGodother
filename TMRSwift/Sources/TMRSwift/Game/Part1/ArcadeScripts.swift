@@ -369,7 +369,7 @@ class EarnedTicketsScripts : ObjectScripts {
             Animate("pickup")
             Animate(actor:revisor, "count-tickets", ms:0)
             Delay(ms: 1000)
-            Animate(actor: display, "count", ms:0, sound:"count_tickets_start")
+            Animate(actor: display.scripts, "count", ms:0, sound:"count_tickets_start")
             if !RevisorYack.hasBeenDistracted {
                 Face(.front)
                 Say("Greeat, he's distracted! Now'd be the time to do something really clever!")
@@ -379,13 +379,13 @@ class EarnedTicketsScripts : ObjectScripts {
             PlaySound("count_tickets_loop")
             PauseScriptWhilePlayerCanDoThings(ms: 10000)
             Walk(to: revisor)
-            Animate(actor:display, EarnedTicketsScripts.howManyDoesCryptoHave(), ms:0)
+            Animate(actor:display.scripts, EarnedTicketsScripts.howManyDoesCryptoHave(), ms:0)
             Animate(actor:revisor, "stop-count-tickets", ms:1200, sound:"count_tickets_end")
             Say(actor: revisor, "Got it")
             Animate("pickup")
             Say(actor:revisor, "There are...")
             Say(actor:revisor, EarnedTicketsScripts.howManyDoesCryptoHave() + " tickets")
-            Animate(actor:display, nil)
+            Animate(actor:display.scripts, nil)
         }) {
             RevisorYack.isNotLooking = false
         }
@@ -679,7 +679,7 @@ class ArcadeTicketsScripts : ObjectScripts {
     }
 }
 
-extension ChangeMachine {
+class ChangeMachineScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [Coin.self]
@@ -723,7 +723,7 @@ extension ChangeMachine {
     }
 }
 
-extension MaxKid {
+class MaxKidScript : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
