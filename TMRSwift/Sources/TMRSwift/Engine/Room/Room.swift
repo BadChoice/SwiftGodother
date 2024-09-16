@@ -19,12 +19,14 @@ class Room : NSObject, ProvidesState {
     
     var atlas:TexturePacker!
     
+    var roomScripts:RoomScripts!
+    
     
     @objc dynamic var actorType:Actor.Type { Crypto.self }
     
     //MARK: - Lifecycle
-    @objc dynamic func onEnter(){ }
-    @objc dynamic func onExit(){ }
+    @objc dynamic func onEnter(){ roomScripts.onEnter() }
+    @objc dynamic func onExit(){ roomScripts.onExit() }
     
     override required init(){
         super.init()
@@ -32,6 +34,7 @@ class Room : NSObject, ProvidesState {
     
     //MARK: - Load
     func _ready() {
+        loadScripts()
         loadDetails()
         loadAtlas()
         
@@ -41,6 +44,10 @@ class Room : NSObject, ProvidesState {
         addObjects()
         addWalkPath()
         putActor(at: Vector2(x:0, y:400) * Game.shared.scale, facing: .right)
+    }
+    
+    func loadScripts(){
+        roomScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? RoomScripts.Type)?.init(room: self) ?? RoomScripts(room: self)
     }
     
     func loadDetails(){
@@ -103,7 +110,6 @@ class Room : NSObject, ProvidesState {
             addChild(node: foreground)
         }
     }
-        
 
     private func addObjects() {
         objects = details.setup()
@@ -112,7 +118,6 @@ class Room : NSObject, ProvidesState {
         }
     }
     
-
     private func addWalkPath(){        
         walkbox = Walkbox(
             points: details.walkBoxes.first!,
@@ -124,9 +129,7 @@ class Room : NSObject, ProvidesState {
             addChild(node: walkbox.node)
         }
     }
-    
-
-    
+        
     //MARK: - Music
     func playMusic(onlyFx:Bool = false){
         guard Settings.shared.musicEnabled else { return }
@@ -164,7 +167,17 @@ class Room : NSObject, ProvidesState {
     //MARK: - Helpers
     public func addChild(node:Node){
         self.node.addChild(node: node)
+    }    
+}
+
+
+class RoomScripts {
+    weak var scriptedRoom:Room!
+    
+    required init(room:Room) {
+        scriptedRoom = room
     }
     
-    
+    func onEnter(){ }
+    func onExit(){ }
 }

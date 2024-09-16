@@ -29,7 +29,7 @@ class Object : NSObject, ProvidesState {
     required init(_ details:ObjectDetails? = nil){
         super.init()
         
-        objectScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
+        loadScripts()
          
         if let details {
             self.details = details
@@ -43,6 +43,9 @@ class Object : NSObject, ProvidesState {
         }
     }
     
+    func loadScripts(){
+        objectScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
+    }
     
     func isTouched(at: Vector2) -> Bool {
         guard let position = details.position else { return false }
@@ -134,7 +137,7 @@ class ObjectScripts {
     weak var scriptedObject:Object!
     
     required init(object:Object) {
-        self.scriptedObject = object
+        scriptedObject = object
     }
     
     var name:String     { 
