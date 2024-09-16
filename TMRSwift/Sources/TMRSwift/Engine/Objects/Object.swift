@@ -151,6 +151,10 @@ class ObjectScripts {
         scriptedObject.details.image!
     }
     
+    var inventoryImage : String {
+        safeClassName("\(scriptedObject.self)").components(separatedBy: ".").last!
+    }
+    
     //=======================================
     // MARK:- VERBS
     //=======================================

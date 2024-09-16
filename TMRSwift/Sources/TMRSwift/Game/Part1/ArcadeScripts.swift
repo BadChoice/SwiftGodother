@@ -11,26 +11,18 @@ class ArcadeScripts : RoomScripts {
     }
 }
 
-extension PunchBag {
-    var inventoryImage: String {
-        if Self.hasGoldenBall { return "PunchBagGoldenBall" }
-        if Self.isCut { return "PunchBagOpen" }
-        return "PunchBag"
-    }
-}
-
 class PunchBagScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [MultiUseKnife.self, PunchMachine.self, BowlingBall.self]
     }
-    /*
-    var inventoryImage: String {
-        if Self.hasGoldenBall { return "PunchBagGoldenBall" }
-        if Self.isCut { return "PunchBagOpen" }
+    
+    override var inventoryImage: String {
+        if PunchBag.hasGoldenBall { return "PunchBagGoldenBall" }
+        if PunchBag.isCut { return "PunchBagOpen" }
         return "PunchBag"
     }
-    */
+    
     override var image: String {
         if PunchBag.hasGoldenBall { return "punch-bag-gold.png" }
         return "punch-bag.png"
@@ -496,16 +488,25 @@ extension HiddenCoffeeCup {
 
 extension Sand {
     var inventoryImage: String {
-        if Self.isWhiteRabbit { return "SandRabbitWhite" }
-        if Self.isRabbit { return "SandRabbit" }
-        if Self.isMud { return "PotteryClay "}
+        if Sand.isWhiteRabbit { return "SandRabbitWhite" }
+        if Sand.isRabbit { return "SandRabbit" }
+        if Sand.isMud { return "PotteryClay "}
+        return "Sand"
+    }
+}
+
+class SandScripts : ObjectScripts {
+    override var inventoryImage: String {
+        if Sand.isWhiteRabbit { return "SandRabbitWhite" }
+        if Sand.isRabbit { return "SandRabbit" }
+        if Sand.isMud { return "PotteryClay "}
         return "Sand"
     }
     
     override var name: String {
-        if Self.isWhiteRabbit { return "White mud rabbit" }
-        if Self.isRabbit { return "Mud rabbit" }
-        if Self.isMud { return "Art mud" }
+        if Sand.isWhiteRabbit { return "White mud rabbit" }
+        if Sand.isRabbit { return "Mud rabbit" }
+        if Sand.isMud { return "Art mud" }
         return "Sand"
     }
     
@@ -527,18 +528,18 @@ extension Sand {
     }
     
     func useWith(rabbit:Rabbit){
-        if !Self.isMud{
+        if !Sand.isMud{
             return ScriptSay("Nah...")
         }
-        if !Self.isRabbit {
+        if !Sand.isRabbit {
             Script {
                 Walk(to:rabbit)
                 Say("I can replicate it!")
-                Combine(self, losing: nil, settingTrue: &Self.isRabbit) {}
+                Combine(self, losing: nil, settingTrue: &Sand.isRabbit) {}
             }
             return
         }
-        if !Self.isWhiteRabbit {
+        if !Sand.isWhiteRabbit {
             Script {
                 Face(.front)
                 Say("I think even old Eagle Ears here will notice that this is not a WHITE rabbit.")
@@ -565,14 +566,14 @@ extension Sand {
     }
     
     func useWith(box:WhiteBallsBox){
-        if Self.isWhiteRabbit {
+        if Sand.isWhiteRabbit {
             return ScriptSay("I think it's white enough")
         }
-        if Self.isRabbit {
+        if Sand.isRabbit {
             Script {
                 Walk(to: box)
                 Animate("pickup-low", sound:"use_rabbit_with_balls")
-                SetTrue(&Self.isWhiteRabbit)
+                SetTrue(&Sand.isWhiteRabbit)
                 ReloadInventory(self)
                 Say("A white rabbit!")
             }
@@ -582,13 +583,13 @@ extension Sand {
     }
     
     override func onLookedAt() {
-        if Self.isWhiteRabbit {
+        if Sand.isWhiteRabbit {
             return ScriptSay("A white rabbit made of clay.")
         }
-        if Self.isRabbit {
+        if Sand.isRabbit {
             return ScriptSay("A clay rabbit")
         }
-        if Self.isMud {
+        if Sand.isMud {
             return ScriptSay("It's clay! I can replicate anything I see with it!")
         }
         ScriptSay("Plain sand from the punching bag")

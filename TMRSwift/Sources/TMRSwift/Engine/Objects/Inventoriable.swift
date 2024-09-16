@@ -1,7 +1,7 @@
 import Foundation
 
 protocol Inventoriable : Object {
-    var inventoryImage:String { get }
+    //var inventoryImage:String { get }
 }
 
 extension Inventoriable {

@@ -21,7 +21,7 @@ extension Toothpicks {
 class ToothpicksScripts : ObjectScripts {
     override var zIndex: Int32 { 21 }
     
-    var inventoryImage: String {
+    override var inventoryImage: String {
         if Toothpicks.areMatches { return "Matches" }
         if Toothpicks.hasFertilizer { return "ToothpicksWithFertilizer" }
         if Toothpicks.wet { return "ToothpicksWet" }
@@ -243,15 +243,9 @@ class CoinScripts : ObjectScripts {
     }
 }
 
-extension CoffeeCup {
-    var inventoryImage: String {
-        "CoffeeCup\(CoffeeCupScripts.howManyDoIHave())"
-    }
-}
-
 class CoffeeCupScripts : ObjectScripts {
     
-    var inventoryImage: String {
+    override var inventoryImage: String {
         "CoffeeCup\(CoffeeCupScripts.howManyDoIHave())"
     }
     
@@ -372,12 +366,8 @@ class CoffeeCupPicker : CompletableAction {
     }
 }
 
-extension Cocktail {
-    var inventoryImage: String { Sand.isMud ? "CocktailEmpty" : "Cocktail" }
-}
-
 class CocktailScripts : ObjectScripts {
-    var inventoryImage: String { Sand.isMud ? "CocktailEmpty" : "Cocktail" }
+    override var inventoryImage: String { Sand.isMud ? "CocktailEmpty" : "Cocktail" }
     
     override var name: String {
         Sand.isMud ? "Empty cocktail" : "Cocktail"
@@ -388,7 +378,7 @@ class CocktailScripts : ObjectScripts {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let sand = object as? Sand {
+        if let sand = object.scripts as? SandScripts {
             return useWith(sand)
         }
         if let pirate = object as? Pirate{
@@ -397,7 +387,7 @@ class CocktailScripts : ObjectScripts {
         return super.onUseWith(object, reversed:reversed)
     }
     
-    func useWith(_ sand:Sand){
+    func useWith(_ sand:SandScripts){
         if Sand.isMud {
             return ScriptSay("There's no more liquid...")
         }

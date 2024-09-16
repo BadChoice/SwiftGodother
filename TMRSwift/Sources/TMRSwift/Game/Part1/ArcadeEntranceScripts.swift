@@ -66,7 +66,7 @@ extension Balloon {
     
     var voiceType: VoiceType { .none }
     
-    var inventoryImage: String { Self.painted ? "BalloonFace" : "Balloon" }
+    /*override */var inventoryImage: String { Self.painted ? "BalloonFace" : "Balloon" }
     
     override func combinesWith() -> [Object.Type] {
         [CarOil.self, Revisor.self, Barman.self]

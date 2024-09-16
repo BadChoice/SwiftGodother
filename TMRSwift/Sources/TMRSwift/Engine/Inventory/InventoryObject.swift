@@ -9,7 +9,11 @@ class InventoryObject {
     }
     
     func texture() -> Texture2D? {
-        Game.shared.scene.inventoryUI.atlas.textureNamed(object.inventoryImage)
+        let texture = Game.shared.scene.inventoryUI.atlas.textureNamed(object.scripts.inventoryImage)
+        if texture == nil {
+            GD.printErr("[INVENTORY OBJECT] No texture \(object.scripts.inventoryImage)")
+        }
+        return texture
     }
     
     func createSprite(){
