@@ -16,6 +16,10 @@ struct WalkToAndSay : CompletableAction {
         self.armsExpression = armsExpression
     }
     
+    init(_ object:ObjectScripts, facing:Facing? = nil, _ text:String, expression:Expression? = nil, armsExpression:ArmsExpression? = nil){
+        self.init(object.scriptedObject, facing: facing, text, expression: expression, armsExpression: armsExpression)
+    }    
+    
     func run(then: @escaping () -> Void) {
         Script([
             Walk(to: object),

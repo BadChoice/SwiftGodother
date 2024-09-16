@@ -76,7 +76,7 @@ extension PillBag {
         if let lube = object as? CarOil {
             return useWith(lube)
         }
-        if let hammer = object as? SmashHammer {
+        if let hammer = object.scripts as? SmashHammerScripts {
             return useWith(hammer)
         }
         if let hacker = object as? SupremeHacker {
@@ -90,8 +90,8 @@ extension PillBag {
             return ScriptSay("I should get my hands on it first")
         }
         Script {
-            Combine(self, losing: rabbit, settingTrue: &Self.hasRabbit) { }
-            if Self.hasAllIngredients() {
+            Combine(self, losing: rabbit, settingTrue: &PillBag.hasRabbit) { }
+            if PillBag.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
             }
@@ -100,7 +100,7 @@ extension PillBag {
     
     func useWith(_ ice:Ice){
         Script {
-            Combine(self, losing: ice, settingTrue: &Self.hasIce) { }
+            Combine(self, losing: ice, settingTrue: &PillBag.hasIce) { }
             if Self.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
@@ -109,7 +109,7 @@ extension PillBag {
     }
     
     func useWith(_ lube:CarOil){
-        if Self.hasLube {
+        if PillBag.hasLube {
             return ScriptSay("That's enough")
         }
         Script {
@@ -117,29 +117,29 @@ extension PillBag {
                WalkToAndPickup(lube)
             }
             Say("I guess this will count as lubricant")
-            Combine(self, losing: lube, settingTrue: &Self.hasLube) { }
-            if Self.hasAllIngredients() {
+            Combine(self, losing: lube, settingTrue: &PillBag.hasLube) { }
+            if PillBag.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
             }
         }
     }
     
-    func useWith(_ hammer:SmashHammer){
-        guard Self.hasAllIngredients() else {
+    func useWith(_ hammer:SmashHammerScripts){
+        guard PillBag.hasAllIngredients() else {
             return ScriptSay("Hmm. I still need some more ingredients...")
         }
         Script {
             Walk(to: hammer)
             Animate("pickup")
             //ComicSmashPillBag()
-            SetTrue(&Self.isSmashed)
+            SetTrue(&PillBag.isSmashed)
             ReloadInventory(self)
         }
     }
     
     func useWith(_ hacker:SupremeHacker){
-        guard Self.hasAllIngredients() else {
+        guard PillBag.hasAllIngredients() else {
             return ScriptSay("Hmm. I still need some more ingredients...")
         }
         
@@ -150,11 +150,11 @@ extension PillBag {
     }
     
     static func hasAllIngredients() -> Bool {
-        Self.hasRabbit && Self.hasIce && Self.hasLube
+        PillBag.hasRabbit && PillBag.hasIce && PillBag.hasLube
     }
 }
 
-/*
+
 extension Oculus {
     override func onLookedAt() {
         Script {
@@ -207,4 +207,4 @@ extension SupremeHackerScreen {
         }
     }
 }
-*/
+

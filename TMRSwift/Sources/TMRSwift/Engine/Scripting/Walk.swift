@@ -15,6 +15,10 @@ struct Walk : CompletableAction {
         self.facing = facing
     }
     
+    init(to object:ObjectScripts, facing:Facing? = nil){
+        self.init(to: object.scriptedObject, facing:facing)        
+    }
+    
     init(to object:Object, facing:Facing? = nil){
         self.actor = Game.shared.room.actor
         self.room   = Game.shared.room

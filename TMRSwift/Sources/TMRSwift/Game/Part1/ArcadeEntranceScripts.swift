@@ -218,7 +218,7 @@ extension MultiUseKnife {
         if let punchBag = object as? PunchBag {
             return useWith(punchBag: punchBag)
         }
-        if let hammer = object as? SmashHammer {
+        if let hammer = object.scripts as? SmashHammerScripts {
             return hammer.onUseWithKnife()
         }
         if let ticketBox = object as? TicketsBox{

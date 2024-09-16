@@ -19,14 +19,14 @@ class Room : ProvidesState {
     
     var atlas:TexturePacker!
     
-    var roomScripts:RoomScripts!
+    var scripts:RoomScripts!
     
     
-    var actorType:Actor.Type { roomScripts.actorType }
+    var actorType:Actor.Type { scripts.actorType }
     
     //MARK: - Lifecycle
-    func onEnter(){ roomScripts.onEnter() }
-    func onExit(){ roomScripts.onExit() }
+    func onEnter(){ scripts.onEnter() }
+    func onExit(){ scripts.onExit() }
     
     required init(){
         
@@ -47,7 +47,7 @@ class Room : ProvidesState {
     }
     
     func loadScripts(){
-        roomScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? RoomScripts.Type)?.init(room: self) ?? RoomScripts(room: self)
+        scripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? RoomScripts.Type)?.init(room: self) ?? RoomScripts(room: self)
     }
     
     func loadDetails(){

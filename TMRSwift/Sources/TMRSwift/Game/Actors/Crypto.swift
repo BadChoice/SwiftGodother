@@ -114,6 +114,7 @@ class Crypto : Actor {
         case Self.withBalloon.name       : animateWithBalloon()
         case Self.handToMouth.name       : animateHandToMouth()
         case Self.combine.name           : animateCombine()
+        case Self.usePhone.name          : animateUsingPhone()
         default: animateIdle()
         }
     }
@@ -212,6 +213,17 @@ class Crypto : Actor {
         //extra.setScale(1)
         node.play(name: "no_right_hand")
         node.addChild(node: extra)
+    }
+    
+    private func animateUsingPhone(){
+        //TODO
+        /*face.show(withTexture: sheet.talk_face_look_phone())
+        actorSprite.set(texture:sheet.no_right_hand())
+        extra = SKSpriteNode(texture: sheet.puzzles_hand_with_phone())
+        extra.position = CGPoint(x:45, y:180)
+        extra.zPosition = 10
+        extra.setScale(1)
+        actorSprite.addChild(extra!)*/
     }
     
     private func animateCombine(){
@@ -403,6 +415,10 @@ class Crypto : Actor {
     //---------------------------------------------------
     //MARK: - Animations
     //---------------------------------------------------
+    static var usePhone: Animation {
+        .init(name: "use-phone", durationMs: 1800, sound:nil)
+    }
+    
     static var combine:  Animation {
         .init(name: "combine", durationMs: 18 * 100, sound:"combine_items")
     }
@@ -414,4 +430,5 @@ class Crypto : Actor {
     static var handToMouth: Animation {
         .init(name: "hand-to-mouth", durationMs: 1000, sound:nil)
     }
+    
 }

@@ -59,7 +59,7 @@ extension Toothpicks {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let dragonTooth = object.objectScripts as? DragonToothScripts {
+        if let dragonTooth = object.scripts as? DragonToothScripts {
             return dragonTooth.useWith(self)
         }
         

@@ -5,11 +5,11 @@ class Object : NSObject, ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
-    var objectScripts:ObjectScripts!
+    var scripts:ObjectScripts!
     
-    @objc dynamic var name:String { objectScripts.name }
-    @objc dynamic var zIndex:Int32 { objectScripts.zIndex }
-    @objc dynamic var image:String { objectScripts.image }
+    @objc dynamic var name:String { scripts.name }
+    @objc dynamic var zIndex:Int32 { scripts.zIndex }
+    @objc dynamic var image:String { scripts.image }
     
     var position:Vector2 {
         guard let detailsPosition = details.position else { return .zero}
@@ -44,7 +44,7 @@ class Object : NSObject, ProvidesState {
     }
     
     func loadScripts(){
-        objectScripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
+        scripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
     }
     
     func isTouched(at: Vector2) -> Bool {
@@ -72,7 +72,7 @@ class Object : NSObject, ProvidesState {
      @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
      */
     @objc dynamic func shouldBeAddedToRoom() ->Bool {
-        objectScripts.shouldBeAddedToRoom()
+        scripts.shouldBeAddedToRoom()
     }
     
     /**
@@ -84,12 +84,12 @@ class Object : NSObject, ProvidesState {
     
     /** The objects which can combine with (no ban icon appears) */
     @objc dynamic func combinesWith() -> [Object.Type] {
-        objectScripts.combinesWith()
+        scripts.combinesWith()
     }
     
     /** If it should show when showing the hotspot hints */
     @objc dynamic var showItsHotspotHint: Bool {
-        objectScripts.showItsHotspotHint
+        scripts.showItsHotspotHint
     }
     
     
@@ -97,7 +97,7 @@ class Object : NSObject, ProvidesState {
     // MARK:- NODE
     //=======================================
     func addToRoom(_ room:Room){
-        objectScripts.addToRoom(room)
+        scripts.addToRoom(room)
     }
     
     func getNode() -> Node? {
@@ -112,24 +112,23 @@ class Object : NSObject, ProvidesState {
     // MARK:- VERBS
     //=======================================
     @objc dynamic func onLookedAt(){
-        objectScripts.onLookedAt()
+        scripts.onLookedAt()
     }
     
-    @objc dynamic func onPhoned() {
-        objectScripts.onLookedAt()
-
+    @objc dynamic func onPhoned(){
+        scripts.onLookedAt()
     }
     
-    @objc dynamic func onUse()    {
-        objectScripts.onUse()
+    @objc dynamic func onUse(){
+        scripts.onUse()
     }
     
     @objc dynamic func onMouthed()    {
-        objectScripts.onMouthed()
+        scripts.onMouthed()
     }
     
     @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
-        objectScripts.onUseWith(object, reversed: reversed)
+        scripts.onUseWith(object, reversed: reversed)
     }
 }
 

@@ -148,7 +148,7 @@ class DragonToothScripts : ObjectScripts {
         if let toothpicks = object as? Toothpicks {
             return useWith(toothpicks)
         }
-        if let hammer = object as? SmashHammer {
+        if let hammer = object.scripts as? SmashHammerScripts {
             return hammer.onUseWithDragonTooth()
         }
         return super.onUseWith(object, reversed:reversed)
@@ -159,7 +159,7 @@ class DragonToothScripts : ObjectScripts {
             return ScriptSay("Ummm.... no.")
         }
         Script {
-            Combine(toothPicks.objectScripts, losing: self, settingTrue: &Toothpicks.areMatches) {
+            Combine(toothPicks.scripts, losing: self, settingTrue: &Toothpicks.areMatches) {
                 Say("Hey! I have some working matches now")
                 Autosave()
             }
@@ -171,7 +171,7 @@ class DragonToothScripts : ObjectScripts {
     }
 }
 
-extension SmashHammer {
+class SmashHammerScripts : ObjectScripts {
     override func onUse() {
         Script {
             Walk(to: self)
@@ -244,7 +244,7 @@ extension ToyArrow {
             return useWith(ticketsBox: ticketsBox)
         }
         
-        if let hammer = object as? SmashHammer {
+        if let hammer = object.scripts as? SmashHammerScripts {
             if Self.isCutGlass {
                 return hammer.onUseWithKnife()
             }
