@@ -5,6 +5,17 @@ class Combine : CompletableAction {
     let main:Inventoriable
     let losable:Inventoriable?
     let whenCanCombine:[CompletableAction]?
+
+    /**
+     Warning, don't call this on a When action statement as it is change automatically, use the if / else result builder approach
+     */
+    convenience init(_ main:ObjectScripts, losing:ObjectScripts?, settingTrue state:inout Bool, @CompletableActionsBuilder _ builder: () -> [CompletableAction]?){
+        self.init(main.scriptedObject as! Inventoriable, losing: losing?.scriptedObject as? Inventoriable, settingTrue: &state, builder)
+    }
+    
+    convenience init(_ main:ObjectScripts, losing:ObjectScripts?, settingFalse state:inout Bool, @CompletableActionsBuilder _ builder: () -> [CompletableAction]?){
+        self.init(main.scriptedObject as! Inventoriable, losing: losing?.scriptedObject as? Inventoriable, settingFalse: &state, builder)
+    }
     
     /**
      Warning, don't call this on a When action statement as it is change automatically, use the if / else result builder approach

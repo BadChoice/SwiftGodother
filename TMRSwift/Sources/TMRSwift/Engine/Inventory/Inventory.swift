@@ -23,6 +23,11 @@ class Inventory {
         }
     }
     
+    func contains(_ object:ObjectScripts) -> Bool {
+        guard let inventoriable = object.scriptedObject as? Inventoriable else { return false }
+        return inventory.contains(inventoriable)
+    }
+    
     func load(objects inventoryObjects:[String]){
         objects.removeAll()
         inventoryObjects.forEach {

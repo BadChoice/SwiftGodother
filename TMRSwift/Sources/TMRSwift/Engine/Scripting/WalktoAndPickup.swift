@@ -7,6 +7,10 @@ struct WalkToAndPickup : CompletableAction {
     let animation:String
     let sound:String?
     
+    init(_ object:ObjectScripts, facing:Facing? = nil, reach:Reach? = nil, animation:String? = nil, sound:String? = "pop" ){
+        self.init(object.scriptedObject as! Inventoriable, facing: facing, reach: reach, animation: animation, sound: sound)
+    }
+    
     init(_ object:Inventoriable, facing:Facing? = nil, reach:Reach? = nil, animation:String? = nil, sound:String? = "pop" ){
         self.object = object
         self.facing = facing ?? object.facing

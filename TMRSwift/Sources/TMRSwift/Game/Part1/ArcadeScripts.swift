@@ -123,7 +123,7 @@ class PunchBagScripts : ObjectScripts {
     }
 }
 
-extension DragonTooth {
+class DragonToothScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [Toothpicks.self, SmashHammer.self]
@@ -159,7 +159,7 @@ extension DragonTooth {
             return ScriptSay("Ummm.... no.")
         }
         Script {
-            Combine(toothPicks, losing: self, settingTrue: &Toothpicks.areMatches) {
+            Combine(toothPicks.objectScripts, losing: self, settingTrue: &Toothpicks.areMatches) {
                 Say("Hey! I have some working matches now")
                 Autosave()
             }
@@ -595,7 +595,7 @@ extension Sand {
     }
 }
 
-class TrapDoorScripts : ObjectScripts{
+class TrapDoorScripts : ObjectScripts {
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
         let node = (scriptedObject as? TrapDoor)?.node
@@ -609,7 +609,6 @@ class TrapDoorScripts : ObjectScripts{
 extension TrapDoor : Animable {
     
     func animate(_ animation: String?) {
-        
         if animation == "open" {
             animateOpen()
         }
