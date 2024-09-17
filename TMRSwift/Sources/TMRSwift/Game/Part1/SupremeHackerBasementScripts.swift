@@ -70,7 +70,7 @@ class PillBagScripts : ObjectScripts {
         if let rabbit = object.scripts as? RabbitScripts {
             return useWith(rabbit)
         }
-        if let ice = object as? Ice {
+        if let ice = object.scripts as? IceScripts {
             return useWith(ice)
         }
         if let lube = object.scripts as? CarOilScripts {
@@ -98,9 +98,9 @@ class PillBagScripts : ObjectScripts {
         }
     }
     
-    func useWith(_ ice:Ice){
+    func useWith(_ ice:IceScripts){
         Script {
-            Combine(self.scriptedObject as! Inventoriable, losing: ice, settingTrue: &PillBag.hasIce) { }
+            Combine(self, losing: ice, settingTrue: &PillBag.hasIce) { }
             if Self.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")

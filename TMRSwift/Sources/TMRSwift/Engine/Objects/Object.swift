@@ -111,23 +111,23 @@ class Object : NSObject, ProvidesState {
     //=======================================
     // MARK:- VERBS
     //=======================================
-    @objc dynamic func onLookedAt(){
+    func onLookedAt(){
         scripts.onLookedAt()
     }
     
-    @objc dynamic func onPhoned(){
+    func onPhoned(){
         scripts.onLookedAt()
     }
     
-    @objc dynamic func onUse(){
+    func onUse(){
         scripts.onUse()
     }
     
-    @objc dynamic func onMouthed()    {
+    func onMouthed()    {
         scripts.onMouthed()
     }
     
-    @objc dynamic func onUseWith(_ object:Object, reversed:Bool){
+    func onUseWith(_ object:Object, reversed:Bool){
         scripts.onUseWith(object, reversed: reversed)
     }
 }

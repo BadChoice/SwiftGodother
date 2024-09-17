@@ -171,11 +171,11 @@ class CoinScripts : ObjectScripts {
         let earnedTickets = EarnedTickets()
         let bowlingTickets = roomObject(BowlingTickets.self)!
         
-        BowlingTickets.show = true
+        BowlingTicketsScripts.show = true
         Script ({
             Walk(to: bowling)
             Animate("pickup")
-            Animate(actor:bowling, "play", ms:5600)
+            Animate(actor:bowling.scripts, "play", ms:5600)
             Say("Yeaaaaah")
             AddToRoom(bowlingTickets)
             Walk(to: bowlingTickets)
@@ -192,7 +192,7 @@ class CoinScripts : ObjectScripts {
             
             Autosave()
         }){
-            BowlingTickets.show = false
+            BowlingTicketsScripts.show = false
         }
     }
     
@@ -418,7 +418,7 @@ class CocktailScripts : ObjectScripts {
     }
 }
 
-extension Barman {
+class BarmanScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [CoffeeCup.self]
@@ -427,7 +427,7 @@ extension Barman {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Talk(yack: BarmanYack(self))
+            Talk(yack: BarmanYack(self.scriptedObject as! Barman))
         }
     }
     
@@ -437,12 +437,12 @@ extension Barman {
 }
 
 
-extension Pirate {
+class PirateScripts : ObjectScripts {
     
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Talk(yack: PirateYack(self))
+            Talk(yack: PirateYack(self.scriptedObject as! Pirate))
         }
     }
     
@@ -451,7 +451,7 @@ extension Pirate {
     }
 }
 
-extension ReuseCoffeeCupsPromo {
+class ReuseCoffeeCupsPromoScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             Walk(to: self)
@@ -459,13 +459,13 @@ extension ReuseCoffeeCupsPromo {
             Say("Be ECO! be SMART! be HAPPY!")
             Say("Bring back 4 used coffee cups and get 1 free cocktail from our bar!")
             Say("Valid until midnight")
-            SetTrue(&Self.isRead)
+            SetTrue(&ReuseCoffeeCupsPromo.isRead)
             Autosave()
         }
     }
 }
 
-extension Ice {
+class IceScripts : ObjectScripts  {
     override func onUseWith(_ object: Object, reversed:Bool) {
         if let pill = object.scripts as? PillBagScripts {
             return pill.useWith(self)
@@ -479,7 +479,7 @@ extension Ice {
 }
 
 
-extension BowlingTickets {
+class BowlingTicketsScripts : ObjectScripts  {
     static var show:Bool = false
     
     override func shouldBeAddedToRoom() -> Bool {
@@ -487,12 +487,12 @@ extension BowlingTickets {
     }
 }
 
-extension BowlingScreen : Animable {
+class BowlingScreenScripts : ObjectScripts  {
     
-    func animate(_ animation: String?) {
+    override func animate(_ animation: String?) {
         if animation == nil {
-            node?.removeAllActions()
-            node?.set(texture: "bowling-screen")
+            scriptedObject.getNode()?.removeAllActions()
+            (scriptedObject.getNode() as? Sprite2D)?.set(texture: "bowling-screen")
             return
         }
         
@@ -527,7 +527,7 @@ extension BowlingScreen : Animable {
     }
 }
 
-extension OutOfOrderSign {
+class OutOfOrderSignScripts : ObjectScripts  {
     override func onLookedAt() {
         Script {
             WalkToAndSay(self, "Looks like those arcade machines are out of order")
@@ -535,7 +535,7 @@ extension OutOfOrderSign {
     }
 }
 
-extension RevoIpad {
+class RevoIpadScripts : ObjectScripts  {
     override func onLookedAt() {
         Script {
             Walk(to: self)
@@ -548,7 +548,7 @@ extension RevoIpad {
     }
 }
 
-extension PlayAloneSign {
+class PlayAloneSignScripts : ObjectScripts  {
     override func onLookedAt() {
         Script {
             Walk(to: self)
