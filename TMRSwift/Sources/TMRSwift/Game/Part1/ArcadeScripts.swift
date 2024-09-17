@@ -728,6 +728,7 @@ class MaxKidScripts : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
+            Say(actor: self, "Hello baby how are you")
             //Talk(yack: MaxYack(max: self))
         }
     }
@@ -736,6 +737,6 @@ class MaxKidScripts : ObjectScripts {
         Script {
             WalkToAndSay(self, "She's incredibily focused on the game")
         }
-    }
+    }    
 }
 

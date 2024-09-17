@@ -137,6 +137,6 @@ class ObjectScripts : Animable, Talks {
     // MARK:- ANIMABLE
     //=======================================
     func animate(_ animation:String?){
-        
+        (self as? NpcScripts)?.animateNpc(animation)
     }
 }

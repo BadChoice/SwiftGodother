@@ -23,4 +23,8 @@ extension RevisorScripts : NpcScripts {
                 
         //animateBlink()
     }
+    
+    func animateNpc(_ animation: String?) {
+        
+    }
 }

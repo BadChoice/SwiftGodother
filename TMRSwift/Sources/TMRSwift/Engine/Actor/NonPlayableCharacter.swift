@@ -27,4 +27,5 @@ class NonPlayableCharacter : SpriteObject, Animable {
 
 protocol NpcScripts {
     func createNode()
+    func animateNpc(_ animation:String?)
 }
