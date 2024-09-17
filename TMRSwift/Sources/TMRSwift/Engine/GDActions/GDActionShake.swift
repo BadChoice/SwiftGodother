@@ -25,8 +25,12 @@ class GDActionShake : GDAction {
         var actionsArray:[GDAction] = []
                 
         for _ in 1...Int(numberOfShakes) {
-            let newXPos = startPosition.x + Float(arc4random_uniform(UInt32(amplitude.x))) - Float(amplitude.x / 2)
-            let newYPos = startPosition.y + Float(arc4random_uniform(UInt32(amplitude.y))) - Float(amplitude.y / 2)
+            
+            let randomX = Int.random(in: 0..<Int(amplitude.x))
+            let randomY = Int.random(in: 0..<Int(amplitude.y))
+            
+            let newXPos = startPosition.x + Float(randomX) - Float(amplitude.x / 2)
+            let newYPos = startPosition.y + Float(randomY) - Float(amplitude.y / 2)
             actionsArray.append(.move(to: Vector2(x:newXPos, y:newYPos), duration: shakeDuration))
         }
         actionsArray.append(.move(to:startPosition, duration: shakeDuration))
