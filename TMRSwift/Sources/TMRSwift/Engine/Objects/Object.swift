@@ -7,9 +7,10 @@ class Object : ProvidesState {
     var json: String { "" }
     var scripts:ObjectScripts!
     
-    var name:String  { scripts.name   }
-    var zIndex:Int32 { scripts.zIndex }
-    var image:String { scripts.image  }
+    var name:String   { scripts.name   }
+    var zIndex:Int32  { scripts.zIndex }
+    var image:String  { scripts.image  }
+    var facing:Facing { details.facing }
     
     var position:Vector2 {
         guard let detailsPosition = details.position else { return .zero}
@@ -23,12 +24,17 @@ class Object : ProvidesState {
     func centerPoint() -> Vector2 {
         position
     }
-    
-    var facing:Facing { details.facing }
-    
+        
     required init(_ details:ObjectDetails? = nil){
+        loadDetails(details)
         loadScripts()
-         
+    }
+    
+    func loadScripts(){
+        scripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
+    }
+    
+    func loadDetails(_ details:ObjectDetails? = nil){
         if let details {
             self.details = details
         } else {
@@ -39,10 +45,6 @@ class Object : ProvidesState {
                 //abort()
             }
         }
-    }
-    
-    func loadScripts(){
-        scripts = (NSClassFromString(safeClassName("\(Self.self)Scripts")) as? ObjectScripts.Type)?.init(object: self) ?? ObjectScripts(object: self)
     }
     
     func isTouched(at: Vector2) -> Bool {
@@ -56,7 +58,6 @@ class Object : ProvidesState {
         return combinesWith().contains {
             $0 == type(of: object)
         }
-    
     }
     
     /**

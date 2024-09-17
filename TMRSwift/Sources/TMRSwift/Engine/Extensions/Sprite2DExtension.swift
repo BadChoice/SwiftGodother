@@ -40,9 +40,11 @@ extension Sprite2D {
         self.texture = texture
     }
     
-    func show(withTexture:Texture2D){
+    func show(withTexture:Texture2D?){
         show()
-        set(texture: texture)
+        if let withTexture {
+            texture = withTexture
+        }
     }
     
     func animateForever(_ textures:[Texture2D], timePerFrame:Double){

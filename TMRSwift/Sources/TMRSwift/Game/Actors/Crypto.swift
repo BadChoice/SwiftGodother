@@ -198,7 +198,7 @@ class Crypto : Actor {
     
     private func animatePickup(_ animation:String){
         if facing == .back {
-            face.show()
+            face.show(withTexture: tp.textureNamed("talk/face-back")!)
             return node.play(name: StringName("pickup-back-\(animation)"))
         }
         node.play(name: StringName(animation))
@@ -236,8 +236,7 @@ class Crypto : Actor {
     //MARK: - Puzzle animations
     //---------------------------------------------------
     private func animateWithBalloon(){
-        face.show()
-        face.texture   = tp.textureNamed("talk/face")
+        face.show(withTexture: tp.textureNamed("talk/face"))
         extra.texture  = texture("with-balloon")
         extra.position = Vector2(x:50, y:210) * Game.shared.scale
         extra.zIndex   = 10
