@@ -27,20 +27,24 @@ class SpriteObject : Object {
     override func getNode() -> Node? {        
         if let node { return node }
         
-        guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: image) else {
-            return nil
-        }
-        node = sprite
-            
-        let size = node?.getRect().size ?? .zero        
+        createNode()
+        
+        let size = node?.getRect().size ?? .zero
         
         node?.position = position
         node?.centered = true
-        node?.offset = (size / 2)        
-        
-        createShapePolygon()
+        node?.offset = (size / 2)
         
         return node
+    }
+    
+    func createNode(){
+        guard let atlas = Game.shared.room.atlas, let sprite = atlas.sprite(name: image) else {
+            return
+        }
+        node = sprite
+                    
+        createShapePolygon()
     }
     
     private func createShapePolygon() {

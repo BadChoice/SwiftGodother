@@ -45,6 +45,10 @@ func texture(_ name:String) -> Texture2D? {
     Game.shared.room.atlas.textureNamed(name)
 }
 
+func textures(_ names:[String]) -> [Texture2D] {
+    names.compactMap { texture($0) }
+}
+
 var isPhone: Bool {
     false
 }

@@ -636,15 +636,15 @@ class ArcadeToBasementDoorScripts : ObjectScripts {
     }
 }
 
-/*class Smash00Scripts : ObjectScripts  {
-    override func isTouched(point: Point) -> Bool { false }
+class Smash00Scripts : ObjectScripts  {
+    //override func isTouched(point: Point) -> Bool { false }
     override var showItsHotspotHint:Bool { false }
     
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
-            texture("smash00"), texture("smash01"),
-        ], timePerFrame: 0.3)))
+        (scriptedObject.getNode() as? Sprite2D)?.run(.animateForever(
+            textures(["smash00", "smash01"])
+        , timePerFrame: 0.3))
     }
 }
 
@@ -653,23 +653,23 @@ class Tinyshooter00Scripts : ObjectScripts  {
         
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
-            texture("tinyshooter00"), texture("tinyshooter01"),
-        ], timePerFrame: 0.25)))
+        (scriptedObject.getNode() as? Sprite2D)?.run(.animateForever(
+            textures(["tinyshooter00", "tinyshooter01"])
+        , timePerFrame: 0.25))
     }
 }
 
 class Figther00Scripts : ObjectScripts  {
-    override func isTouched(point: Point) -> Bool { false }
+    //override func isTouched(point: Point) -> Bool { false }
     override var showItsHotspotHint:Bool { false }
     
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
-            texture("figther00"), texture("fighter01"),
-        ], timePerFrame: 0.35)))
+        (scriptedObject.getNode() as? Sprite2D)?.run(.animateForever(
+            textures(["figther00", "fighter01"])
+        , timePerFrame: 0.35))
     }
-}*/
+}
 
 class ArcadeTicketsScripts : ObjectScripts {
     
@@ -712,7 +712,7 @@ class ChangeMachineScripts : ObjectScripts {
     override func onPhoned() {
         Script {
             Walk(to: self)
-            //Animate(Crypto.usePhone)
+            Animate(Crypto.usePhone)
             Say("It's so ANCIENT that it can't even be hacked!")
         }
     }
@@ -724,7 +724,7 @@ class ChangeMachineScripts : ObjectScripts {
     }
 }
 
-class MaxKidScript : ObjectScripts {
+class MaxKidScripts : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
