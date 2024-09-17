@@ -185,6 +185,12 @@ class ObjectScripts : Animable, Talks {
         []
     }
     
+    /** To determine if it is touched **/
+    //TODO: Remove and use is decoration
+    func isTouched(point: Point) -> Bool {
+        scriptedObject.isTouched(at: point)
+    }
+    
     /** If it should show when showing the hotspot hints */
     var showItsHotspotHint: Bool {
         true
@@ -248,6 +254,13 @@ class ObjectScripts : Animable, Talks {
                 .replacingOccurrences(of: "{object1}", with:__(scriptedObject.name))
                 .replacingOccurrences(of: "{object2}", with:__(object.name))
         ])
+    }
+    
+    //=======================================
+    // DOORS
+    //=======================================
+    func shouldChangeToRoom(then:@escaping(_ shouldChange:Bool)->Void) {
+        then(true)
     }
     
     //=======================================

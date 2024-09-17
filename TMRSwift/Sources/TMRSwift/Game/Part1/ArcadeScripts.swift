@@ -629,43 +629,43 @@ class TrapDoorScripts : ObjectScripts {
     }
 }
 
-extension ArcadeToBasementDoor {
+class ArcadeToBasementDoorScripts : ObjectScripts {
     
-    func shouldChangeToRoom(then:@escaping(_ shouldChange:Bool)->Void) {
+    override func shouldChangeToRoom(then:@escaping(_ shouldChange:Bool)->Void) {
         then(PunchMachine.hasGoldenPunchBag)
     }
 }
 
-/*extension Smash00 {
-    override func isTouched(point: CGPoint) -> Bool { false }
+/*class Smash00Scripts : ObjectScripts  {
+    override func isTouched(point: Point) -> Bool { false }
     override var showItsHotspotHint:Bool { false }
     
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        node?.run(.repeatForever(.animate(with: [
+        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
             texture("smash00"), texture("smash01"),
         ], timePerFrame: 0.3)))
     }
 }
 
-extension Tinyshooter00 {
+class Tinyshooter00Scripts : ObjectScripts  {
     //override func isTouched(point: CGPoint) -> Bool { false }
-    
+        
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        node?.run(.repeatForever(.animate(with: [
+        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
             texture("tinyshooter00"), texture("tinyshooter01"),
         ], timePerFrame: 0.25)))
     }
 }
 
-extension Figther00 {
-    override func isTouched(point: CGPoint) -> Bool { false }
+class Figther00Scripts : ObjectScripts  {
+    override func isTouched(point: Point) -> Bool { false }
     override var showItsHotspotHint:Bool { false }
     
     override func addToRoom(_ room: Room) {
         super.addToRoom(room)
-        node?.run(.repeatForever(.animate(with: [
+        scriptedObject.getNode()?.run(.repeatForever(.animate(with: [
             texture("figther00"), texture("fighter01"),
         ], timePerFrame: 0.35)))
     }

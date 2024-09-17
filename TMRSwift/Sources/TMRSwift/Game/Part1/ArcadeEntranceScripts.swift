@@ -402,8 +402,8 @@ class TicketsBoxScripts : ObjectScripts {
     }
 }
 
-extension EntranceToArcadeDoor {
-    func shouldChangeToRoom(then:@escaping(_ shouldChange:Bool)->Void) {
+class EntranceToArcadeDoorScripts: ObjectScripts {
+    override func shouldChangeToRoom(then:@escaping(_ shouldChange:Bool)->Void) {
         
         if RevisorYack.isNotLooking {
             Script({

@@ -46,7 +46,7 @@ extension ChangesRoom {
     func goThrough(){
         Game.shared.actor.stopWalk(/*finalPosition: nil*/)
         
-        shouldChangeToRoom { [unowned self] shouldChange in
+        (self as! Object).scripts.shouldChangeToRoom { [unowned self] shouldChange in
             guard shouldChange else {
                 return
             }

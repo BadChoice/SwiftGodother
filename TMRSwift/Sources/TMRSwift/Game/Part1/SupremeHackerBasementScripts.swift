@@ -12,15 +12,15 @@ class SupremeHackerBasementScripts : RoomScripts {
     }
 }
 
-/*extension SupremeHacker {
+class SupremeHackerScripts: ObjectScripts  {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Talk(yack: SupremeHackerYack(self))
+            //Talk(yack: SupremeHackerYack(self.scriptedObject as! SupremeHacker))
         }
     }
 }
-*/
+
 class BasementCoffeeCupScripts : ObjectScripts {
     
     override func shouldBeAddedToRoom() -> Bool {
