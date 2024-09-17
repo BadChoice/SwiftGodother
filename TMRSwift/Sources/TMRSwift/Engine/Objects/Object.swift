@@ -7,9 +7,9 @@ class Object : NSObject, ProvidesState {
     var json: String { "" }
     var scripts:ObjectScripts!
     
-    @objc dynamic var name:String  { scripts.name   }
-    @objc dynamic var zIndex:Int32 { scripts.zIndex }
-    @objc dynamic var image:String { scripts.image  }
+    var name:String  { scripts.name   }
+    var zIndex:Int32 { scripts.zIndex }
+    var image:String { scripts.image  }
     
     var position:Vector2 {
         guard let detailsPosition = details.position else { return .zero}
@@ -28,7 +28,6 @@ class Object : NSObject, ProvidesState {
     
     required init(_ details:ObjectDetails? = nil){
         super.init()
-        
         loadScripts()
          
         if let details {
@@ -55,7 +54,10 @@ class Object : NSObject, ProvidesState {
     /** Each object can define with what it does combine to speed up puzzle resolution */
     func canBeUsedWith(_ object:Object) -> Bool {
         guard Features.useCanBeUsedWith else { return true }
-        return combinesWith().contains { object.isKind(of: $0) }
+        return combinesWith().contains {
+            $0 == type(of: object)
+        }
+    
     }
     
     /**
@@ -71,7 +73,7 @@ class Object : NSObject, ProvidesState {
     /**
      @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
      */
-    @objc dynamic func shouldBeAddedToRoom() ->Bool {
+    func shouldBeAddedToRoom() ->Bool {
         scripts.shouldBeAddedToRoom()
     }
     
@@ -83,12 +85,12 @@ class Object : NSObject, ProvidesState {
     }
     
     /** The objects which can combine with (no ban icon appears) */
-    @objc dynamic func combinesWith() -> [Object.Type] {
+    func combinesWith() -> [Object.Type] {
         scripts.combinesWith()
     }
     
     /** If it should show when showing the hotspot hints */
-    @objc dynamic var showItsHotspotHint: Bool {
+    var showItsHotspotHint: Bool {
         scripts.showItsHotspotHint
     }
     
