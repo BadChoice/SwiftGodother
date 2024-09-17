@@ -5,6 +5,11 @@ class SpriteObject : Object {
     var node:Sprite2D?
     var polygon:Polygon?
     
+    var talkPosition: Vector2 {
+        guard let node = node else { return Vector2(x: 0, y: 0)}
+        return  Vector2(x:position.x + node.getRect().size.x / 2,
+                        y:position.y - node.getRect().size.y - 50 * Float(Game.shared.scale))
+    }
     
     required init(_ details: ObjectDetails? = nil) {
         super.init(details)
@@ -35,6 +40,8 @@ class SpriteObject : Object {
         node?.centered = true
         node?.offset = (size / 2)
         
+        createShapePolygon()
+        
         return node
     }
     
@@ -43,8 +50,6 @@ class SpriteObject : Object {
             return
         }
         node = sprite
-                    
-        createShapePolygon()
     }
     
     private func createShapePolygon() {

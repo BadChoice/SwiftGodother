@@ -81,6 +81,10 @@ class GDAction {
     static func repeatForever(_ action:GDAction) -> GDActionRepeatForever {
         GDActionRepeatForever(action)
     }
+    
+    static func repeatForever(sequence actions:[GDAction]) -> GDActionRepeatForever {
+        GDActionRepeatForever(.sequence(actions))
+    }
 
     static func fadeIn(withDuration duration:Double) -> GDActionFadeIn {
         GDActionFadeIn(withDuration: duration)
@@ -110,6 +114,10 @@ class GDAction {
     
     static func animate(_ textures:[Texture2D], timePerFrame:Double) -> GDActionAnimate {
         GDActionAnimate(textures, timePerFrame: timePerFrame)
+    }
+    
+    static func setTexture(_ texture:Texture2D?) -> GDActionSetTexture {
+        GDActionSetTexture(texture)
     }
 }
 

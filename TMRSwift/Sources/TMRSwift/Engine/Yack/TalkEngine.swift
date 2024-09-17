@@ -18,13 +18,6 @@ extension Talks {
     var voices:[String:(String, Double)]? { nil }
 }
 
-extension Talks where Self: SpriteObject {
-    var talkPosition: Vector2 {
-        guard let node = node else { return Vector2(x: 0, y: 0)}
-        return  Vector2(x:node.position.x + node.getRect().size.x / 2,
-                        y:node.position.y + 100)
-    }
-}
 
 class TalkEngine {
  

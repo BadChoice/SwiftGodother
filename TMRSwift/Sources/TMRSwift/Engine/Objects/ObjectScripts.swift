@@ -21,7 +21,10 @@ class ObjectScripts : Animable, Talks {
     var voiceType: VoiceType { .male }
     var talkColor: Color { (scriptedObject as? Talks)?.talkColor ?? "#EDEB67" }
     var talkPosition: Vector2 {
-        Vector2(x:scriptedObject.position.x, y: scriptedObject.position.y + 100 * Float(Game.shared.scale))
+        if let sprite = scriptedObject as? SpriteObject {
+            return sprite.talkPosition
+        }
+        return Vector2(x:scriptedObject.position.x, y: scriptedObject.position.y + 100 * Float(Game.shared.scale))
     }
     
     func setExpression(_ expression:Expression?) { }

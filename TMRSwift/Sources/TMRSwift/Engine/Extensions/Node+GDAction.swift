@@ -5,6 +5,10 @@ extension Node {
         action.run(self, completion: completion)
     }
     
+    func repeatForever(sequence actions:[GDAction]){
+        run(.repeatForever(.sequence(actions)))
+    }
+    
     func removeAllActions(){
         actions()?.forEach { $0.stop() }
         getChildren().forEach {

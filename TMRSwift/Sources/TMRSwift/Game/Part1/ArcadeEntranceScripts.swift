@@ -45,7 +45,7 @@ class ArcadeEntranceScripts : RoomScripts {
             Say(actor: revisor, "Who else?")
             Say(actor: revisor, "Where do you think you're going, pipsqueak? And where are your parents? You're too young to go in there!", expression: .angry)
             Walk(to: revisor)
-            Talk(yack: RevisorYack(revisor))
+            Talk(yack: RevisorYack(revisor.scripts as! RevisorScripts))
             SetTrue(&ArcadeEntrance.entered)
         }) {
             //Game.shared.menu.showHowToPlay()
@@ -324,7 +324,7 @@ class RevisorScripts : ObjectScripts {
         
         Script([
             Walk(to: self),
-            Talk(yack: RevisorYack(self.scriptedObject as! Revisor))
+            Talk(yack: RevisorYack(self))
         ])
     }
 }

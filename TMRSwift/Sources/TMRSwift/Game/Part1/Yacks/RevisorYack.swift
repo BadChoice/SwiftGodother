@@ -20,10 +20,10 @@ class RevisorYack : Yack {
     static var isNotLooking:Bool = false
     static var isStealingTickets:Bool = false
     
-    let revisor:Revisor
+    let revisor:RevisorScripts
     
-    init(_ revisor:Revisor? = nil) {
-        self.revisor = revisor ?? roomObject(Revisor.self)!
+    init(_ revisor:RevisorScripts) {
+        self.revisor = revisor
     }
     
     override func start() -> Section? {
@@ -34,7 +34,7 @@ class RevisorYack : Yack {
         return Section ({
             if !Self.entered {
                 SetTrue(&Self.entered)
-                /*Say("Wha-? Too young? Can't you see I'm grown up? Here, what do you think this is on my face?", expression: .suspicious)
+                Say("Wha-? Too young? Can't you see I'm grown up? Here, what do you think this is on my face?", expression: .suspicious)
                 Say(actor: revisor, "Looks like chocolate stains to me.")
                 Say("That's a beard", expression: .bored, armsExpression:.bored)
                 Say(actor:revisor, "Yeah, and I'm the pope")
@@ -46,7 +46,7 @@ class RevisorYack : Yack {
                 Say(actor: revisor, "You can't fool me, half-pint! I have the ears of an eagle and the eyes of a fox. Or was it the other way around?")
                 Say("Yeah, I see: both as sharp as a brick.", expression:.suspicious, armsExpression:.bored)
                 Say(actor:revisor, "Get your mom or dad. You can't get in here without an adult!")
-                Face(.front)*/
+                Face(.front)
                 Say("Musk it. Okay, I'll have to somehow sneak past the old eagle ear...", expression: .angry)
                 Face(.left)
             }

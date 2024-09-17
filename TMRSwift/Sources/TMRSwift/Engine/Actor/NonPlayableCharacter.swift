@@ -28,4 +28,12 @@ class NonPlayableCharacter : SpriteObject, Animable {
 protocol NpcScripts {
     func createNode()
     func animateNpc(_ animation:String?)
+    var prefix: String { get }
 }
+
+extension NpcScripts where Self: ObjectScripts {
+    var npc: NonPlayableCharacter {
+        scriptedObject as! NonPlayableCharacter
+    }
+}
+

@@ -427,7 +427,7 @@ class BarmanScripts : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Talk(yack: BarmanYack(self.scriptedObject as! Barman))
+            Talk(yack: BarmanYack(self))
         }
     }
     

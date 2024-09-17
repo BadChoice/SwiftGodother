@@ -39,7 +39,7 @@ class GDActionTween : GDAction {
         
     override func stop() {
         super.stop()
-        tween.stop()
+        tween?.stop()
     }
 }
 

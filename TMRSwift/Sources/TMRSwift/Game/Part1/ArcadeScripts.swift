@@ -406,7 +406,9 @@ class EarnedTicketsScripts : ObjectScripts {
 
 extension TinyHeroArcade {
     var voiceType: VoiceType { .machine }
-    var talkPosition: Vector2 { Vector2(x:self.position.x, y: self.position.y + 100 * Float(Game.shared.scale)) }
+    var talkPosition: Vector2 {
+        Vector2(x:position.x, y: position.y + 100 * Float(Game.shared.scale))
+    }
 }
 
 class TinyHeroArcadeScripts : ObjectScripts {
@@ -728,7 +730,6 @@ class MaxKidScripts : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Say(actor: self, "Hello baby how are you")
             //Talk(yack: MaxYack(max: self))
         }
     }

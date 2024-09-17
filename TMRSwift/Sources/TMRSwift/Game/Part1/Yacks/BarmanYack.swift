@@ -2,13 +2,13 @@ import Foundation
 
 class BarmanYack : Yack {
     
-    let barman:Barman
+    let barman:BarmanScripts
     var entered:Bool = false
     
     @StateWrapper("knowsAboutCocktailGrownUp", object:BarmanYack.self)
     static var knowsAboutCocktailGrownUp:Bool
     
-    init(_ barman:Barman){
+    init(_ barman:BarmanScripts){
         self.barman = barman
     }
     
