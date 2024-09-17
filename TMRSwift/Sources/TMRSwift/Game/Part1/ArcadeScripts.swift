@@ -411,6 +411,8 @@ extension TinyHeroArcade {
 
 class TinyHeroArcadeScripts : ObjectScripts {
 
+    override var voiceType: VoiceType { .machine }
+    
     override func combinesWith() -> [Object.Type] {
         [Lighter.self, Coin.self]
     }

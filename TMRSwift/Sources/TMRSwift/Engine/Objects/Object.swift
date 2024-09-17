@@ -132,35 +132,33 @@ class Object : NSObject, ProvidesState {
     }
 }
 
-class ObjectScripts : Animable {
+class ObjectScripts : Animable, Talks {
     weak var scriptedObject:Object!
     
     required init(object:Object) {
         scriptedObject = object
     }
     
-    var name:String     { 
-        scriptedObject.details.name
-    }
-    
-    var zIndex:Int32    {
-        Int32(scriptedObject.details.zPos)
-    }
-    
-    var image:String  {
-        scriptedObject.details.image!
-    }
-    
-    var inventoryImage : String {
-        safeClassName("\(scriptedObject.self)").components(separatedBy: ".").last!
-    }
-    
-    var inInventory : Bool {
-        (scriptedObject as? Inventoriable)?.inInventory ?? false
-    }
+    var name:String { scriptedObject.details.name }
+    var zIndex:Int32 { Int32(scriptedObject.details.zPos) }
+    var image:String { scriptedObject.details.image! }
+    var inventoryImage : String { safeClassName("\(scriptedObject.self)").components(separatedBy: ".").last! }
+    var inInventory : Bool { (scriptedObject as? Inventoriable)?.inInventory ?? false }
     
     //=======================================
-    // MARK:- VERBS
+    // MARK:- TALK
+    //=======================================
+    var voiceType: VoiceType { .male }
+    var talkColor: Color { (scriptedObject as? Talks)?.talkColor ?? "#EDEB67" }
+    var talkPosition: Vector2 {
+        Vector2(x:scriptedObject.position.x, y: scriptedObject.position.y + 100 * Float(Game.shared.scale))
+    }
+    
+    func setExpression(_ expression:Expression?) { }
+    func setArmsExpression(_ expression:ArmsExpression?) { }
+    
+    //=======================================
+    // MARK:- Lifecycle
     //=======================================
     /**
      @return Boo lif the object should be added to the room or not: Ex: Has already been picked up
@@ -191,8 +189,7 @@ class ObjectScripts : Animable {
     var showItsHotspotHint: Bool {
         true
     }
-    
-    
+        
     //=======================================
     // MARK:- VERBS
     //=======================================
@@ -253,6 +250,9 @@ class ObjectScripts : Animable {
         ])
     }
     
+    //=======================================
+    // MARK:- ANIMABLE
+    //=======================================
     func animate(_ animation:String?){
         
     }

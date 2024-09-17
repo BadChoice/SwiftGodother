@@ -64,7 +64,7 @@ class ArcadeNoteScripts : ObjectScripts {
 
 class BalloonScripts : ObjectScripts {
     
-    var voiceType: VoiceType { .none }
+    override var voiceType: VoiceType { .none }
     
     override var inventoryImage: String {
         Balloon.painted ? "BalloonFace" : "Balloon"
