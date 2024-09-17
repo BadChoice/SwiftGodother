@@ -107,5 +107,9 @@ class GDAction {
     static func animateForever(_ textures:[Texture2D], timePerFrame:Double) -> GDActionAnimateForever {
         GDActionAnimateForever(textures, timePerFrame: timePerFrame)
     }
+    
+    static func animate(_ textures:[Texture2D], timePerFrame:Double) -> GDActionAnimate {
+        GDActionAnimate(textures, timePerFrame: timePerFrame)
+    }
 }
 

@@ -49,4 +49,8 @@ extension Sprite2D {
         run(.animateForever(textures, timePerFrame: timePerFrame))
     }
     
+    func animate(_ textures:[Texture2D], timePerFrame:Double){
+        run(.animate(textures, timePerFrame: timePerFrame))
+    }
+    
 }

@@ -32,6 +32,7 @@ class GDActionRepeat : GDAction {
             done = 0
             completion?()
             completion = nil
+            removeFromList()
             return
         }
         

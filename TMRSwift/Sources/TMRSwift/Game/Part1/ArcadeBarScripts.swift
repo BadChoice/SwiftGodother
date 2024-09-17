@@ -496,22 +496,22 @@ class BowlingScreenScripts : ObjectScripts  {
             return
         }
         
-        /*node?.animate([
-            texture("bowling-screen"),
-            texture("bowling-screen-01"),
-            texture("bowling-screen-02"),
-            texture("bowling-screen-03"),
-            texture("bowling-screen-empty"),
-            texture("bowling-screen-03"),
-            texture("bowling-screen-empty"),
-            texture("bowling-screen-04"),
-            texture("bowling-screen-empty"),
-            texture("bowling-screen-04"),
-            texture("bowling-screen-empty"),
-            texture("bowling-screen-04"),
-            texture("bowling-screen-empty"),
-            texture("bowling-screen-04"),
-        ], timePerFrame: 0.4)*/
+        (scriptedObject.getNode() as? Sprite2D)?.animate([
+            texture("bowling-screen")!,
+            texture("bowling-screen-01")!,
+            texture("bowling-screen-02")!,
+            texture("bowling-screen-03")!,
+            texture("bowling-screen-empty")!,
+            texture("bowling-screen-03")!,
+            texture("bowling-screen-empty")!,
+            texture("bowling-screen-04")!,
+            texture("bowling-screen-empty")!,
+            texture("bowling-screen-04")!,
+            texture("bowling-screen-empty")!,
+            texture("bowling-screen-04")!,
+            texture("bowling-screen-empty")!,
+            texture("bowling-screen-04")!,
+        ], timePerFrame: 0.4)
     }
     
     override func onPhoned() {
