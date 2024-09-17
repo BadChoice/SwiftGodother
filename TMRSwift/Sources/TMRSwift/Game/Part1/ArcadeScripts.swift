@@ -49,14 +49,14 @@ class PunchBagScripts : ObjectScripts {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let knife = object as? MultiUseKnife {
+        if let knife = object.scripts as? MultiUseKnifeScripts {
             return useWith(knife: knife)
         }
         if object is ToyArrow && ToyArrow.isCutGlass {
-            return useWith(knife: MultiUseKnife())
+            return useWith(knife: MultiUseKnifeScripts(object: MultiUseKnife()))
         }
-        if let bowlingBall = object as? BowlingBall {
-            return bowlingBall.useWith(punchBag: object as! PunchBag)
+        if let bowlingBall = object.scripts as? BowlingBallScripts {
+            return bowlingBall.useWith(punchBag: self)
         }
         if let punchMachine = object as? PunchMachine {
             return useWith(punchMachine: punchMachine)
@@ -64,7 +64,7 @@ class PunchBagScripts : ObjectScripts {
         return super.onUseWith(object, reversed:reversed)
     }
     
-    func useWith(knife: MultiUseKnife) {
+    func useWith(knife: MultiUseKnifeScripts) {
         if !inventory.contains(knife) && !ToyArrow.isCutGlass {
             return ScriptSay("That would be a good idea... if I had the knife!")
         }
@@ -228,7 +228,7 @@ class ToyArrowScripts : ObjectScripts {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let knife = object as? MultiUseKnife {
+        if let knife = object.scripts as? MultiUseKnifeScripts {
             return useWith(knife: knife)
         }
         
@@ -245,32 +245,31 @@ class ToyArrowScripts : ObjectScripts {
         if let balloon = object.scripts as? BalloonScripts, ToyArrow.isCutGlass {
             return useWith(balloon)
         }
-        if ToyArrow.isCutGlass, let punchBag = object as? PunchBag {
+        if ToyArrow.isCutGlass, let punchBag = object.scripts as? PunchBagScripts {
             return useWith(punchBag: punchBag, reversed:reversed)
         }
         return super.onUseWith(object, reversed:reversed)
     }
     
-    func useWith(knife:MultiUseKnife){
+    func useWith(knife:MultiUseKnifeScripts){
         if !knife.inInventory {
             return ScriptSay("That would be a good idea... if I had the knife!")
         }
         Script {
-            Combine(self, losing: knife.scripts, settingTrue: &ToyArrow.isCutGlass) {
+            Combine(self, losing: knife, settingTrue: &ToyArrow.isCutGlass) {
                 Say("I've built an amazing glass cutter!")
                 Autosave()
             }
         }
     }
     
-    //TODO: HEEEEEEEY WHATS HAPPENING HERE
     func useWith(_ balloon:BalloonScripts){
-        /*Script {
+        Script {
             Combine(self, losing: balloon, settingTrue: &Balloon.poped) {
-                Say(actor: balloon.scriptedObject, "* POP *")
+                Say(actor: balloon.scriptedObject as! Balloon, "* POP *")
                 Say("Bye bye, balloon!")
             }
-        }*/
+        }
     }
     
     func useWith(ticketsBox:TicketsBox){
@@ -306,11 +305,11 @@ class ToyArrowScripts : ObjectScripts {
         }
     }
     
-    func useWith(punchBag:PunchBag, reversed:Bool){
+    func useWith(punchBag:PunchBagScripts, reversed:Bool){
         if ToyArrow.isCutGlass {
-            return MultiUseKnife().useWith(punchBag: punchBag)
+            return MultiUseKnifeScripts(object: MultiUseKnife()).useWith(punchBag: punchBag)
         }
-        super.onUseWith(punchBag, reversed:reversed)
+        super.onUseWith(punchBag.scriptedObject, reversed:reversed)
     }
     
     override func onLookedAt() {

@@ -9,14 +9,6 @@ class ArcadeBarScripts : RoomScripts {
     }
 }
 
-extension Toothpicks {
-    var inventoryImage: String {
-        if Toothpicks.areMatches { return "Matches" }
-        if Toothpicks.hasFertilizer { return "ToothpicksWithFertilizer" }
-        if Toothpicks.wet { return "ToothpicksWet" }
-        return "Toothpicks"
-    }
-}
 
 class ToothpicksScripts : ObjectScripts {
     override var zIndex: Int32 { 21 }

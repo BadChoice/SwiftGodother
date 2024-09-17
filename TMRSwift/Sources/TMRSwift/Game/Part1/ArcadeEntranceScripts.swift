@@ -53,7 +53,7 @@ class ArcadeEntranceScripts : RoomScripts {
     }
 }
 
-extension ArcadeNote {
+class ArcadeNoteScripts : ObjectScripts {
     override func onLookedAt() {
         Script {
             Say("It says...")
@@ -148,13 +148,13 @@ class BalloonScripts : ObjectScripts {
     }
 }
 
-extension VanFront {
+class VanFrontScripts : ObjectScripts {
     override var zIndex: Int32 { 5 }
     //override func isTouched(point: Vector2) -> Bool { false }
     override var showItsHotspotHint:Bool { false }
 }
 
-extension CarOil {
+class CarOilScripts : ObjectScripts {
     override func combinesWith() -> [Object.Type] {
         [Balloon.self, PillBag.self]
     }
@@ -195,7 +195,7 @@ extension CarOil {
             if !inventory.contains(self) {
                 WalkToAndPickup(self)
             }
-            Combine(balloon, losing: self, settingTrue: &Balloon.painted){
+            Combine(balloon.scripts, losing: self, settingTrue: &Balloon.painted){
                 Autosave()
                 Say("Man, hacker AND artist – I'm a whizz-kid!")
             }
@@ -203,7 +203,7 @@ extension CarOil {
     }
 }
 
-extension MultiUseKnife {
+class MultiUseKnifeScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [PunchBag.self, ToyArrow.self, SmashHammer.self, TicketsBox.self, Balloon.self]
@@ -217,7 +217,7 @@ extension MultiUseKnife {
         if let toy = object.scripts as? ToyArrowScripts {
             return toy.useWith(knife: self)
         }
-        if let punchBag = object as? PunchBag {
+        if let punchBag = object.scripts as? PunchBagScripts {
             return useWith(punchBag: punchBag)
         }
         if let hammer = object.scripts as? SmashHammerScripts {
@@ -226,23 +226,23 @@ extension MultiUseKnife {
         if let ticketBox = object as? TicketsBox{
             return useWith(ticketBoxs: ticketBox)
         }
-        if let balloon = object as? Balloon {
+        if let balloon = object.scripts as? BalloonScripts {
             return useWith(balloon)
         }
-        return super.onUseWith(self, reversed:reversed)
+        return super.onUseWith(self.scriptedObject, reversed:reversed)
     }
     
-    func useWith(punchBag:PunchBag){
+    func useWith(punchBag:PunchBagScripts){
         if PunchBag.isCut {
             return ScriptSay("Nah, I think I slashed that thing enough already.")
         }
-        return PunchBagScripts(object: punchBag).useWith(knife: self)
+        return punchBag.useWith(knife: self)
     }
     
-    func useWith(_ balloon:Balloon){
+    func useWith(_ balloon:BalloonScripts){
         Script {
             Combine(self, losing: balloon, settingTrue: &Balloon.poped) {
-                Say(actor:balloon, "* POP *")
+                Say(actor: balloon.scriptedObject as! Balloon, "* POP *")
                 Say("Bye bye, balloon!")
             }
         }
@@ -260,7 +260,7 @@ extension MultiUseKnife {
     }
 }
 
-extension BowlingBall {
+class BowlingBallScripts : ObjectScripts {
     
     override func combinesWith() -> [Object.Type] {
         [PunchBag.self, BowlingScreen.self]
@@ -275,7 +275,7 @@ extension BowlingBall {
     }
     
     override func onUseWith(_ object: Object, reversed:Bool) {
-        if let punchBag = object as? PunchBag {
+        if let punchBag = object.scripts as? PunchBagScripts {
             return useWith(punchBag: punchBag)
         }
         if let bowling = object as? BowlingScreen{
@@ -284,7 +284,7 @@ extension BowlingBall {
         super.onUseWith(object, reversed:reversed)
     }
     
-    func useWith(punchBag:PunchBag){
+    func useWith(punchBag:PunchBagScripts){
         if !inInventory{
             return ScriptSay("I should get the bowling ball first...")
         }
@@ -304,7 +304,7 @@ extension BowlingBall {
     }
 }
 
-extension Revisor {
+class RevisorScripts : ObjectScripts {
     override func combinesWith() -> [Object.Type] {
         [EarnedTickets.self, Balloon.self]
     }
@@ -324,7 +324,7 @@ extension Revisor {
         
         Script([
             Walk(to: self),
-            Talk(yack: RevisorYack(self))
+            Talk(yack: RevisorYack(self.scriptedObject as! Revisor))
         ])
     }
 }

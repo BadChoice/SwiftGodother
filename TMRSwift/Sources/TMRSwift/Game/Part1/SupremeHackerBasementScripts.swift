@@ -73,7 +73,7 @@ class PillBagScripts : ObjectScripts {
         if let ice = object as? Ice {
             return useWith(ice)
         }
-        if let lube = object as? CarOil {
+        if let lube = object.scripts as? CarOilScripts {
             return useWith(lube)
         }
         if let hammer = object.scripts as? SmashHammerScripts {
@@ -108,7 +108,7 @@ class PillBagScripts : ObjectScripts {
         }
     }
     
-    func useWith(_ lube:CarOil){
+    func useWith(_ lube:CarOilScripts){
         if PillBag.hasLube {
             return ScriptSay("That's enough")
         }
@@ -117,7 +117,7 @@ class PillBagScripts : ObjectScripts {
                WalkToAndPickup(lube)
             }
             Say("I guess this will count as lubricant")
-            Combine(self, losing: lube.scripts, settingTrue: &PillBag.hasLube) { }
+            Combine(self, losing: lube, settingTrue: &PillBag.hasLube) { }
             if PillBagScripts.hasAllIngredients() {
                 Face(.front)
                 Say("I have them all!")
