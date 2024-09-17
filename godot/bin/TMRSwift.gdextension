@@ -2,7 +2,6 @@
 entry_symbol = "swift_entry_point"
 compatibility_minimum = 4.2
 
-
 [libraries]
 macos.debug.arm64 = "res://bin/arm64-apple-macosx/libTMRSwift.dylib"
 macos.release.arm64 = "res://bin/arm64-apple-macosx/libTMRSwift.dylib"
@@ -14,10 +13,10 @@ ios.release.x86_64 = "res://bin/ios/TMRSwift.framework"
 ios.debug.arm64 = "res://bin/ios/TMRSwift.framework"
 ios.release.arm64 = "res://bin/ios/TMRSwift.framework"
 
-windows.debug.x86_32 = "res://bin/x86_32-windows-debug/TMRSwift.dll"
-windows.release.x86_32 = "res://bin/x86_32-windows-release/TMRSwift.dll"
-windows.debug.x86_64 = "res://bin/x86_64-windows-debug/TMRSwift.dll"
-windows.release.x86_64 = "res://bin/x86_64-windows-release/TMRSwift.dll"
+windows.debug.x86_32 = "res://bin/x86_32-windows/TMRSwift.dll"
+windows.release.x86_32 = "res://bin/x86_32-windows/TMRSwift.dll"
+windows.debug.x86_64 = "res://bin/x86_64-windows/TMRSwift.dll"
+windows.release.x86_64 = "res://bin/x86_64-windows/TMRSwift.dll"
 
 [dependencies]
 macos.debug.arm64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
@@ -25,14 +24,12 @@ macos.release.arm64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
 macos.debug.x86_64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
 macos.release.x86_64 = {"res://bin/arm64-apple-macosx/libSwiftGodot.dylib" : ""}
 
-
 ios.debug.x86_64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.release.x86_64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.debug.arm64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.release.arm64 = { "res://bin/ios/SwiftGodot.framework" : ""}
 
-
-windows.debug.x86_32 = { "res://bin/x86_32-windows-debug/SwiftGodot.dll" : "" }
-windows.release.x86_32 = { "res://bin/x86_32-windows-release/SwiftGodot.dll" : "" }
-windows.debug.x86_64 = { "res://bin/x86_64-windows-debug/SwiftGodot.dll" : "" }
-windows.release.x86_64 = { "res://bin/x86_64-windows-release/SwiftGodot.dll" : "" }
+windows.debug.x86_32 = { "res://bin/x86_32-windows/SwiftGodot.dll" : "" }
+windows.release.x86_32 = { "res://bin/x86_32-windows/SwiftGodot.dll" : "" }
+windows.debug.x86_64 = { "res://bin/x86_64-windows/SwiftGodot.dll" : "" }
+windows.release.x86_64 = { "res://bin/x86_64-windows/SwiftGodot.dll" : "" }
