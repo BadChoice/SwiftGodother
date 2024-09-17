@@ -51,7 +51,7 @@ extension ChangesRoom {
                 return
             }
             
-            if Features.doubleDoorClickChangesRoom && Game.shared.goingToDoor == self {
+            if Features.doubleDoorClickChangesRoom && Game.shared.goingToDoor === self {
                 Game.shared.actor.stopWalk(/*finalPosition: Game.shared.room.actor.node.position*/)
                 return changeRoom()
                 

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftGodot
 
-class Object : NSObject, ProvidesState {
+class Object : ProvidesState {
     
     var details:ObjectDetails!
     var json: String { "" }
@@ -27,7 +27,6 @@ class Object : NSObject, ProvidesState {
     var facing:Facing { details.facing }
     
     required init(_ details:ObjectDetails? = nil){
-        super.init()
         loadScripts()
          
         if let details {
