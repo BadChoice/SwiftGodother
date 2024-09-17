@@ -7,7 +7,7 @@ class NonPlayableCharacter : SpriteObject, Animable {
         [.talk : "Talk with"]
     }
     
-    @objc dynamic func animate(_ animation: String?) {
+    func animate(_ animation: String?) {
         
     }
     
