@@ -10,7 +10,9 @@ class ObjectScripts : Animable, Talks {
     var name:String { scriptedObject.details.name }
     var zIndex:Int32 { Int32(scriptedObject.details.zPos) }
     var image:String { scriptedObject.details.image! }
-    var inventoryImage : String { safeClassName("\(scriptedObject.self)").components(separatedBy: ".").last! }
+    var inventoryImage : String {
+        safeClassName("\(scriptedObject!.self)").components(separatedBy: ".").last!
+    }
     var inInventory : Bool { (scriptedObject as? Inventoriable)?.inInventory ?? false }
     
     //=======================================

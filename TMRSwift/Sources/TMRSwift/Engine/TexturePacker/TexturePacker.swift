@@ -181,4 +181,11 @@ class TexturePacker {
         sprite.offset = (info.sourceSize * -1) + info.offset
         return sprite
     }
+    
+    
+    func availableTextures() -> [String]{
+        info?.images.flatMap { $0.subimages.flatMap { $0.name} } ?? []
+    }
 }
+
+
