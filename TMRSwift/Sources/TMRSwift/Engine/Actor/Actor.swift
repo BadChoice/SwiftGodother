@@ -51,6 +51,16 @@ class Actor : NSObject, Talks, Animable {
             }
         }
         
+        
+        //Pickup front
+        frames.addAnimation(anim: "pickup-front")
+        (0...31).forEach {
+            let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
+            frames.addFrame(anim: "pickup-front", texture:  GD.load(path: "res://assets/actors/crypto_new/pickup/front/\(number).png") as? Texture2D, duration:0.12)
+            frames.setAnimationLoop(anim: "pickup-front", loop: false)
+        }
+        
+        
         node.spriteFrames = frames
     }
     
@@ -62,7 +72,9 @@ class Actor : NSObject, Talks, Animable {
     //MARK: Animations
     //--------------------------------------
     func animate(_ animation: String?) {
-        
+        if animation == "pickup" {
+            node.play(name: "pickup-front")
+        }
     }
     //--------------------------------------
     //MARK: Expressions

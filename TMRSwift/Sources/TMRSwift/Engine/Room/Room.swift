@@ -80,6 +80,7 @@ class Room : ProvidesState {
     
     private func addActor(){
         actor = Crypto()
+        //actor = Actor()
         actor.node.zIndex = 1
         addChild(node: actor.node)
         //actor.node.modulate = actor.node.modulate.darkened(amount: 0.5)
