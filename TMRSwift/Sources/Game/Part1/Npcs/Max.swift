@@ -13,8 +13,6 @@ extension MaxKidScripts : NpcScripts {
         npc.node?.addChild(node: npc.face)
         npc.face.zIndex = 5
         npc.face.position = Point(x: 115, y: -50) * Game.shared.scale
-        
-        animate(nil)
     }
     
     
@@ -25,12 +23,12 @@ extension MaxKidScripts : NpcScripts {
         npc.face.removeAllActions()
         
         if animation == "talk" {
-            npc.face.run(.repeatForever(.sequence( [
+            npc.face.run(.repeatForever(sequence: [
                 .wait(forDuration: 0.6),
                 .rotate(toAngle: -0.08, duration: 0),
                 .wait(forDuration: 0.6),
                 .rotate(toAngle: 0, duration: 0)
-            ])))
+            ]))
         }
     }
 }

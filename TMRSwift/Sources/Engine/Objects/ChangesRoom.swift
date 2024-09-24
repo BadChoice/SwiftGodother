@@ -65,7 +65,7 @@ extension ChangesRoom {
     }
     
     private func changeRoom(){
-        Sound.play(once: changeRoomSound)
+        Sound.play(once: changeRoomSound?.replacingOccurrences(of: ".mp3", with: ""))
         Game.shared.enter(
             room: nextRoom,
             actorPosition: nextRoomEntryPoint,

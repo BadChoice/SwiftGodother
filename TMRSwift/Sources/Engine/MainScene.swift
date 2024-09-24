@@ -24,6 +24,7 @@ class MainScene : Node2D {
         room = (Debug.roomType ?? ArcadeEntrance.self).init()
         addChild(node: room.node)
         room._ready()
+        room.putActor(at: Vector2(x:0, y:400) * Game.shared.scale, facing: .right)
         
         addChild(node: scanner.label)
         addChild(node: verbWheel.node)

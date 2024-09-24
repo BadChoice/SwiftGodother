@@ -14,6 +14,7 @@ class Crypto : Actor {
     var eyes = Sprite2D()
     var mouth = Sprite2D()
     var extra = Sprite2D()
+    
     //var shadow =
     
     var facePosition : Point {
@@ -35,6 +36,7 @@ class Crypto : Actor {
     override init() {
         super.init()
         loadAnimations()
+        setupSubsprites()
     }
     
     func loadAnimations(){
@@ -76,7 +78,12 @@ class Crypto : Actor {
         //puzzles/hand-spiral-01 - 03
 
         //talk/face-look-phone.png
-                        
+        
+        node.spriteFrames = frames
+        GD.print("[ACTOR] Animations loaded")
+    }
+    
+    private func setupSubsprites(){
         face.texture = tp.textureNamed("talk/face")
         face.position = facePosition * Game.shared.scale
         node.addChild(node: face)
@@ -91,8 +98,6 @@ class Crypto : Actor {
         mouth.zIndex = 1
         mouth.position = mouthPosition * Game.shared.scale
         face.addChild(node: mouth)
-        
-        node.spriteFrames = frames
         
         node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
         node.play(name: "walk")

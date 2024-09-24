@@ -40,10 +40,9 @@ class Room : ProvidesState {
         
         addBackgroundAndForeground()
         addActor()
-        setupCamera()
         addObjects()
         addWalkPath()
-        putActor(at: Vector2(x:0, y:400) * Game.shared.scale, facing: .right)
+        setupCamera()
     }
     
     func loadScripts(){
@@ -68,26 +67,32 @@ class Room : ProvidesState {
     
     func putActor(at point:Vector2?, facing:Facing){
         camera.positionSmoothingEnabled = false
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
             self?.camera.positionSmoothingEnabled = true
         }
+        
         if let point {
             actor.node.position = point
             actor.setAwayScale(walkbox.getAwayScaleForActorAt(point: point))
         }
+        actor.node.zIndex = 1
+        actor.node.removeFromParent()
+        addChild(node: actor.node)
         actor.face(facing)
+        actor.animate(nil)
     }
     
     private func addActor(){
-        actor = Crypto()
+        let crypto = Cache.shared.cache(key:"Crypto") { Crypto() }
+        actor = crypto
+        //actor = Crypto()
         //actor = Actor()
-        actor.node.zIndex = 1
-        addChild(node: actor.node)
         //actor.node.modulate = actor.node.modulate.darkened(amount: 0.5)
     }
     
     private func setupCamera(){
-        camera.positionSmoothingEnabled = true
+        camera.positionSmoothingEnabled = false
         camera.positionSmoothingSpeed = 1.0
         
         camera.limitSmoothed = true

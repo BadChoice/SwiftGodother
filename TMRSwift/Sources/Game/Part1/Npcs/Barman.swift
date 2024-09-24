@@ -19,9 +19,7 @@ extension BarmanScripts : NpcScripts {
         npc.subsprites["eyes"] = Sprite2D(texture: texture(prefix + "barman-eyes-blink")!)
         npc.face?.addChild(node: npc.eyes)
         npc.eyes.position = Point(x: -6, y: 14) * Game.shared.scale
-        npc.eyes.hide()
-        
-        animate(nil)
+        npc.eyes.hide()        
     }
     
     func animateNpc(_ animation: String?) {

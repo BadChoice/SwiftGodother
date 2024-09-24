@@ -24,6 +24,7 @@ let package = Package(
             dependencies: [
                 "SwiftGodot",
             ],
+            path: "Sources",
             swiftSettings: [.unsafeFlags(["-suppress-warnings"])]
         ),
         .testTarget(

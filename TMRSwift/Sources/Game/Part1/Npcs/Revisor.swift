@@ -20,8 +20,6 @@ extension RevisorScripts : NpcScripts {
         npc.face.addChild(node: npc.eyes)
         npc.eyes.position = Point(x: 23, y: -7)  * Game.shared.scale
         npc.eyes.zIndex = 1
-                
-        //animateBlink()
     }
     
     func animateNpc(_ animation: String?) {

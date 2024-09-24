@@ -14,7 +14,9 @@ struct RoomChanger {
     }
     
     func change(to room:Room.Type, actorPosition:Vector2? = nil, facing:Facing = .right){
-       
+        
+        GD.print("[Room changer] Change room")
+        
         Game.shared.scene.scanner.show(text: "", at: .zero)
         Game.shared.touchLocked = true
         
@@ -24,8 +26,6 @@ struct RoomChanger {
         Game.shared.room.node.modulate.alpha = 0
         Game.shared.room._ready()
         Game.shared.room.camera.enabled = false
-                      
-        GD.print("[Room changer] Change room")
         
         let blackNode = fullScreenBlack(previousRoom?.camera)
         
@@ -36,14 +36,16 @@ struct RoomChanger {
         let roomsShareMusic = previousRoom?.details.music == Game.shared.room.details.music
         
         Game.shared.scene.addChild(node: blackNode)
+        GD.print("[Room changer] Black curtain")
         blackNode.run(.sequence([
             .fadeIn(withDuration: fadeTime),
             .wait(forDuration: stayTime)
         ])){
 
             previousRoom?.camera.enabled = false
-            Game.shared.room.camera.enabled = true
+            previousRoom?.camera.positionSmoothingEnabled = false
             Game.shared.room.putActor(at: actorPosition, facing: facing)
+            Game.shared.room.camera.enabled = true
             removeRoom(room: previousRoom, roomsShareMusic:roomsShareMusic)
             startRoom(room: Game.shared.room, roomsShareMusic:roomsShareMusic)
             blackNode.run(.fadeOut(withDuration: fadeTime))
@@ -67,6 +69,7 @@ struct RoomChanger {
     
     func removeRoom(room:Room?, roomsShareMusic:Bool = false){
         guard let room = room else { return }
+        GD.print("[Room changer] Stop previous room")
         room.stopMusic(onlyFx: roomsShareMusic)
         room.onExit()
         room.node.removeAllChildren()
@@ -75,6 +78,7 @@ struct RoomChanger {
     }
     
     func startRoom(room:Room, roomsShareMusic:Bool = false){
+        GD.print("[Room changer] Start new room")
         Game.shared.touchLocked = false
         room.node.modulate.alpha = 1
         room.playMusic(onlyFx: roomsShareMusic)

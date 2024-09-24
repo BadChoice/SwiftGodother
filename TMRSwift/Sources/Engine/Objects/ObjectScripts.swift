@@ -50,6 +50,8 @@ class ObjectScripts : Animable, Talks {
         (node as? Node2D)?.zIndex = zIndex
         (node as? Control)?.zIndex = zIndex
         room.node.addChild(node: node)
+        
+        (scriptedObject as? NpcScripts)?.animateNpc(nil)
     }
     
     
