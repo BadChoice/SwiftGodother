@@ -69,7 +69,6 @@ struct RoomChanger {
     
     func removeRoom(room:Room?, roomsShareMusic:Bool = false){
         guard let room = room else { return }
-        GD.print("[Room changer] Stop previous room")
         room.stopMusic(onlyFx: roomsShareMusic)
         room.onExit()
         room.node.removeAllChildren()
@@ -78,7 +77,6 @@ struct RoomChanger {
     }
     
     func startRoom(room:Room, roomsShareMusic:Bool = false){
-        GD.print("[Room changer] Start new room")
         Game.shared.touchLocked = false
         room.node.modulate.alpha = 1
         room.playMusic(onlyFx: roomsShareMusic)

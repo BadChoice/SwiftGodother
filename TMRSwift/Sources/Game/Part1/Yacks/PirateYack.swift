@@ -13,9 +13,9 @@ class PirateYack : Yack {
     
     var enteredTryToLearnTrick  = false
     
-    let pirate:Pirate
+    let pirate:PirateScripts
     
-    init(_ pirate:Pirate){
+    init(_ pirate:PirateScripts){
         self.pirate = pirate
     }
     

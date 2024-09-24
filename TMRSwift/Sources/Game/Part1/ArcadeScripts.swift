@@ -3,6 +3,8 @@ import SwiftGodot
 
 class ArcadeScripts : RoomScripts {
     override func onEnter(){
+        scriptedRoom.zoomIn()
+        
         if Arcade.entered { return }
         Script {
             SetTrue(&Arcade.entered)

@@ -118,7 +118,9 @@ class Actor : NSObject, Talks, Animable {
     //MARK: SFX:
     //---------------------------------------
     public func playFootsteps(){
+        footsteps.removeFromParent()
         if let stream:AudioStreamOggVorbis = GD.load(path: "res://assets/" + (Game.shared.room.details.footsteps ?? .concrete).filename()) {
+            node.addChild(node: footsteps)
             stream.loop = true
             footsteps.stream = stream
             footsteps.play()

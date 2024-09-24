@@ -5,10 +5,13 @@ class ArcadeBarScripts : RoomScripts {
     
     override func onEnter() {
         //node.addChild(Rain.make())
-        scriptedRoom.node.run(.scale(to: 1.02, duration:1).withTimingMode(.out))
+        scriptedRoom.zoomIn()
     }
 }
 
+class BarTableScripts : ObjectScripts {
+    override var zIndex: Int32 { 20 }
+}
 
 class ToothpicksScripts : ObjectScripts {
     override var zIndex: Int32 { 21 }
@@ -442,7 +445,7 @@ class PirateScripts : ObjectScripts {
     override func onMouthed() {
         Script {
             Walk(to: self)
-            Talk(yack: PirateYack(self.scriptedObject as! Pirate))
+            Talk(yack: PirateYack(self))
         }
     }
     
@@ -557,3 +560,4 @@ class PlayAloneSignScripts : ObjectScripts  {
         }
     }
 }
+

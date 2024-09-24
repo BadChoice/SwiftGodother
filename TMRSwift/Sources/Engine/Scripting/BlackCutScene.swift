@@ -83,7 +83,7 @@ class BlackCutScene : CompletableAction {
         Sound.play(once: sound)
         label.run(.fadeOut(withDuration: FADE_DURATION)) { [unowned self] in
             label.text = __(self.texts.removeFirst())
-            //label.setScale(1)
+            label.scale = Vector2(value: 1)
             label.run(.group([
                 .fadeIn(withDuration: FADE_DURATION),
                 .group([

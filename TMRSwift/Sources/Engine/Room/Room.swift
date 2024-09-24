@@ -173,7 +173,18 @@ class Room : ProvidesState {
     //MARK: - Helpers
     public func addChild(node:Node){
         self.node.addChild(node: node)
-    }    
+    }
+    
+    func zoomIn(to value:Float = 1.02){
+        node.run(.scale(to: value, duration:1).withTimingMode(.out))
+    }
+    
+    func zoomOut(from value:Float = 0.98){
+        node.run(.sequence([
+            .scale(to: value, duration:0),
+            .scale(to: 1, duration:1).withTimingMode(.out)
+        ]))
+    }
 }
 
 

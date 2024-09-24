@@ -5,6 +5,8 @@ import SwiftGodot
 class ArcadeEntranceScripts : RoomScripts {
     
     override func onEnter() {
+        scriptedRoom.zoomOut()
+        
         if ArcadeEntrance.entered { return }
         
         inventory.pickup(ArcadeNote())
@@ -347,7 +349,7 @@ class MainteinanceGirlScripts : ObjectScripts {
         
         Script {
             Walk(to: self)
-            Talk(yack: MainteinanceGirlYack(leia: self.scriptedObject as! MainteinanceGirl))
+            Talk(yack: MainteinanceGirlYack(leia: self))
         }
     }
     

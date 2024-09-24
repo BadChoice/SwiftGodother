@@ -12,6 +12,8 @@ class NonPlayableCharacter : SpriteObject, Animable {
     var mouth:Sprite2D!    { subsprites["mouth"] }
     var eyes:Sprite2D!     { subsprites["eyes"] }
     
+    var sounds:[String:Node] = [:]
+    
     override func createNode() {
         (scripts as? NpcScripts)?.createNode()
     }

@@ -8,9 +8,9 @@ class MainteinanceGirlYack : Yack {
     @StateWrapper("knowsWhatSheIsDoing", object:MainteinanceGirlYack.self)
     static var knowsWhatSheIsDoing:Bool
     
-    let leia:MainteinanceGirl
+    let leia:MainteinanceGirlScripts
     
-    init(leia:MainteinanceGirl){
+    init(leia:MainteinanceGirlScripts){
         self.leia = leia
     }
     

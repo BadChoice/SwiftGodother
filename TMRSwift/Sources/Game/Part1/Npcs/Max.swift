@@ -5,9 +5,7 @@ extension MaxKidScripts : NpcScripts {
     
     var prefix: String { "max/max" }
     
-    func createNode() {
-        let npc = scriptedObject as! NonPlayableCharacter
-        
+    func createNode() {       
         npc.node = Sprite2D(texture: texture(prefix + "-body")!)
         npc.face = Sprite2D(texture: texture(prefix + "-head")!)
         npc.node?.addChild(node: npc.face)
