@@ -50,7 +50,9 @@ class GDAction {
     }
     //moveTo x duration
     //moveTo y duration
-    //rotate by angle radians duration
+    static func rotate(byAngle radians:Double, duration:Double) -> GDActionRotateBy {
+        GDActionRotateBy(radians, duration: duration)
+    }
     //rotate toAngle radians duration
     static func rotate(toAngle radians:Double, duration:Double) -> GDActionRotate {
         GDActionRotate(to: radians, duration: duration)

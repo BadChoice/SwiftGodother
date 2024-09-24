@@ -24,7 +24,7 @@ extension RevisorScripts : NpcScripts {
         //animateBlink()
     }
     
-    override func animate(_ animation: String?) {
+    func animateNpc(_ animation: String?) {
         npc.node?.removeAllActions()
         
         npc.eyes.hide()
@@ -43,7 +43,7 @@ extension RevisorScripts : NpcScripts {
         }
         
         if animation == "show-beard" {
-            npc.node.set(texture: "revisor/beard" )
+            npc.node?.set(texture: "revisor/beard" )
             return
         }
         
@@ -64,9 +64,9 @@ extension RevisorScripts : NpcScripts {
             .wait(forDuration: 0.2),
             .rotate(byAngle: -0.03, duration: 0),
         ])
-        npc.face.animateForever(texturePrefix: prefix + "-", [
-            "face",
-            "face-talk",
+        npc.face.animateForever([
+            prefix + "-face",
+            prefix + "-face-talk",
         ], timePerFrame: frameDuration)
     }
     
@@ -80,8 +80,8 @@ extension RevisorScripts : NpcScripts {
                 "revisor/back-pickup",
                 "revisor/back-pickup",
                 "revisor/back",
-            ]), timePerFrame: 0.2),
-        ])
+            ]), timePerFrame: 0.2)
+        )
     }
     
     private func animateStopCountTickets(){
@@ -97,8 +97,8 @@ extension RevisorScripts : NpcScripts {
                 "revisor/back",
                 "revisor/front",
                 "revisor/revisor",
-            ]), timePerFrame: 0.2),
-        ])
+            ]), timePerFrame: 0.2)
+        )
     }
     
     private func animateBlink(){
