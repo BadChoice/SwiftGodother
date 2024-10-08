@@ -89,6 +89,11 @@ class Actor : NSObject, Talks, Animable {
         if animation == "pickup" {
             node.play(name: "pickup-front")
         }
+        
+        node.animationFinished.connect { [self] in
+            animateIdle()
+            node.animationFinished.connect { }
+        }
     }
     
     func animateIdle(){
