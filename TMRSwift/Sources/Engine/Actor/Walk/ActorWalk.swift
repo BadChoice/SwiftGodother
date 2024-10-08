@@ -90,11 +90,11 @@ class ActorWalk {
     
     private func detectDirection(nextPoint:Vector2) -> Facing {
         
-        if nextPoint.y.near(0, treshold: 0.5) {
+        if nextPoint.y.near(0, treshold: 0.5 * Game.shared.scale) {
             return nextPoint.x > 0 ? .right : .left
         }
         
-        if nextPoint.x.near(0, treshold: 0.5) {
+        if nextPoint.x.near(0, treshold: 0.5 * Game.shared.scale) {
             return nextPoint.y > 0 ? .front : .back
         }
         

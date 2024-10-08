@@ -84,7 +84,8 @@ class Room : ProvidesState {
     }
     
     private func addActor(){
-        let crypto = Cache.shared.cache(key:"Crypto") { Crypto() }
+        //let crypto = Cache.shared.cache(key:"Crypto") { Crypto() }
+        let crypto = Cache.shared.cache(key:"Crypto") { Actor() }
         actor = crypto
         //actor = Crypto()
         //actor = Actor()

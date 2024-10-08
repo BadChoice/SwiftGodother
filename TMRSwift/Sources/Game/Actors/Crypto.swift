@@ -136,7 +136,7 @@ class Crypto : Actor {
         mouth.removeAllActions()
     }
 
-    private func animateIdle(){
+    override func animateIdle(){
         if facing == .back  { return face(.back) }
         if facing == .front { return face(.front) }
         
@@ -304,10 +304,6 @@ class Crypto : Actor {
         node.scale = Vector2(x: scale, y:scale) * getFacingScale()
     }
     
-    override func stopWalk() {
-        super.stopWalk()
-        node.play(name: "idle")
-    }
     
     //---------------------------------------------------
     //MARK: - Face Expressions

@@ -25,9 +25,13 @@ class Actor : NSObject, Talks, Animable {
     
     public func face(_ facing:Facing){
         self.facing = facing
-        node.play(name: "\(facing)")
+        if walk?.walkingTo != nil {
+            node.play(name: "walk-\(facing)")
+        } else {
+            animateIdle()
+        }
     }
-    
+        
     public func setAwayScale(_ scale:Float){
         node.scale = Vector2(x: scale, y:scale)
     }
@@ -36,25 +40,35 @@ class Actor : NSObject, Talks, Animable {
         super.init()
         loadAnimations()
         face(.frontRight)
-        node.offset.y = -frames.getFrameTexture(anim: "\(Facing.right)", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
+        node.offset.y = -frames.getFrameTexture(anim: "walk-\(Facing.right)", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
     }
     
     private func loadAnimations(){
         frames = SpriteFrames()
         
-        Facing.allCases.forEach {
-            var animation = StringName($0.rawValue)
+        Facing.allCases.forEach { facing in
+            var animation = StringName("walk-" + facing.rawValue)
             frames.addAnimation(anim: animation)
-            (0...31).forEach {
+            (0...15).forEach {
                 let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
-                frames.addFrame(anim: animation, texture:  GD.load(path: "res://assets/actors/crypto_new/walk/\(animation)/\(number).png") as? Texture2D, duration:0.12)
+                frames.addFrame(anim: animation, texture:  GD.load(path: "res://assets/actors/crypto_new/walk/\(facing.rawValue)/\(number).png") as? Texture2D, duration:0.24)
+            }
+        }
+        
+        Facing.allCases.forEach { facing in
+            if facing == .right || facing == .left { return }
+            var animation = StringName("idle-" + facing.rawValue)
+            frames.addAnimation(anim: animation)
+            (0...19).forEach {
+                let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
+                frames.addFrame(anim: animation, texture:  GD.load(path: "res://assets/actors/crypto_new/idle/\(facing.rawValue)/\(number).png") as? Texture2D, duration:0.24)
             }
         }
         
         
         //Pickup front
         frames.addAnimation(anim: "pickup-front")
-        (0...31).forEach {
+        (0...34).forEach {
             let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
             frames.addFrame(anim: "pickup-front", texture:  GD.load(path: "res://assets/actors/crypto_new/pickup/front/\(number).png") as? Texture2D, duration:0.12)
             frames.setAnimationLoop(anim: "pickup-front", loop: false)
@@ -76,6 +90,17 @@ class Actor : NSObject, Talks, Animable {
             node.play(name: "pickup-front")
         }
     }
+    
+    func animateIdle(){
+        if facing == .right {
+            facing = .frontRight
+        }
+        if facing == .left {
+            facing = .frontLeft
+        }
+        node.play(name: "idle-\(facing)")
+    }
+    
     //--------------------------------------
     //MARK: Expressions
     //--------------------------------------
@@ -112,6 +137,7 @@ class Actor : NSObject, Talks, Animable {
         walk = nil
         node.stop()
         footsteps.stop()
+        animateIdle()
     }
     
     //---------------------------------------
