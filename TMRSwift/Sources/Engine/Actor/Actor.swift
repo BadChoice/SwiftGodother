@@ -26,6 +26,7 @@ class Actor : NSObject, Talks, Animable {
     public func face(_ facing:Facing){
         self.facing = facing
         if walk?.walkingTo != nil {
+            GD.print("[ANIMATION] WALK \(facing)")
             node.play(name: "walk-\(facing)")
         } else {
             animateIdle()
@@ -86,17 +87,21 @@ class Actor : NSObject, Talks, Animable {
     //MARK: Animations
     //--------------------------------------
     func animate(_ animation: String?) {
+        GD.print("[ANIMATION] \(animation)")
+        
         if animation == "pickup" {
             node.play(name: "pickup-front")
         }
         
         node.animationFinished.connect { [self] in
+            GD.print("[ANIMATION] FINISHED")
             animateIdle()
             node.animationFinished.connect { }
         }
     }
     
     func animateIdle(){
+        GD.print("[ANIMATION] IDLE")
         if facing == .right {
             facing = .frontRight
         }
@@ -142,6 +147,7 @@ class Actor : NSObject, Talks, Animable {
         walk = nil
         node.stop()
         footsteps.stop()
+        GD.print("[ANIMATION] STOP WALK")
         animateIdle()
     }
     

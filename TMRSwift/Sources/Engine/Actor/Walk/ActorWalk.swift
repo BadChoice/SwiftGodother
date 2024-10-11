@@ -59,11 +59,13 @@ class ActorWalk {
             y: actor.node.position.y.near(walkingTo.y) ? 0 : (((walkingTo.y > actor.node.position.y) ? walkSpeed : -walkSpeed) * delta * walkingToSpeedFactor.y)
         )
         
-        actor.face(detectDirection(nextPoint: nextPoint))
+        if let facing = detectDirection(nextPoint: nextPoint) {
+            actor.face(facing)
+        }
         
         actor.node.position = Vector2(x:actor.node.position.x + nextPoint.x, y:actor.node.position.y + nextPoint.y)
         
-        actor.setAwayScale(awayFactor)
+        actor.setAwayScale(awayFactor * 0.5)
         
         //notifyObjects()
         
@@ -88,13 +90,16 @@ class ActorWalk {
         (fastWalk ? Constants.walkSpeed * Constants.fastWalkFactor : Constants.walkSpeed) * awayFactor
     }
     
-    private func detectDirection(nextPoint:Vector2) -> Facing {
+    private func detectDirection(nextPoint:Vector2) -> Facing? {
         
-        if nextPoint.y.near(0, treshold: 0.5 * Float(Game.shared.scale)) {
+        if nextPoint.x == 0 && nextPoint.y == 0 { return nil }
+        
+        
+        if nextPoint.y.near(0, treshold: 1 * Float(Game.shared.scale)) {
             return nextPoint.x > 0 ? .right : .left
         }
         
-        if nextPoint.x.near(0, treshold: 0.5 * Float(Game.shared.scale)) {
+        if nextPoint.x.near(0, treshold: 1 * Float(Game.shared.scale)) {
             return nextPoint.y > 0 ? .front : .back
         }
         
