@@ -3,8 +3,8 @@ import SwiftGodot
 
 struct SketchApp {
     
-    //static var shared:SketchApp = SketchApp(screenSize: Vector2(x:1366, y:1024))
-    static var shared:SketchApp = SketchApp(screenSize: Vector2(x:1366, y:1024))
+    //static let shared:SketchApp = SketchApp(screenSize: Vector2(x:1366, y:1024))
+    static let shared:SketchApp = SketchApp(screenSize: Vector2(x:1366, y:1024))
     
     let screenSize:Vector2
     

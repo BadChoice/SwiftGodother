@@ -65,7 +65,7 @@ class ActorWalk {
         
         actor.node.position = Vector2(x:actor.node.position.x + nextPoint.x, y:actor.node.position.y + nextPoint.y)
         
-        actor.setAwayScale(awayFactor * 0.5)
+        actor.setAwayScale(awayFactor)
         
         //notifyObjects()
         

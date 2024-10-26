@@ -2,7 +2,7 @@ import Foundation
 
 class Settings : Codable {
     
-    static var shared = Settings.load()
+    static let shared = Settings.load()
     
     var language:String = "en"
     var musicEnabled:Bool = true

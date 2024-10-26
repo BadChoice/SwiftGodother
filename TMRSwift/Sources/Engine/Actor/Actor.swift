@@ -3,6 +3,9 @@ import Foundation
 
 class Actor : NSObject, Talks, Animable {
     
+    //CONSTANTS
+    var FOOT_OFFSET:Float { Float(20 * Game.shared.scale) }
+    
     //MARK: - TALK
     var talkColor: SwiftGodot.Color { .yellow }
     var talkPosition: SwiftGodot.Vector2 {
@@ -14,6 +17,9 @@ class Actor : NSObject, Talks, Animable {
     var node = AnimatedSprite2D()
     var frames:SpriteFrames!
     var facing:Facing = .frontRight
+    
+    var armLeft  = AnimatedSprite2D()
+    var armRight = AnimatedSprite2D()
     
     //MARK: - WALK
     var walk:ActorWalk?
@@ -41,7 +47,7 @@ class Actor : NSObject, Talks, Animable {
         super.init()
         loadAnimations()
         face(.frontRight)
-        node.offset.y = -frames.getFrameTexture(anim: "walk-\(Facing.right)", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
+        node.offset.y = -frames.getFrameTexture(anim: "walk-\(Facing.right)", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
     }
     
     private func loadAnimations(){
@@ -74,9 +80,24 @@ class Actor : NSObject, Talks, Animable {
             frames.addFrame(anim: "pickup-front", texture:  GD.load(path: "res://assets/actors/crypto_new/pickup/front/\(number).png") as? Texture2D, duration:0.12)
             frames.setAnimationLoop(anim: "pickup-front", loop: false)
         }
-        
-        
+                    
         node.spriteFrames = frames
+        
+        loadExpressions()
+    }
+    
+    private func loadExpressions(){
+        armRight.spriteFrames = SpriteFrames()
+        armRight.spriteFrames!.addAnimation(anim: "shy")
+        (0...35).forEach {
+            let number = "\($0)".leftPadding(toLength: 2, withPad: "0")
+            armRight.spriteFrames!.addFrame(anim: "shy", texture:  GD.load(path: "res://assets/actors/crypto_new/expressions/shy/front/\(number).png") as? Texture2D, duration:0.24)
+        }
+        
+        armRight.play(name: "shy")
+        armRight.zIndex = -1
+        armRight.offset.y = -armRight.spriteFrames!.getFrameTexture(anim: "shy", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
+        node.addChild(node: armRight)
     }
     
     func _process(delta: Double) {

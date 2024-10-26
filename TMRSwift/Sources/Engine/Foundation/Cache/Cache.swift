@@ -2,7 +2,7 @@ import SwiftGodot
 
 class Cache {
     
-    static var shared:Cache = Cache()
+    static let shared:Cache = Cache()
     
     var cached:[String:Any] = [:]
     
