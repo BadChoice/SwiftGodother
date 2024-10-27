@@ -29,7 +29,45 @@ ios.release.x86_64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.debug.arm64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.release.arm64 = { "res://bin/ios/SwiftGodot.framework" : ""}
 
-windows.debug.x86_32 = { "res://bin/x86_32-windows/SwiftGodot.dll" : "" }
-windows.release.x86_32 = { "res://bin/x86_32-windows/SwiftGodot.dll" : "" }
-windows.debug.x86_64 = { "res://bin/x86_64-windows/SwiftGodot.dll" : "" }
-windows.release.x86_64 = { "res://bin/x86_64-windows/SwiftGodot.dll" : "" }
+windows.debug = {
+	"res://bin/x86_64-windows/SwiftGodot.dll" : ""
+    "res://bin/x86_64-windows/BlocksRuntime.dll" : "",
+    "res://bin/x86_64-windows/dispatch.dll" : "",
+    "res://bin/x86_64-windows/Foundation.dll" : "",
+    "res://bin/x86_64-windows/FoundationNetworking.dll" : "",
+    "res://bin/x86_64-windows/FoundationXML.dll" : "",
+    "res://bin/x86_64-windows/swiftCore.dll" : "",
+    "res://bin/x86_64-windows/swiftCRT.dll" : "",
+    "res://bin/x86_64-windows/swiftDispatch.dll" : "",
+    "res://bin/x86_64-windows/swiftDistributed.dll" : "",
+    "res://bin/x86_64-windows/swiftObservation.dll" : "",
+    "res://bin/x86_64-windows/swiftRegexBuilder.dll" : "",
+    "res://bin/x86_64-windows/swiftRemoteMirror.dll" : "",
+    "res://bin/x86_64-windows/swiftSwiftOnoneSupport.dll" : "",
+    "res://bin/x86_64-windows/swiftWinSDK.dll" : "",
+    "res://bin/x86_64-windows/swift_Concurrency.dll" : "",
+    "res://bin/x86_64-windows/swift_Differentiation.dll" : "",
+    "res://bin/x86_64-windows/swift_RegexParser.dll" : "",
+    "res://bin/x86_64-windows/swift_StringProcessing.dll" : "",
+}
+windows.release = {
+	"res://bin/x86_64-windows/SwiftGodot.dll" : ""
+    "res://bin/x86_64-windows/BlocksRuntime.dll" : "",
+    "res://bin/x86_64-windows/dispatch.dll" : "",
+    "res://bin/x86_64-windows/Foundation.dll" : "",
+    "res://bin/x86_64-windows/FoundationNetworking.dll" : "",
+    "res://bin/x86_64-windows/FoundationXML.dll" : "",
+    "res://bin/x86_64-windows/swiftCore.dll" : "",
+    "res://bin/x86_64-windows/swiftCRT.dll" : "",
+    "res://bin/x86_64-windows/swiftDispatch.dll" : "",
+    "res://bin/x86_64-windows/swiftDistributed.dll" : "",
+    "res://bin/x86_64-windows/swiftObservation.dll" : "",
+    "res://bin/x86_64-windows/swiftRegexBuilder.dll" : "",
+    "res://bin/x86_64-windows/swiftRemoteMirror.dll" : "",
+    "res://bin/x86_64-windows/swiftSwiftOnoneSupport.dll" : "",
+    "res://bin/x86_64-windows/swiftWinSDK.dll" : "",
+    "res://bin/x86_64-windows/swift_Concurrency.dll" : "",
+    "res://bin/x86_64-windows/swift_Differentiation.dll" : "",
+    "res://bin/x86_64-windows/swift_RegexParser.dll" : "",
+    "res://bin/x86_64-windows/swift_StringProcessing.dll" : "",
+}
