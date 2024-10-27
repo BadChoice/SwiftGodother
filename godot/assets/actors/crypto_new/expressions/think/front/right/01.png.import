@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba73nx51iw0sa"
-path="res://.godot/imported/Pensar DE frente_0001.png-da228435486aa520a7d00c2f2a8b2a77.ctex"
+path="res://.godot/imported/01.png-6ebc4738c5811b202b6a3d27b667fc41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/actors/crypto_new/expressions/think/front/right/Pensar DE frente_0001.png"
-dest_files=["res://.godot/imported/Pensar DE frente_0001.png-da228435486aa520a7d00c2f2a8b2a77.ctex"]
+source_file="res://assets/actors/crypto_new/expressions/think/front/right/01.png"
+dest_files=["res://.godot/imported/01.png-6ebc4738c5811b202b6a3d27b667fc41.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bophmfu51okue"
-path="res://.godot/imported/Aburrido IZ frente_0012.png-596315defc379f8ba79032a9a6f75d68.ctex"
+path="res://.godot/imported/12.png-dca9fb7b3a27640c9316930431de8dfc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/actors/crypto_new/expressions/borded/front/izquierda/Aburrido IZ frente_0012.png"
-dest_files=["res://.godot/imported/Aburrido IZ frente_0012.png-596315defc379f8ba79032a9a6f75d68.ctex"]
+source_file="res://assets/actors/crypto_new/expressions/borded/front/left/12.png"
+dest_files=["res://.godot/imported/12.png-dca9fb7b3a27640c9316930431de8dfc.ctex"]
 
 [params]
 

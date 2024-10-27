@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://by3vbtilbbww0"
-path="res://.godot/imported/Coraje DE frente_0021.png-d46dcd50250146cc13b7603daf471730.ctex"
+path="res://.godot/imported/21.png-86b092dc882d78922bf0e1aa990bece6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/actors/crypto_new/expressions/courage/front/derecha/Coraje DE frente_0021.png"
-dest_files=["res://.godot/imported/Coraje DE frente_0021.png-d46dcd50250146cc13b7603daf471730.ctex"]
+source_file="res://assets/actors/crypto_new/expressions/courage/front/right/21.png"
+dest_files=["res://.godot/imported/21.png-86b092dc882d78922bf0e1aa990bece6.ctex"]
 
 [params]
 

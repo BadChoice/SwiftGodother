@@ -30,7 +30,7 @@ ios.debug.arm64 = {"res://bin/ios/SwiftGodot.framework" : ""}
 ios.release.arm64 = { "res://bin/ios/SwiftGodot.framework" : ""}
 
 windows.debug = {
-	"res://bin/x86_64-windows/SwiftGodot.dll" : ""
+	"res://bin/x86_64-windows/SwiftGodot.dll" : "",
     "res://bin/x86_64-windows/BlocksRuntime.dll" : "",
     "res://bin/x86_64-windows/dispatch.dll" : "",
     "res://bin/x86_64-windows/Foundation.dll" : "",
@@ -51,7 +51,7 @@ windows.debug = {
     "res://bin/x86_64-windows/swift_StringProcessing.dll" : "",
 }
 windows.release = {
-	"res://bin/x86_64-windows/SwiftGodot.dll" : ""
+	"res://bin/x86_64-windows/SwiftGodot.dll" : "",
     "res://bin/x86_64-windows/BlocksRuntime.dll" : "",
     "res://bin/x86_64-windows/dispatch.dll" : "",
     "res://bin/x86_64-windows/Foundation.dll" : "",

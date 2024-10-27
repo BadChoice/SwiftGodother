@@ -32,14 +32,7 @@ class Crypto : Actor {
         return Point(x:10, y:18)
     }
     
-    
-    override init() {
-        super.init()
-        loadAnimations()
-        setupSubsprites()
-    }
-    
-    func loadAnimations(){
+    override func loadAnimations(){
         frames = SpriteFrames()
         
         frames.createAnimation(name: "walk",    prefix: "walk/",    frames: 1...8, atlas:tp, timePerFrame:0.5, looped:true)
@@ -81,6 +74,8 @@ class Crypto : Actor {
         
         node.spriteFrames = frames
         GD.print("[ACTOR] Animations loaded")
+        
+        setupSubsprites()
     }
     
     private func setupSubsprites(){
@@ -101,6 +96,10 @@ class Crypto : Actor {
         
         node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + (20 * Float(Game.shared.scale))
         node.play(name: "walk")
+    }
+    
+    override func setupFootOffset(){
+        node.offset.y = -frames.getFrameTexture(anim: "walk", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
     }
     
 
