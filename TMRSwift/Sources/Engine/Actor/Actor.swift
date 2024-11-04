@@ -47,10 +47,10 @@ class Actor : NSObject, Talks, Animable {
         super.init()
         loadAnimations()
         face(.frontRight)
-        node.offset.y = -frames.getFrameTexture(anim: "walk-\(Facing.right)", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
+        setupFootOffset()
     }
     
-    private func loadAnimations(){
+    func loadAnimations(){
         frames = SpriteFrames()
         
         Facing.allCases.forEach { facing in
@@ -98,6 +98,10 @@ class Actor : NSObject, Talks, Animable {
         armRight.zIndex = -1
         armRight.offset.y = -armRight.spriteFrames!.getFrameTexture(anim: "shy", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
         node.addChild(node: armRight)
+    }
+    
+    func setupFootOffset(){
+        node.offset.y = -frames.getFrameTexture(anim: "walk-\(Facing.right)", idx: 0)!.getSize().y / 2 + FOOT_OFFSET
     }
     
     func _process(delta: Double) {
