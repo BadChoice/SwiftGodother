@@ -14,4 +14,4 @@
         #--data sprites.atlasc ./sprites
 
 
-/usr/local/bin/TexturePacker --format spritekit --multipack --texture-format png8 --variant 1:@2x --variant 0.70: --force-identical-layout --max-width 4096 --max-height 4096 --enable-rotation --data cryptoNew.atlasc ./cryptoNew
+/usr/local/bin/TexturePacker --format spritekit --multipack --texture-format png8 --variant 0.5:@2x --variant 0.25: --force-identical-layout --max-width 4096 --max-height 4096 --enable-rotation --data cryptoNew.atlasc ./cryptoNew
