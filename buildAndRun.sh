@@ -1,5 +1,8 @@
 #!/bin/sh
 
+
+#~/Downloads/Godot.app/Contents/MacOS/Godot --import --path ./godot
+
 cd TMRSwift
 swift build \
 && cd .. \
